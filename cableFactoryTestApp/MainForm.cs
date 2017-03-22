@@ -18,7 +18,7 @@ namespace cableFactoryTestApp
         public MainForm()
         {
             InitializeComponent();
-            //test 1 2
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
