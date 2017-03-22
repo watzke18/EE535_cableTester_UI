@@ -56,6 +56,7 @@
             this.labelTestInProgressTimer = new System.Windows.Forms.Timer(this.components);
             this.consoleRichTextBox = new System.Windows.Forms.RichTextBox();
             this.closeCommBtn = new System.Windows.Forms.Button();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -197,6 +198,8 @@
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.helpToolStripMenuItem.Text = "Help";
@@ -287,6 +290,12 @@
             this.closeCommBtn.UseVisualStyleBackColor = true;
             this.closeCommBtn.Click += new System.EventHandler(this.closeCommBtn_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -350,6 +359,7 @@
         private System.Windows.Forms.ToolStripMenuItem configCommPortToolStripMenuItem;
         private System.Windows.Forms.RichTextBox consoleRichTextBox;
         private System.Windows.Forms.Button closeCommBtn;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
