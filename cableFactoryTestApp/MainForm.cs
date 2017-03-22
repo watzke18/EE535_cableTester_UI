@@ -98,6 +98,13 @@ namespace cableFactoryTestApp
 
         }
 
+        private void readTempBtn_Click(object sender, EventArgs e)
+        {
+            byte[] xmit_byte = new byte[1];
+            xmit_byte[0] = (byte) '*';
+            transmit_message(ref xmit_byte, 1);
+        }
+
         /*********************************************************************
          * 
          * END MAINFORM BUTTON CLICK EVENT METHODS
@@ -232,6 +239,7 @@ namespace cableFactoryTestApp
             }
             catch
             {
+                AppendConsoleText("Failed to transmit message");
                 reply = false;
             }
 
@@ -257,6 +265,8 @@ namespace cableFactoryTestApp
 
             return reply;
         }
+
+    
 
 
 

@@ -35,12 +35,17 @@
             this.labelCableType = new System.Windows.Forms.Label();
             this.numericUpDownTestLoops = new System.Windows.Forms.NumericUpDown();
             this.labelTestRepeat = new System.Windows.Forms.Label();
+            this.labelForceApplied = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTestLoops)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.labelForceApplied);
             this.groupBox2.Controls.Add(this.testSetupCancelBtn);
             this.groupBox2.Controls.Add(this.testSetupOkBtn);
             this.groupBox2.Controls.Add(this.comboBox1);
@@ -101,7 +106,7 @@
             // numericUpDownTestLoops
             // 
             this.numericUpDownTestLoops.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownTestLoops.Location = new System.Drawing.Point(240, 228);
+            this.numericUpDownTestLoops.Location = new System.Drawing.Point(266, 228);
             this.numericUpDownTestLoops.Name = "numericUpDownTestLoops";
             this.numericUpDownTestLoops.Size = new System.Drawing.Size(120, 24);
             this.numericUpDownTestLoops.TabIndex = 2;
@@ -117,6 +122,25 @@
             this.labelTestRepeat.Text = "Number of Test Loops :  ";
             this.labelTestRepeat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // labelForceApplied
+            // 
+            this.labelForceApplied.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelForceApplied.Location = new System.Drawing.Point(8, 86);
+            this.labelForceApplied.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.labelForceApplied.Name = "labelForceApplied";
+            this.labelForceApplied.Size = new System.Drawing.Size(169, 32);
+            this.labelForceApplied.TabIndex = 7;
+            this.labelForceApplied.Text = "Force Applied (kg) :  ";
+            this.labelForceApplied.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.Location = new System.Drawing.Point(266, 91);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 24);
+            this.numericUpDown1.TabIndex = 8;
+            // 
             // TestSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -128,6 +152,7 @@
             this.Load += new System.EventHandler(this.TestSetup_Load);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTestLoops)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -141,5 +166,7 @@
         private System.Windows.Forms.Label labelCableType;
         private System.Windows.Forms.NumericUpDown numericUpDownTestLoops;
         private System.Windows.Forms.Label labelTestRepeat;
+        private System.Windows.Forms.Label labelForceApplied;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

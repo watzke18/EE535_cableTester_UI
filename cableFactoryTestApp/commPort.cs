@@ -164,6 +164,7 @@ namespace cableFactoryTestApp
         {
             return m_SerialPort.Read(buffer, offset, count);
         }
+        
 
         public void Dispose()
         {
