@@ -25,6 +25,10 @@ namespace cableFactoryTestApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             m_Comm.LoadSettings();
+            closeCommBtn.Visible = false;
+            testSetupBtn.Enabled = false;
+            startTestBtn.Enabled = false;
+            abortTestBtn.Enabled = false;
         }
 
         public void AppendConsoleText(string str)
@@ -103,9 +107,23 @@ namespace cableFactoryTestApp
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                m_Comm.Close();
-                m_Comm.setPortSettings(dlg.m_Settings);
-                m_Comm.Open();
+                if(m_Comm.isOpen())
+                {
+                    m_Comm.Close();
+                    AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
+                    m_Comm.setPortSettings(dlg.m_Settings);
+                    AppendConsoleText("Click Open Comm Button to Open " + m_Comm.getPortSettings().port_name);
+ 
+                }
+                else
+                { 
+                    m_Comm.setPortSettings(dlg.m_Settings);
+                }
+                
+                closeCommBtn.Visible = false;
+                openCommBtn.Enabled = true;
+              
+                //m_Comm.Open();
             }
 
         }
@@ -117,14 +135,26 @@ namespace cableFactoryTestApp
 
             if(!reply)
             {
-                AppendConsoleText("Comm Port Failed to Open");
+                AppendConsoleText(m_Comm.getPortSettings().port_name + "Failed to Open");
             }
             else
             {
-                AppendConsoleText("Comm Opened Successfully");
+                AppendConsoleText(m_Comm.getPortSettings().port_name + " Opened Successfully");
                 openCommBtn.Enabled = false;
+                closeCommBtn.Visible = true;
+                testSetupBtn.Enabled = true;
             }
 
+        }
+
+        private void closeCommBtn_Click(object sender, EventArgs e)
+        {
+            m_Comm.Close();
+            AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
+            openCommBtn.Enabled = true;
+            closeCommBtn.Visible = false;
+            testSetupBtn.Enabled = false;
+            startTestBtn.Enabled = false;
         }
     }
 }

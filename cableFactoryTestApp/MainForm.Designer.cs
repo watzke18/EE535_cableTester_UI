@@ -55,6 +55,7 @@
             this.labelTestInProgress = new System.Windows.Forms.Label();
             this.labelTestInProgressTimer = new System.Windows.Forms.Timer(this.components);
             this.consoleRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.closeCommBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -272,15 +273,26 @@
             // 
             this.consoleRichTextBox.Location = new System.Drawing.Point(390, 39);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
-            this.consoleRichTextBox.Size = new System.Drawing.Size(218, 386);
+            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 386);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
+            // 
+            // closeCommBtn
+            // 
+            this.closeCommBtn.Location = new System.Drawing.Point(245, 39);
+            this.closeCommBtn.Name = "closeCommBtn";
+            this.closeCommBtn.Size = new System.Drawing.Size(139, 30);
+            this.closeCommBtn.TabIndex = 23;
+            this.closeCommBtn.Text = "Close Comm";
+            this.closeCommBtn.UseVisualStyleBackColor = true;
+            this.closeCommBtn.Click += new System.EventHandler(this.closeCommBtn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 574);
+            this.Controls.Add(this.closeCommBtn);
             this.Controls.Add(this.consoleRichTextBox);
             this.Controls.Add(this.labelTestInProgress);
             this.Controls.Add(this.label6);
@@ -337,6 +349,7 @@
         private System.Windows.Forms.Timer labelTestInProgressTimer;
         private System.Windows.Forms.ToolStripMenuItem configCommPortToolStripMenuItem;
         private System.Windows.Forms.RichTextBox consoleRichTextBox;
+        private System.Windows.Forms.Button closeCommBtn;
     }
 }
 

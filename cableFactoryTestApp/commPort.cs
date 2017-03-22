@@ -20,7 +20,7 @@ namespace cableFactoryTestApp
         public bool rts;
     }
 
-    public class commPort
+    public class commPort : IDisposable
     {
         private SerialPort m_SerialPort = new SerialPort();
         private SerialPortSettings m_CommSettings;
@@ -40,7 +40,7 @@ namespace cableFactoryTestApp
             bool reply;
             string comm_port_name;
 
-            m_SerialPort.DtrEnable = true;
+           // m_SerialPort.DtrEnable = true;
             m_SerialPort.PortName = m_CommSettings.port_name;
             m_SerialPort.BaudRate = m_CommSettings.baud_rate;
             m_SerialPort.Parity = m_CommSettings.parity;
@@ -57,7 +57,7 @@ namespace cableFactoryTestApp
                 m_SerialPort.Open();
                 reply = true;
             }
-            catch
+            catch(Exception e)
             {
                 reply = false;
             }
@@ -72,7 +72,7 @@ namespace cableFactoryTestApp
             comm_port_name += ":";
 
 
-            return reply;
+            return (reply);
         }
 
         public void Close()
