@@ -36,8 +36,8 @@
             this.labelSpinMotorStatus = new System.Windows.Forms.Label();
             this.labelLoadSensorStatus = new System.Windows.Forms.Label();
             this.labelContinuityStatus = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelLoops = new System.Windows.Forms.Label();
+            this.labelTimeRemain = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,10 +45,11 @@
             this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configCommPortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timeRemainingTimer = new System.Windows.Forms.Timer(this.components);
-            this.labelTimeRemaining = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelBoxTimeRemaining = new System.Windows.Forms.Label();
+            this.labelBoxLoops = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -56,7 +57,8 @@
             this.labelTestInProgressTimer = new System.Windows.Forms.Timer(this.components);
             this.consoleRichTextBox = new System.Windows.Forms.RichTextBox();
             this.closeCommBtn = new System.Windows.Forms.Button();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelAmbientTemp = new System.Windows.Forms.Label();
+            this.labelBoxAmbientTemp = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,52 +100,52 @@
             this.abortTestBtn.TabIndex = 4;
             this.abortTestBtn.Text = "Abort Test";
             this.abortTestBtn.UseVisualStyleBackColor = true;
+            this.abortTestBtn.Click += new System.EventHandler(this.abortTestBtn_Click);
             // 
             // labelSpinMotorStatus
             // 
             this.labelSpinMotorStatus.AutoSize = true;
-            this.labelSpinMotorStatus.Location = new System.Drawing.Point(15, 309);
+            this.labelSpinMotorStatus.Location = new System.Drawing.Point(19, 351);
             this.labelSpinMotorStatus.Name = "labelSpinMotorStatus";
-            this.labelSpinMotorStatus.Size = new System.Drawing.Size(120, 17);
+            this.labelSpinMotorStatus.Size = new System.Drawing.Size(188, 17);
             this.labelSpinMotorStatus.TabIndex = 5;
-            this.labelSpinMotorStatus.Text = "Spin Motor Status";
+            this.labelSpinMotorStatus.Text = "Spin Motor Status (Degrees)";
             // 
             // labelLoadSensorStatus
             // 
             this.labelLoadSensorStatus.AutoSize = true;
-            this.labelLoadSensorStatus.Location = new System.Drawing.Point(15, 342);
+            this.labelLoadSensorStatus.Location = new System.Drawing.Point(19, 377);
             this.labelLoadSensorStatus.Name = "labelLoadSensorStatus";
             this.labelLoadSensorStatus.Size = new System.Drawing.Size(133, 17);
             this.labelLoadSensorStatus.TabIndex = 6;
             this.labelLoadSensorStatus.Text = "Load Sensor Status";
-            this.labelLoadSensorStatus.Click += new System.EventHandler(this.label1_Click);
             // 
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(15, 374);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(19, 400);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
             this.labelContinuityStatus.Size = new System.Drawing.Size(114, 17);
             this.labelContinuityStatus.TabIndex = 7;
             this.labelContinuityStatus.Text = "Continuity Status";
             // 
-            // label1
+            // labelLoops
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 428);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 17);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Loops";
+            this.labelLoops.AutoSize = true;
+            this.labelLoops.Location = new System.Drawing.Point(15, 453);
+            this.labelLoops.Name = "labelLoops";
+            this.labelLoops.Size = new System.Drawing.Size(118, 17);
+            this.labelLoops.TabIndex = 8;
+            this.labelLoops.Text = "Loops Completed";
             // 
-            // label2
+            // labelTimeRemain
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 461);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 17);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Time Remaining";
+            this.labelTimeRemain.AutoSize = true;
+            this.labelTimeRemain.Location = new System.Drawing.Point(15, 481);
+            this.labelTimeRemain.Name = "labelTimeRemain";
+            this.labelTimeRemain.Size = new System.Drawing.Size(110, 17);
+            this.labelTimeRemain.TabIndex = 9;
+            this.labelTimeRemain.Text = "Time Remaining";
             // 
             // menuStrip1
             // 
@@ -187,7 +189,7 @@
             this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
             this.setupToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.setupToolStripMenuItem.Text = "Setup";
-            this.setupToolStripMenuItem.Click += new System.EventHandler(this.commToolStripMenuItem_Click);
+//            this.setupToolStripMenuItem.Click += new System.EventHandler(this.commToolStripMenuItem_Click);
             // 
             // configCommPortToolStripMenuItem
             // 
@@ -204,35 +206,41 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
             // timeRemainingTimer
             // 
             this.timeRemainingTimer.Interval = 1000;
             this.timeRemainingTimer.Tick += new System.EventHandler(this.timeRemainingTimer_Tick);
             // 
-            // labelTimeRemaining
+            // labelBoxTimeRemaining
             // 
-            this.labelTimeRemaining.BackColor = System.Drawing.SystemColors.Window;
-            this.labelTimeRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelTimeRemaining.Location = new System.Drawing.Point(151, 460);
-            this.labelTimeRemaining.Name = "labelTimeRemaining";
-            this.labelTimeRemaining.Size = new System.Drawing.Size(100, 23);
-            this.labelTimeRemaining.TabIndex = 16;
-            this.labelTimeRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelBoxTimeRemaining.BackColor = System.Drawing.SystemColors.Window;
+            this.labelBoxTimeRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(254, 475);
+            this.labelBoxTimeRemaining.Name = "labelBoxTimeRemaining";
+            this.labelBoxTimeRemaining.Size = new System.Drawing.Size(100, 23);
+            this.labelBoxTimeRemaining.TabIndex = 16;
+            this.labelBoxTimeRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // labelBoxLoops
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.Window;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(151, 427);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 23);
-            this.label3.TabIndex = 17;
+            this.labelBoxLoops.BackColor = System.Drawing.SystemColors.Window;
+            this.labelBoxLoops.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelBoxLoops.Location = new System.Drawing.Point(254, 447);
+            this.labelBoxLoops.Name = "labelBoxLoops";
+            this.labelBoxLoops.Size = new System.Drawing.Size(100, 23);
+            this.labelBoxLoops.TabIndex = 17;
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.SystemColors.Window;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(151, 374);
+            this.label4.Location = new System.Drawing.Point(254, 394);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 18;
@@ -241,7 +249,7 @@
             // 
             this.label5.BackColor = System.Drawing.SystemColors.Window;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(151, 342);
+            this.label5.Location = new System.Drawing.Point(254, 371);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 19;
@@ -250,7 +258,7 @@
             // 
             this.label6.BackColor = System.Drawing.SystemColors.Window;
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(151, 308);
+            this.label6.Location = new System.Drawing.Point(254, 345);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 20;
@@ -276,6 +284,7 @@
             // 
             this.consoleRichTextBox.Location = new System.Drawing.Point(390, 39);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
+            this.consoleRichTextBox.ReadOnly = true;
             this.consoleRichTextBox.Size = new System.Drawing.Size(288, 386);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
@@ -290,27 +299,41 @@
             this.closeCommBtn.UseVisualStyleBackColor = true;
             this.closeCommBtn.Click += new System.EventHandler(this.closeCommBtn_Click);
             // 
-            // aboutToolStripMenuItem
+            // labelAmbientTemp
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.labelAmbientTemp.AutoSize = true;
+            this.labelAmbientTemp.Location = new System.Drawing.Point(19, 297);
+            this.labelAmbientTemp.Name = "labelAmbientTemp";
+            this.labelAmbientTemp.Size = new System.Drawing.Size(145, 17);
+            this.labelAmbientTemp.TabIndex = 24;
+            this.labelAmbientTemp.Text = "Ambient Temperature";
+            // 
+            // labelBoxAmbientTemp
+            // 
+            this.labelBoxAmbientTemp.BackColor = System.Drawing.SystemColors.Window;
+            this.labelBoxAmbientTemp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelBoxAmbientTemp.Location = new System.Drawing.Point(254, 291);
+            this.labelBoxAmbientTemp.Name = "labelBoxAmbientTemp";
+            this.labelBoxAmbientTemp.Size = new System.Drawing.Size(100, 23);
+            this.labelBoxAmbientTemp.TabIndex = 25;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 574);
+            this.Controls.Add(this.labelBoxAmbientTemp);
+            this.Controls.Add(this.labelAmbientTemp);
             this.Controls.Add(this.closeCommBtn);
             this.Controls.Add(this.consoleRichTextBox);
             this.Controls.Add(this.labelTestInProgress);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.labelTimeRemaining);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelBoxLoops);
+            this.Controls.Add(this.labelBoxTimeRemaining);
+            this.Controls.Add(this.labelTimeRemain);
+            this.Controls.Add(this.labelLoops);
             this.Controls.Add(this.labelContinuityStatus);
             this.Controls.Add(this.labelLoadSensorStatus);
             this.Controls.Add(this.labelSpinMotorStatus);
@@ -339,8 +362,8 @@
         private System.Windows.Forms.Label labelSpinMotorStatus;
         private System.Windows.Forms.Label labelLoadSensorStatus;
         private System.Windows.Forms.Label labelContinuityStatus;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelLoops;
+        private System.Windows.Forms.Label labelTimeRemain;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
@@ -349,8 +372,8 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Timer timeRemainingTimer;
-        private System.Windows.Forms.Label labelTimeRemaining;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelBoxTimeRemaining;
+        private System.Windows.Forms.Label labelBoxLoops;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -360,6 +383,8 @@
         private System.Windows.Forms.RichTextBox consoleRichTextBox;
         private System.Windows.Forms.Button closeCommBtn;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Label labelAmbientTemp;
+        private System.Windows.Forms.Label labelBoxAmbientTemp;
     }
 }
 

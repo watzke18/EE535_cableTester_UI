@@ -12,10 +12,6 @@ namespace cableFactoryTestApp
 {
     public partial class MainForm : Form
     {
-        private int _startTime = 300;
-        private bool _testInProgress = false;
-
-        private int _counter;
 
         public commPort m_Comm = new commPort();
 
@@ -38,10 +34,55 @@ namespace cableFactoryTestApp
             consoleRichTextBox.AppendText(">" + str + "\n");
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        /*********************************************************************
+         * 
+         * BEGIN MAINFORM BUTTON CLICK EVENT METHODS
+         * 
+         *********************************************************************/
+
+
+        private void openCommBtn_Click(object sender, EventArgs e)
         {
+            bool reply;
+            reply = m_Comm.Open();
+
+            if (!reply)
+            {
+                AppendConsoleText(m_Comm.getPortSettings().port_name + " Failed to Open");
+            }
+            else
+            {
+                AppendConsoleText(m_Comm.getPortSettings().port_name + " Opened Successfully");
+                openCommBtn.Enabled = false;
+                closeCommBtn.Visible = true;
+                testSetupBtn.Enabled = true;
+            }
 
         }
+
+        private void closeCommBtn_Click(object sender, EventArgs e)
+        {
+            m_Comm.Close();
+            AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
+            openCommBtn.Enabled = true;
+            closeCommBtn.Visible = false;
+            testSetupBtn.Enabled = false;
+            startTestBtn.Enabled = false;
+        }
+
+        private void testSetupBtn_Click(object sender, EventArgs e)
+        {
+            TestSetup m_testSetup = new TestSetup();
+
+            if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
+            {
+                startTestBtn.Enabled = true;
+                //send data to micro
+
+            }
+        }
+
+
 
         private void startTestBtn_Click(object sender, EventArgs e)
         {
@@ -49,14 +90,35 @@ namespace cableFactoryTestApp
             labelTestInProgressTimer.Enabled = true;
             labelTestInProgress.Visible = true;
             startTestBtn.Enabled = false;
-        }
-      
-        private void timeRemainingTimer_Tick(object sender, EventArgs e)
-        {
-            labelTimeRemaining.Text = _startTime / 60 + ":" + ((_startTime % 60) >= 10 ? (_startTime % 60).ToString() : "0" + _startTime % 60);
-            _startTime--;
+            abortTestBtn.Enabled = true;
         }
 
+        private void abortTestBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /*********************************************************************
+         * 
+         * END MAINFORM BUTTON CLICK EVENT METHODS
+         * 
+         *********************************************************************/
+
+
+        /*********************************************************************
+         * 
+         * BEGIN MAINFORM TIMERS
+         * 
+         *********************************************************************/
+
+        private int _startTime = 300;
+        private bool _testInProgress = false;
+
+        private void timeRemainingTimer_Tick(object sender, EventArgs e)
+        {
+            labelBoxTimeRemaining.Text = _startTime / 60 + ":" + ((_startTime % 60) >= 10 ? (_startTime % 60).ToString() : "0" + _startTime % 60);
+            _startTime--;
+        }
 
         private void labelTestProgressTimer_Tick(object sender, EventArgs e)
         {
@@ -71,16 +133,19 @@ namespace cableFactoryTestApp
               _testInProgress = !_testInProgress;
         }
 
-        private void testSetupBtn_Click(object sender, EventArgs e)
-        {
-            TestSetup m_testSetup = new TestSetup();
+        /*********************************************************************
+         * 
+         * END MAINFORM TIMERS
+         * 
+         *********************************************************************/
 
-            if(m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
-            {
-                //send data to micro
 
-            }
-        }
+        /*********************************************************************
+         * 
+         * BEGIN MAINFORM TOOLSTRIP MENU CLICK EVENT METHODS
+         * 
+         *********************************************************************/
+
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -121,38 +186,87 @@ namespace cableFactoryTestApp
 
         }
 
-        private void commToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
+        /*********************************************************************
+         * 
+         * END MAINFORM TOOLSTRIP MENU CLICK EVENT METHODS
+         * 
+         *********************************************************************/
+
+
+        /*********************************************************************
+        * 
+        * BEGIN MAINFORM SERIAL PORT READ COMMANDS
+        * 
+        *********************************************************************/
+
+        public bool read_temperature_command(ref string str)
+        {
+            bool reply = false;
+            byte[] xmit_buffer = new byte[3];
+            return false;//placeholder
         }
 
-        private void openCommBtn_Click(object sender, EventArgs e)
+
+        /*********************************************************************
+        * 
+        * END MAINFORM SERIAL PORT READ COMMANDS
+        * 
+        *********************************************************************/
+
+
+        /*********************************************************************
+        * 
+        * BEGIN MAINFORM SERIAL PORT WRITE COMMANDS
+        * 
+        *********************************************************************/
+
+        private bool transmit_message(ref byte[] msg, int msg_len)
         {
             bool reply;
-            reply = m_Comm.Open();
 
-            if(!reply)
+            try
             {
-                AppendConsoleText(m_Comm.getPortSettings().port_name + " Failed to Open");
+                m_Comm.write(msg, 0, msg_len);
+                reply = true;
             }
-            else
+            catch
             {
-                AppendConsoleText(m_Comm.getPortSettings().port_name + " Opened Successfully");
-                openCommBtn.Enabled = false;
-                closeCommBtn.Visible = true;
-                testSetupBtn.Enabled = true;
+                reply = false;
             }
 
+            return reply;
         }
 
-        private void closeCommBtn_Click(object sender, EventArgs e)
+        private bool transmit_byte(byte data)
         {
-            m_Comm.Close();
-            AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
-            openCommBtn.Enabled = true;
-            closeCommBtn.Visible = false;
-            testSetupBtn.Enabled = false;
-            startTestBtn.Enabled = false;
+            bool reply;
+            byte[] msg = new byte[1];
+
+            msg[0] = data;
+
+            try
+            {
+                m_Comm.write(msg, 0, 1);
+                reply = true;
+            }
+            catch
+            {
+                reply = false;
+            }
+
+            return reply;
         }
+
+
+
+
+
+        /*********************************************************************
+        * END MAINFORM SERIAL PORT WRITE COMMANDS
+        * 
+        *********************************************************************/
+
+
     }
 }
