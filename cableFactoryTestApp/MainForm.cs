@@ -15,10 +15,21 @@ namespace cableFactoryTestApp
         private int _startTime = 300;
         private int _counter;
 
+        public commPort m_Comm = new commPort();
+
         public MainForm()
         {
-            InitializeComponent();
-            
+            InitializeComponent();  
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            m_Comm.LoadSettings();
+        }
+
+        public void AppendConsoleText(string str)
+        {
+            consoleRichTextBox.AppendText(">" + str + "\n");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -31,7 +42,6 @@ namespace cableFactoryTestApp
             timeRemainingTimer.Enabled = true;
             labelTestInProgressTimer.Enabled = true;
             labelTestInProgress.Visible = true;
-
             startTestBtn.Enabled = false;
         }
       
@@ -77,6 +87,44 @@ namespace cableFactoryTestApp
             }
  
             
+        }
+
+        private void commToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigCOMM dlg = new ConfigCOMM();
+
+        }
+
+        private void configCommPortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigCOMM dlg = new ConfigCOMM();
+
+            dlg.m_Settings = m_Comm.getPortSettings();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                m_Comm.Close();
+                m_Comm.setPortSettings(dlg.m_Settings);
+                m_Comm.Open();
+            }
+
+        }
+
+        private void openCommBtn_Click(object sender, EventArgs e)
+        {
+            bool reply;
+            reply = m_Comm.Open();
+
+            if(!reply)
+            {
+                AppendConsoleText("Comm Port Failed to Open");
+            }
+            else
+            {
+                AppendConsoleText("Comm Opened Successfully");
+                openCommBtn.Enabled = false;
+            }
+
         }
     }
 }

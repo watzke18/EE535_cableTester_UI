@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.openCommBtn = new System.Windows.Forms.Button();
-            this.consoleListBox = new System.Windows.Forms.ListBox();
             this.testSetupBtn = new System.Windows.Forms.Button();
             this.startTestBtn = new System.Windows.Forms.Button();
             this.abortTestBtn = new System.Windows.Forms.Button();
@@ -43,7 +42,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.commToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configCommPortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timeRemainingTimer = new System.Windows.Forms.Timer(this.components);
@@ -54,6 +54,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.labelTestInProgress = new System.Windows.Forms.Label();
             this.labelTestInProgressTimer = new System.Windows.Forms.Timer(this.components);
+            this.consoleRichTextBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,16 +66,7 @@
             this.openCommBtn.TabIndex = 0;
             this.openCommBtn.Text = "Open Comm ";
             this.openCommBtn.UseVisualStyleBackColor = true;
-            // 
-            // consoleListBox
-            // 
-            this.consoleListBox.FormattingEnabled = true;
-            this.consoleListBox.ItemHeight = 16;
-            this.consoleListBox.Location = new System.Drawing.Point(395, 39);
-            this.consoleListBox.Name = "consoleListBox";
-            this.consoleListBox.Size = new System.Drawing.Size(261, 452);
-            this.consoleListBox.TabIndex = 1;
-            this.consoleListBox.SelectedIndexChanged += new System.EventHandler(this.consoleListBox_SelectedIndexChanged);
+            this.openCommBtn.Click += new System.EventHandler(this.openCommBtn_Click);
             // 
             // testSetupBtn
             // 
@@ -156,7 +148,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.commToolStripMenuItem,
+            this.setupToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -176,21 +168,31 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // commToolStripMenuItem
+            // setupToolStripMenuItem
             // 
-            this.commToolStripMenuItem.Name = "commToolStripMenuItem";
-            this.commToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
-            this.commToolStripMenuItem.Text = "Comm ";
+            this.setupToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configCommPortToolStripMenuItem});
+            this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
+            this.setupToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            this.setupToolStripMenuItem.Text = "Setup";
+            this.setupToolStripMenuItem.Click += new System.EventHandler(this.commToolStripMenuItem_Click);
+            // 
+            // configCommPortToolStripMenuItem
+            // 
+            this.configCommPortToolStripMenuItem.Name = "configCommPortToolStripMenuItem";
+            this.configCommPortToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.configCommPortToolStripMenuItem.Text = "Configure Comm Port";
+            this.configCommPortToolStripMenuItem.Click += new System.EventHandler(this.configCommPortToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -266,11 +268,20 @@
             this.labelTestInProgressTimer.Interval = 1000;
             this.labelTestInProgressTimer.Tick += new System.EventHandler(this.labelTestProgressTimer_Tick);
             // 
+            // consoleRichTextBox
+            // 
+            this.consoleRichTextBox.Location = new System.Drawing.Point(390, 39);
+            this.consoleRichTextBox.Name = "consoleRichTextBox";
+            this.consoleRichTextBox.Size = new System.Drawing.Size(218, 386);
+            this.consoleRichTextBox.TabIndex = 22;
+            this.consoleRichTextBox.Text = "";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 574);
+            this.Controls.Add(this.consoleRichTextBox);
             this.Controls.Add(this.labelTestInProgress);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -285,12 +296,11 @@
             this.Controls.Add(this.abortTestBtn);
             this.Controls.Add(this.startTestBtn);
             this.Controls.Add(this.testSetupBtn);
-            this.Controls.Add(this.consoleListBox);
             this.Controls.Add(this.openCommBtn);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Cable Twist/Pull Test App";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -301,7 +311,6 @@
         #endregion
 
         private System.Windows.Forms.Button openCommBtn;
-        private System.Windows.Forms.ListBox consoleListBox;
         private System.Windows.Forms.Button testSetupBtn;
         private System.Windows.Forms.Button startTestBtn;
         private System.Windows.Forms.Button abortTestBtn;
@@ -314,7 +323,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem commToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Timer timeRemainingTimer;
@@ -325,6 +334,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelTestInProgress;
         private System.Windows.Forms.Timer labelTestInProgressTimer;
+        private System.Windows.Forms.ToolStripMenuItem configCommPortToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox consoleRichTextBox;
     }
 }
 
