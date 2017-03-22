@@ -54,6 +54,7 @@
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonOk
             // 
@@ -63,7 +64,7 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(77, 28);
             this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Ok";
+            this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
@@ -98,7 +99,7 @@
             this.comboStopBits.Location = new System.Drawing.Point(113, 184);
             this.comboStopBits.Margin = new System.Windows.Forms.Padding(4);
             this.comboStopBits.Name = "comboStopBits";
-            this.comboStopBits.Size = new System.Drawing.Size(81, 24);
+            this.comboStopBits.Size = new System.Drawing.Size(81, 28);
             this.comboStopBits.TabIndex = 9;
             // 
             // comboDataBits
@@ -110,7 +111,7 @@
             this.comboDataBits.Location = new System.Drawing.Point(113, 146);
             this.comboDataBits.Margin = new System.Windows.Forms.Padding(4);
             this.comboDataBits.Name = "comboDataBits";
-            this.comboDataBits.Size = new System.Drawing.Size(81, 24);
+            this.comboDataBits.Size = new System.Drawing.Size(81, 28);
             this.comboDataBits.TabIndex = 8;
             // 
             // comboParity
@@ -124,7 +125,7 @@
             this.comboParity.Location = new System.Drawing.Point(113, 108);
             this.comboParity.Margin = new System.Windows.Forms.Padding(4);
             this.comboParity.Name = "comboParity";
-            this.comboParity.Size = new System.Drawing.Size(81, 24);
+            this.comboParity.Size = new System.Drawing.Size(81, 28);
             this.comboParity.TabIndex = 7;
             // 
             // comboBaudRate
@@ -139,7 +140,7 @@
             this.comboBaudRate.Location = new System.Drawing.Point(113, 70);
             this.comboBaudRate.Margin = new System.Windows.Forms.Padding(4);
             this.comboBaudRate.Name = "comboBaudRate";
-            this.comboBaudRate.Size = new System.Drawing.Size(81, 24);
+            this.comboBaudRate.Size = new System.Drawing.Size(81, 28);
             this.comboBaudRate.TabIndex = 6;
             // 
             // comboCommPort
@@ -149,7 +150,7 @@
             this.comboCommPort.Location = new System.Drawing.Point(113, 32);
             this.comboCommPort.Margin = new System.Windows.Forms.Padding(4);
             this.comboCommPort.Name = "comboCommPort";
-            this.comboCommPort.Size = new System.Drawing.Size(81, 24);
+            this.comboCommPort.Size = new System.Drawing.Size(81, 28);
             this.comboCommPort.Sorted = true;
             this.comboCommPort.TabIndex = 5;
             // 
@@ -203,9 +204,9 @@
             this.label1.Text = "Comm Port :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ConfigModbus
+            // ConfigCOMM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(251, 298);
             this.Controls.Add(this.buttonCancel);
@@ -215,7 +216,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.Name = "ConfigModbus";
+            this.Name = "ConfigCOMM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configure Comm Port";
             this.Load += new System.EventHandler(this.ConfigCOMM_Load);

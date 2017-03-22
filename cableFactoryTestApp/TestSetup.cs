@@ -16,5 +16,20 @@ namespace cableFactoryTestApp
         {
             InitializeComponent();
         }
+
+        public void TestSetup_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void testSetupOkBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void testSetupCancelBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

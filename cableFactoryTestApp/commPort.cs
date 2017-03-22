@@ -40,7 +40,7 @@ namespace cableFactoryTestApp
             bool reply;
             string comm_port_name;
 
-           // m_SerialPort.DtrEnable = true;
+            m_SerialPort.DtrEnable = true;
             m_SerialPort.PortName = m_CommSettings.port_name;
             m_SerialPort.BaudRate = m_CommSettings.baud_rate;
             m_SerialPort.Parity = m_CommSettings.parity;
@@ -49,8 +49,8 @@ namespace cableFactoryTestApp
             m_SerialPort.Handshake = Handshake.None;
 
             // Set the read/write timeouts are set to 1000 milliseconds
-            //  m_SerialPort.ReadTimeout = 1000;
-            //  m_SerialPort.WriteTimeout = 2000;
+              m_SerialPort.ReadTimeout = 1000;
+              m_SerialPort.WriteTimeout = 2000;
 
             try
             {
@@ -62,7 +62,7 @@ namespace cableFactoryTestApp
                 reply = false;
             }
 
-            comm_port_name = m_CommSettings.port_name;
+          /*  comm_port_name = m_CommSettings.port_name;
 
             if (comm_port_name.Length > 4)
             {
@@ -70,7 +70,7 @@ namespace cableFactoryTestApp
             }
 
             comm_port_name += ":";
-
+            */
 
             return (reply);
         }

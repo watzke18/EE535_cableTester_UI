@@ -13,6 +13,8 @@ namespace cableFactoryTestApp
     public partial class MainForm : Form
     {
         private int _startTime = 300;
+        private bool _testInProgress = false;
+
         private int _counter;
 
         public commPort m_Comm = new commPort();
@@ -55,12 +57,7 @@ namespace cableFactoryTestApp
             _startTime--;
         }
 
-        private void consoleListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private bool _testInProgress = false;
         private void labelTestProgressTimer_Tick(object sender, EventArgs e)
         {
             if (_testInProgress)
@@ -72,14 +69,17 @@ namespace cableFactoryTestApp
                 labelTestInProgress.Visible = false;
             }
               _testInProgress = !_testInProgress;
-                
-        
         }
 
         private void testSetupBtn_Click(object sender, EventArgs e)
         {
             TestSetup m_testSetup = new TestSetup();
-            m_testSetup.Show();
+
+            if(m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
+            {
+                //send data to micro
+
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -88,17 +88,10 @@ namespace cableFactoryTestApp
             if(dialogResult == DialogResult.Yes)
             {
                 this.Close();
-            }
- 
-            
+            }    
         }
 
-        private void commToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConfigCOMM dlg = new ConfigCOMM();
-
-        }
-
+   
         private void configCommPortToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConfigCOMM dlg = new ConfigCOMM();
@@ -128,6 +121,11 @@ namespace cableFactoryTestApp
 
         }
 
+        private void commToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void openCommBtn_Click(object sender, EventArgs e)
         {
             bool reply;
@@ -135,7 +133,7 @@ namespace cableFactoryTestApp
 
             if(!reply)
             {
-                AppendConsoleText(m_Comm.getPortSettings().port_name + "Failed to Open");
+                AppendConsoleText(m_Comm.getPortSettings().port_name + " Failed to Open");
             }
             else
             {
