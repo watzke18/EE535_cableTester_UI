@@ -10,10 +10,21 @@ using System.Windows.Forms;
 
 namespace cableFactoryTestApp
 {
+    public struct TestParameters
+    {
+        public string cable_description;
+        public string test_duration;
+        public string rest_duration;
+        public int force_applied;
+        public int loops;
+    }
+
+
     public partial class MainForm : Form
     {
 
         public commPort m_Comm = new commPort();
+        public TestParameters m_testParameters = new TestParameters();
 
         public MainForm()
         {
@@ -27,6 +38,14 @@ namespace cableFactoryTestApp
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
+
+            /* set default test parameters */
+
+            m_testParameters.cable_description = " ";
+            m_testParameters.test_duration = "5:00";
+            m_testParameters.rest_duration = "3:00";
+            m_testParameters.force_applied = 1;
+            m_testParameters.loops = 1;
         }
 
         public void AppendConsoleText(string str)
@@ -73,6 +92,8 @@ namespace cableFactoryTestApp
         private void testSetupBtn_Click(object sender, EventArgs e)
         {
             TestSetup m_testSetup = new TestSetup();
+
+
 
             if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
             {

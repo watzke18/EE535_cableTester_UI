@@ -15,6 +15,7 @@ namespace cableFactoryTestApp
         public TestSetup()
         {
             InitializeComponent();
+
         }
 
         public void TestSetup_Load(object sender, EventArgs e)
@@ -31,5 +32,7 @@ namespace cableFactoryTestApp
         {
 
         }
+
+      
     }
 }
