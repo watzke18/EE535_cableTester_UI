@@ -143,6 +143,8 @@ namespace cableFactoryTestApp
 
         private void startTestBtn_Click(object sender, EventArgs e)
         {
+            //write outputs command
+
             timeRemainingTimer.Enabled = true;
             labelTestInProgressTimer.Enabled = true;
             labelTestInProgress.Visible = true;
@@ -150,6 +152,8 @@ namespace cableFactoryTestApp
             startTestBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             comboBoxRefreshRate.Enabled = false;
+
+
           
         }
 
@@ -375,10 +379,52 @@ namespace cableFactoryTestApp
 
 
         /*********************************************************************
+         * 
+         * END MAINFORM DATA READ COMMANDS
+         * 
+         *********************************************************************/
+
+
+        /*********************************************************************
+         * 
+         * BEGIN  MAINFORM DATA WRITE COMMANDS
+         * 
+       *********************************************************************/
+
+
+        public bool write_outputs_command(ref string str)
+        {
+            bool reply = false;
+
+            return reply;
+        }
+
+
+       /*********************************************************************
         * 
-        * END MAINFORM DATA READ COMMANDS
+        * END MAINFORM DATA WRITE COMMANDS
         * 
         *********************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /*********************************************************************
