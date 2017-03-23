@@ -25,7 +25,10 @@ namespace cableFactoryTestApp
     {
 
         public commPort m_Comm = new commPort();
-        public TestParameters m_testParameters = new TestParameters();
+        public static TestParameters m_testParameters = new TestParameters();
+
+        private int _startTime;
+        private bool _testInProgress = false;
 
         public MainForm()
         {
@@ -94,6 +97,11 @@ namespace cableFactoryTestApp
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
+
+            timeRemainingTimer.Enabled = false;
+            labelTestInProgressTimer.Enabled = false;
+            labelTestInProgress.Visible = false;
+
         }
 
         private void testSetupBtn_Click(object sender, EventArgs e)
@@ -105,6 +113,7 @@ namespace cableFactoryTestApp
             if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
             {
                 m_testParameters = m_testSetup.m_testParameters;
+                _startTime = m_testParameters.test_duration * 60;
                 startTestBtn.Enabled = true;
                 //send data to micro
 
@@ -138,9 +147,12 @@ namespace cableFactoryTestApp
 
         private void readTempBtn_Click(object sender, EventArgs e)
         {
-            byte[] xmit_byte = new byte[1];
-            xmit_byte[0] = (byte) '*';
-            transmit_message(ref xmit_byte, 1);
+            string temp = "";
+
+            if(read_temperature_command(ref temp))
+            {
+                labelAmbientTemp.Text = temp;
+            }
         }
 
         /*********************************************************************
@@ -156,8 +168,7 @@ namespace cableFactoryTestApp
          * 
          *********************************************************************/
 
-        private int _startTime = 300;
-        private bool _testInProgress = false;
+
 
         private void timeRemainingTimer_Tick(object sender, EventArgs e)
         {
@@ -241,7 +252,7 @@ namespace cableFactoryTestApp
 
         /*********************************************************************
         * 
-        * BEGIN MAINFORM SERIAL PORT READ COMMANDS
+        * BEGIN MAINFORM DATA READ COMMANDS
         * 
         *********************************************************************/
 
@@ -272,7 +283,7 @@ namespace cableFactoryTestApp
 
         /*********************************************************************
         * 
-        * END MAINFORM SERIAL PORT READ COMMANDS
+        * END MAINFORM DATA READ COMMANDS
         * 
         *********************************************************************/
 

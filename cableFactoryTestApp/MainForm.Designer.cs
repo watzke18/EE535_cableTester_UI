@@ -40,10 +40,12 @@
             this.labelTimeRemain = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configCommPortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
@@ -60,8 +62,6 @@
             this.labelAmbientTemp = new System.Windows.Forms.Label();
             this.labelBoxAmbientTemp = new System.Windows.Forms.Label();
             this.readTempBtn = new System.Windows.Forms.Button();
-            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,7 +101,7 @@
             this.abortTestBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.abortTestBtn.Location = new System.Drawing.Point(12, 209);
             this.abortTestBtn.Name = "abortTestBtn";
-            this.abortTestBtn.Size = new System.Drawing.Size(226, 50);
+            this.abortTestBtn.Size = new System.Drawing.Size(226, 54);
             this.abortTestBtn.TabIndex = 4;
             this.abortTestBtn.Text = "ABORT TEST";
             this.abortTestBtn.UseVisualStyleBackColor = false;
@@ -175,16 +175,22 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
+            this.exportToCSVToolStripMenuItem.Text = "Export to .CSV";
+            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -203,6 +209,12 @@
             this.configCommPortToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
             this.configCommPortToolStripMenuItem.Text = "Configure Comm Port";
             this.configCommPortToolStripMenuItem.Click += new System.EventHandler(this.configCommPortToolStripMenuItem_Click);
+            // 
+            // calibrationToolStripMenuItem
+            // 
+            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
+            this.calibrationToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.calibrationToolStripMenuItem.Text = "Calibration";
             // 
             // helpToolStripMenuItem
             // 
@@ -241,6 +253,7 @@
             this.labelBoxLoops.Name = "labelBoxLoops";
             this.labelBoxLoops.Size = new System.Drawing.Size(100, 23);
             this.labelBoxLoops.TabIndex = 17;
+            this.labelBoxLoops.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -250,6 +263,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 18;
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -259,6 +273,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 19;
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
@@ -268,6 +283,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 20;
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelTestInProgress
             // 
@@ -322,6 +338,7 @@
             this.labelBoxAmbientTemp.Name = "labelBoxAmbientTemp";
             this.labelBoxAmbientTemp.Size = new System.Drawing.Size(100, 23);
             this.labelBoxAmbientTemp.TabIndex = 25;
+            this.labelBoxAmbientTemp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // readTempBtn
             // 
@@ -332,18 +349,6 @@
             this.readTempBtn.Text = "Read Temp";
             this.readTempBtn.UseVisualStyleBackColor = true;
             this.readTempBtn.Click += new System.EventHandler(this.readTempBtn_Click);
-            // 
-            // exportToCSVToolStripMenuItem
-            // 
-            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
-            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.exportToCSVToolStripMenuItem.Text = "Export to .CSV";
-            // 
-            // calibrationToolStripMenuItem
-            // 
-            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
-            this.calibrationToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
-            this.calibrationToolStripMenuItem.Text = "Calibration";
             // 
             // MainForm
             // 

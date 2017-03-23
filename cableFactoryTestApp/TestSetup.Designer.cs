@@ -189,7 +189,7 @@
             this.numericUpDownTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownTest.Location = new System.Drawing.Point(304, 152);
             this.numericUpDownTest.Maximum = new decimal(new int[] {
-            15,
+            60,
             0,
             0,
             0});
@@ -202,7 +202,7 @@
             this.numericUpDownRest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownRest.Location = new System.Drawing.Point(304, 182);
             this.numericUpDownRest.Maximum = new decimal(new int[] {
-            15,
+            60,
             0,
             0,
             0});
