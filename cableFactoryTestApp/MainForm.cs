@@ -13,10 +13,11 @@ namespace cableFactoryTestApp
     public struct TestParameters
     {
         public string cable_description;
-        public string test_duration;
-        public string rest_duration;
+        public int test_duration;
+        public int rest_duration;
         public int force_applied;
         public int loops;
+        public bool stop_on_break;
     }
 
 
@@ -42,10 +43,15 @@ namespace cableFactoryTestApp
             /* set default test parameters */
 
             m_testParameters.cable_description = " ";
-            m_testParameters.test_duration = "5:00";
-            m_testParameters.rest_duration = "3:00";
+            m_testParameters.test_duration = 5;
+            m_testParameters.rest_duration = 3;
             m_testParameters.force_applied = 1;
-            m_testParameters.loops = 1;
+            m_testParameters.loops = 0;
+        }
+
+        private void refreshData()
+        {
+            //this is where all updating will occur
         }
 
         public void AppendConsoleText(string str)
@@ -87,36 +93,47 @@ namespace cableFactoryTestApp
             closeCommBtn.Visible = false;
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
+            abortTestBtn.Enabled = false;
         }
 
         private void testSetupBtn_Click(object sender, EventArgs e)
         {
             TestSetup m_testSetup = new TestSetup();
 
-
+            m_testSetup.m_testParameters = m_testParameters;
 
             if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
             {
+                m_testParameters = m_testSetup.m_testParameters;
                 startTestBtn.Enabled = true;
                 //send data to micro
 
             }
         }
 
-
-
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             timeRemainingTimer.Enabled = true;
             labelTestInProgressTimer.Enabled = true;
             labelTestInProgress.Visible = true;
-            startTestBtn.Enabled = false;
             abortTestBtn.Enabled = true;
+            startTestBtn.Enabled = false;
+            testSetupBtn.Enabled = false;
+          
         }
 
         private void abortTestBtn_Click(object sender, EventArgs e)
         {
+            startTestBtn.Enabled = true; 
+            testSetupBtn.Enabled = true;
+            abortTestBtn.Enabled = false;
 
+            timeRemainingTimer.Enabled = false;
+            labelTestInProgressTimer.Enabled = false;
+            labelTestInProgress.Visible = false;
+
+            AppendConsoleText("Test Aborted!");
+         
         }
 
         private void readTempBtn_Click(object sender, EventArgs e)
@@ -228,11 +245,28 @@ namespace cableFactoryTestApp
         * 
         *********************************************************************/
 
-        public bool read_temperature_command(ref string str)
+        public bool read_temperature_command(ref string temp)
         {
             bool reply = false;
-            byte[] xmit_buffer = new byte[3];
-            return false;//placeholder
+           
+            if(transmit_message("TEMP"))
+            {
+                if(receive_message(ref temp))
+                {
+                    reply = true;
+                }
+                else
+                {
+                    AppendConsoleText("Failed to receive TEMP");
+                    reply = false;
+                }
+            }
+            else
+            {
+                AppendConsoleText("Failed to transmit command TEMP");
+                reply = false;
+            }
+            return reply;
         }
 
 
@@ -245,10 +279,34 @@ namespace cableFactoryTestApp
 
         /*********************************************************************
         * 
-        * BEGIN MAINFORM SERIAL PORT WRITE COMMANDS
+        * BEGIN MAINFORM SERIAL PORT READ/WRITE COMMANDS
         * 
         *********************************************************************/
 
+
+
+        private bool receive_message(ref string msg)
+        {
+            bool reply;
+
+            try
+            {
+                m_Comm.read();
+                reply = true;
+            }
+            catch (TimeoutException)
+            {
+                AppendConsoleText("Timed out while trying to receive message");
+                reply = false;
+            }
+            catch (Exception)
+            {
+                AppendConsoleText("failed to receive message");
+                reply = false;
+            }
+
+            return reply;
+        }
         private bool transmit_message(ref byte[] msg, int msg_len)
         {
             bool reply;
@@ -266,6 +324,24 @@ namespace cableFactoryTestApp
 
             return reply;
         }
+
+        private bool transmit_message(string msg)
+        {
+            bool reply;
+
+            try
+            {
+                m_Comm.write(msg);
+                reply = true;
+            }
+            catch
+            {
+                reply = false;
+            }
+
+            return reply;
+        }
+          
 
         private bool transmit_byte(byte data)
         {
@@ -294,7 +370,7 @@ namespace cableFactoryTestApp
 
 
         /*********************************************************************
-        * END MAINFORM SERIAL PORT WRITE COMMANDS
+        * END MAINFORM SERIAL PORT READ/WRITE COMMANDS
         * 
         *********************************************************************/
 

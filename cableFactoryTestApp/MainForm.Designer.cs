@@ -60,6 +60,8 @@
             this.labelAmbientTemp = new System.Windows.Forms.Label();
             this.labelBoxAmbientTemp = new System.Windows.Forms.Label();
             this.readTempBtn = new System.Windows.Forms.Button();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,12 +97,14 @@
             // 
             // abortTestBtn
             // 
+            this.abortTestBtn.BackColor = System.Drawing.Color.DarkRed;
+            this.abortTestBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.abortTestBtn.Location = new System.Drawing.Point(12, 209);
             this.abortTestBtn.Name = "abortTestBtn";
             this.abortTestBtn.Size = new System.Drawing.Size(226, 50);
             this.abortTestBtn.TabIndex = 4;
-            this.abortTestBtn.Text = "Abort Test";
-            this.abortTestBtn.UseVisualStyleBackColor = true;
+            this.abortTestBtn.Text = "ABORT TEST";
+            this.abortTestBtn.UseVisualStyleBackColor = false;
             this.abortTestBtn.Click += new System.EventHandler(this.abortTestBtn_Click);
             // 
             // labelSpinMotorStatus
@@ -164,6 +168,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToCSVToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -173,20 +178,21 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // setupToolStripMenuItem
             // 
             this.setupToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configCommPortToolStripMenuItem});
+            this.configCommPortToolStripMenuItem,
+            this.calibrationToolStripMenuItem});
             this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
             this.setupToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.setupToolStripMenuItem.Text = "Setup";
@@ -304,9 +310,9 @@
             this.labelAmbientTemp.AutoSize = true;
             this.labelAmbientTemp.Location = new System.Drawing.Point(19, 297);
             this.labelAmbientTemp.Name = "labelAmbientTemp";
-            this.labelAmbientTemp.Size = new System.Drawing.Size(145, 17);
+            this.labelAmbientTemp.Size = new System.Drawing.Size(173, 17);
             this.labelAmbientTemp.TabIndex = 24;
-            this.labelAmbientTemp.Text = "Ambient Temperature";
+            this.labelAmbientTemp.Text = "Ambient Temperature (°F)";
             // 
             // labelBoxAmbientTemp
             // 
@@ -326,6 +332,18 @@
             this.readTempBtn.Text = "Read Temp";
             this.readTempBtn.UseVisualStyleBackColor = true;
             this.readTempBtn.Click += new System.EventHandler(this.readTempBtn_Click);
+            // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.exportToCSVToolStripMenuItem.Text = "Export to .CSV";
+            // 
+            // calibrationToolStripMenuItem
+            // 
+            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
+            this.calibrationToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.calibrationToolStripMenuItem.Text = "Calibration";
             // 
             // MainForm
             // 
@@ -397,6 +415,8 @@
         private System.Windows.Forms.Label labelAmbientTemp;
         private System.Windows.Forms.Label labelBoxAmbientTemp;
         private System.Windows.Forms.Button readTempBtn;
+        private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
     }
 }
 
