@@ -28,7 +28,10 @@ namespace cableFactoryTestApp
         public static TestParameters m_testParameters = new TestParameters();
 
         private int _startTime;
-        private bool _testInProgress = false;
+        private string _refreshRate; //in ms
+        private bool _testInProgress;
+
+        public string[] data;
 
         public MainForm()
         {
@@ -50,13 +53,29 @@ namespace cableFactoryTestApp
             m_testParameters.rest_duration = 3;
             m_testParameters.force_applied = 1;
             m_testParameters.loops = 0;
+
+            _refreshRate = "1000ms";
+            _testInProgress = false;
         }
 
         private void refreshData()
         {
+            string msg = "";
             //this is where all updating will occur
+            if(read_inputs_command(ref msg))
+            {
+                parseMessage(ref msg, ref data);
+            }
         }
 
+        private void parseMessage(ref string msg, ref string[] data)
+        {
+            data = new string[5];
+
+         
+
+        }
+  
         public void AppendConsoleText(string str)
         {
             consoleRichTextBox.AppendText(">" + str + "\n");
@@ -64,7 +83,7 @@ namespace cableFactoryTestApp
 
         /*********************************************************************
          * 
-         * BEGIN MAINFORM BUTTON CLICK EVENT METHODS
+         * BEGIN MAINFORM EVENT METHODS
          * 
          *********************************************************************/
 
@@ -92,12 +111,14 @@ namespace cableFactoryTestApp
         {
             m_Comm.Close();
             AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
+
             openCommBtn.Enabled = true;
+            comboBoxRefreshRate.Enabled = true;
+
             closeCommBtn.Visible = false;
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
-
             timeRemainingTimer.Enabled = false;
             labelTestInProgressTimer.Enabled = false;
             labelTestInProgress.Visible = false;
@@ -128,6 +149,7 @@ namespace cableFactoryTestApp
             abortTestBtn.Enabled = true;
             startTestBtn.Enabled = false;
             testSetupBtn.Enabled = false;
+            comboBoxRefreshRate.Enabled = false;
           
         }
 
@@ -135,8 +157,10 @@ namespace cableFactoryTestApp
         {
             startTestBtn.Enabled = true; 
             testSetupBtn.Enabled = true;
-            abortTestBtn.Enabled = false;
+            comboBoxRefreshRate.Enabled = true;
 
+
+            abortTestBtn.Enabled = false;
             timeRemainingTimer.Enabled = false;
             labelTestInProgressTimer.Enabled = false;
             labelTestInProgress.Visible = false;
@@ -155,9 +179,29 @@ namespace cableFactoryTestApp
             }
         }
 
+
+        private void readPosBtn_Click(object sender, EventArgs e)
+        {
+            string pos = "";
+
+            if(read_position_command(ref pos))
+            {
+                labelMotorPos.Text = pos;
+            }
+        }
+
+
+        private void comboBoxRefreshRate_TextChanged(object sender, EventArgs e)
+        {
+            _refreshRate = comboBoxRefreshRate.Text;
+        }
+
+
+
+
         /*********************************************************************
          * 
-         * END MAINFORM BUTTON CLICK EVENT METHODS
+         * END MAINFORM BUTTON EVENT METHODS
          * 
          *********************************************************************/
 
@@ -280,6 +324,55 @@ namespace cableFactoryTestApp
             return reply;
         }
 
+        public bool read_position_command(ref string pos)
+        {
+            bool reply = false;
+
+            if(transmit_message("POS"))
+            {
+                if(receive_message(ref pos))
+                {
+                    reply = true;
+                }
+                else
+                {
+                    AppendConsoleText("Failed to receive motor POS");
+                    reply = false;
+                }
+            }
+            else
+            {
+                AppendConsoleText("Failed to transmit command POS");
+                reply = false;
+            }
+            return reply;
+        }
+
+        public bool read_inputs_command(ref string str)
+        {
+            bool reply = false;
+
+            if(transmit_message("DATA"))
+            {
+                if(receive_message(ref str))
+                {
+                    reply = true;
+                }
+                else
+                {
+                    AppendConsoleText("Failed to receive input DATA");
+                    reply = false;
+                }
+            }
+            else
+            {
+                AppendConsoleText("Failed to transmit command DATA");
+                reply = false;
+            }
+            return reply;
+
+        }
+
 
         /*********************************************************************
         * 
@@ -354,27 +447,10 @@ namespace cableFactoryTestApp
         }
           
 
-        private bool transmit_byte(byte data)
-        {
-            bool reply;
-            byte[] msg = new byte[1];
 
-            msg[0] = data;
 
-            try
-            {
-                m_Comm.write(msg, 0, 1);
-                reply = true;
-            }
-            catch
-            {
-                reply = false;
-            }
 
-            return reply;
-        }
 
-    
 
 
 

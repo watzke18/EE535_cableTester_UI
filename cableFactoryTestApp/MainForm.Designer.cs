@@ -54,7 +54,7 @@
             this.labelBoxLoops = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.labelMotorPos = new System.Windows.Forms.Label();
             this.labelTestInProgress = new System.Windows.Forms.Label();
             this.labelTestInProgressTimer = new System.Windows.Forms.Timer(this.components);
             this.consoleRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -62,6 +62,9 @@
             this.labelAmbientTemp = new System.Windows.Forms.Label();
             this.labelBoxAmbientTemp = new System.Windows.Forms.Label();
             this.readTempBtn = new System.Windows.Forms.Button();
+            this.readPosBtn = new System.Windows.Forms.Button();
+            this.labelRefreshRate = new System.Windows.Forms.Label();
+            this.comboBoxRefreshRate = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,6 +101,7 @@
             // abortTestBtn
             // 
             this.abortTestBtn.BackColor = System.Drawing.Color.DarkRed;
+            this.abortTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.abortTestBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.abortTestBtn.Location = new System.Drawing.Point(12, 209);
             this.abortTestBtn.Name = "abortTestBtn";
@@ -110,47 +114,47 @@
             // labelSpinMotorStatus
             // 
             this.labelSpinMotorStatus.AutoSize = true;
-            this.labelSpinMotorStatus.Location = new System.Drawing.Point(19, 351);
+            this.labelSpinMotorStatus.Location = new System.Drawing.Point(19, 348);
             this.labelSpinMotorStatus.Name = "labelSpinMotorStatus";
-            this.labelSpinMotorStatus.Size = new System.Drawing.Size(188, 17);
+            this.labelSpinMotorStatus.Size = new System.Drawing.Size(199, 17);
             this.labelSpinMotorStatus.TabIndex = 5;
-            this.labelSpinMotorStatus.Text = "Spin Motor Status (Degrees)";
+            this.labelSpinMotorStatus.Text = "Spin Motor Position (Degree) :";
             // 
             // labelLoadSensorStatus
             // 
             this.labelLoadSensorStatus.AutoSize = true;
-            this.labelLoadSensorStatus.Location = new System.Drawing.Point(19, 377);
+            this.labelLoadSensorStatus.Location = new System.Drawing.Point(77, 374);
             this.labelLoadSensorStatus.Name = "labelLoadSensorStatus";
-            this.labelLoadSensorStatus.Size = new System.Drawing.Size(133, 17);
+            this.labelLoadSensorStatus.Size = new System.Drawing.Size(141, 17);
             this.labelLoadSensorStatus.TabIndex = 6;
-            this.labelLoadSensorStatus.Text = "Load Sensor Status";
+            this.labelLoadSensorStatus.Text = "Load Sensor Status :";
             // 
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(19, 400);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(96, 397);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
-            this.labelContinuityStatus.Size = new System.Drawing.Size(114, 17);
+            this.labelContinuityStatus.Size = new System.Drawing.Size(122, 17);
             this.labelContinuityStatus.TabIndex = 7;
-            this.labelContinuityStatus.Text = "Continuity Status";
+            this.labelContinuityStatus.Text = "Continuity Status :";
             // 
             // labelLoops
             // 
             this.labelLoops.AutoSize = true;
-            this.labelLoops.Location = new System.Drawing.Point(15, 453);
+            this.labelLoops.Location = new System.Drawing.Point(92, 450);
             this.labelLoops.Name = "labelLoops";
-            this.labelLoops.Size = new System.Drawing.Size(118, 17);
+            this.labelLoops.Size = new System.Drawing.Size(126, 17);
             this.labelLoops.TabIndex = 8;
-            this.labelLoops.Text = "Loops Completed";
+            this.labelLoops.Text = "Loops Completed :";
             // 
             // labelTimeRemain
             // 
             this.labelTimeRemain.AutoSize = true;
-            this.labelTimeRemain.Location = new System.Drawing.Point(15, 481);
+            this.labelTimeRemain.Location = new System.Drawing.Point(100, 481);
             this.labelTimeRemain.Name = "labelTimeRemain";
-            this.labelTimeRemain.Size = new System.Drawing.Size(110, 17);
+            this.labelTimeRemain.Size = new System.Drawing.Size(118, 17);
             this.labelTimeRemain.TabIndex = 9;
-            this.labelTimeRemain.Text = "Time Remaining";
+            this.labelTimeRemain.Text = "Time Remaining :";
             // 
             // menuStrip1
             // 
@@ -275,15 +279,15 @@
             this.label5.TabIndex = 19;
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // labelMotorPos
             // 
-            this.label6.BackColor = System.Drawing.SystemColors.Window;
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(254, 345);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 23);
-            this.label6.TabIndex = 20;
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelMotorPos.BackColor = System.Drawing.SystemColors.Window;
+            this.labelMotorPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelMotorPos.Location = new System.Drawing.Point(254, 345);
+            this.labelMotorPos.Name = "labelMotorPos";
+            this.labelMotorPos.Size = new System.Drawing.Size(100, 23);
+            this.labelMotorPos.TabIndex = 20;
+            this.labelMotorPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelTestInProgress
             // 
@@ -324,11 +328,11 @@
             // labelAmbientTemp
             // 
             this.labelAmbientTemp.AutoSize = true;
-            this.labelAmbientTemp.Location = new System.Drawing.Point(19, 297);
+            this.labelAmbientTemp.Location = new System.Drawing.Point(37, 295);
             this.labelAmbientTemp.Name = "labelAmbientTemp";
-            this.labelAmbientTemp.Size = new System.Drawing.Size(173, 17);
+            this.labelAmbientTemp.Size = new System.Drawing.Size(181, 17);
             this.labelAmbientTemp.TabIndex = 24;
-            this.labelAmbientTemp.Text = "Ambient Temperature (°F)";
+            this.labelAmbientTemp.Text = "Ambient Temperature (°F) :";
             // 
             // labelBoxAmbientTemp
             // 
@@ -350,18 +354,56 @@
             this.readTempBtn.UseVisualStyleBackColor = true;
             this.readTempBtn.Click += new System.EventHandler(this.readTempBtn_Click);
             // 
+            // readPosBtn
+            // 
+            this.readPosBtn.Location = new System.Drawing.Point(360, 344);
+            this.readPosBtn.Name = "readPosBtn";
+            this.readPosBtn.Size = new System.Drawing.Size(120, 24);
+            this.readPosBtn.TabIndex = 27;
+            this.readPosBtn.Text = "Read Position";
+            this.readPosBtn.UseVisualStyleBackColor = true;
+            this.readPosBtn.Click += new System.EventHandler(this.readPosBtn_Click);
+            // 
+            // labelRefreshRate
+            // 
+            this.labelRefreshRate.AutoSize = true;
+            this.labelRefreshRate.Location = new System.Drawing.Point(507, 456);
+            this.labelRefreshRate.Name = "labelRefreshRate";
+            this.labelRefreshRate.Size = new System.Drawing.Size(130, 17);
+            this.labelRefreshRate.TabIndex = 28;
+            this.labelRefreshRate.Text = "Refresh/Data Rate:";
+            // 
+            // comboBoxRefreshRate
+            // 
+            this.comboBoxRefreshRate.FormattingEnabled = true;
+            this.comboBoxRefreshRate.Items.AddRange(new object[] {
+            "100ms",
+            "500ms",
+            "1000ms",
+            "2000ms",
+            "5000ms"});
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(677, 453);
+            this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
+            this.comboBoxRefreshRate.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxRefreshRate.TabIndex = 29;
+            this.comboBoxRefreshRate.Text = "1000ms";
+            this.comboBoxRefreshRate.TextChanged += new System.EventHandler(this.comboBoxRefreshRate_TextChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(812, 574);
+            this.Controls.Add(this.comboBoxRefreshRate);
+            this.Controls.Add(this.labelRefreshRate);
+            this.Controls.Add(this.readPosBtn);
             this.Controls.Add(this.readTempBtn);
             this.Controls.Add(this.labelBoxAmbientTemp);
             this.Controls.Add(this.labelAmbientTemp);
             this.Controls.Add(this.closeCommBtn);
             this.Controls.Add(this.consoleRichTextBox);
             this.Controls.Add(this.labelTestInProgress);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.labelMotorPos);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelBoxLoops);
@@ -410,7 +452,7 @@
         private System.Windows.Forms.Label labelBoxLoops;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelMotorPos;
         private System.Windows.Forms.Label labelTestInProgress;
         private System.Windows.Forms.Timer labelTestInProgressTimer;
         private System.Windows.Forms.ToolStripMenuItem configCommPortToolStripMenuItem;
@@ -422,6 +464,9 @@
         private System.Windows.Forms.Button readTempBtn;
         private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
+        private System.Windows.Forms.Button readPosBtn;
+        private System.Windows.Forms.Label labelRefreshRate;
+        private System.Windows.Forms.ComboBox comboBoxRefreshRate;
     }
 }
 
