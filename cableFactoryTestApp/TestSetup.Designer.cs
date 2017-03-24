@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBoxContinuity = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDownRest = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownTest = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelRestDuration = new System.Windows.Forms.Label();
             this.textBoxCableType = new System.Windows.Forms.TextBox();
             this.numericUpDownForce = new System.Windows.Forms.NumericUpDown();
@@ -38,16 +43,11 @@
             this.labelCableType = new System.Windows.Forms.Label();
             this.numericUpDownTestLoops = new System.Windows.Forms.NumericUpDown();
             this.labelTestRepeat = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownTest = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownRest = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxContinuity = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownForce)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTestLoops)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTest)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRest)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -73,6 +73,67 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test Parameters";
+            // 
+            // comboBoxContinuity
+            // 
+            this.comboBoxContinuity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxContinuity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxContinuity.FormattingEnabled = true;
+            this.comboBoxContinuity.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxContinuity.Location = new System.Drawing.Point(304, 264);
+            this.comboBoxContinuity.Name = "comboBoxContinuity";
+            this.comboBoxContinuity.Size = new System.Drawing.Size(83, 26);
+            this.comboBoxContinuity.TabIndex = 17;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(26, 260);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(183, 32);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Stop On Contuinity Break :";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericUpDownRest
+            // 
+            this.numericUpDownRest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownRest.Location = new System.Drawing.Point(304, 182);
+            this.numericUpDownRest.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numericUpDownRest.Name = "numericUpDownRest";
+            this.numericUpDownRest.Size = new System.Drawing.Size(83, 24);
+            this.numericUpDownRest.TabIndex = 15;
+            // 
+            // numericUpDownTest
+            // 
+            this.numericUpDownTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownTest.Location = new System.Drawing.Point(304, 152);
+            this.numericUpDownTest.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numericUpDownTest.Name = "numericUpDownTest";
+            this.numericUpDownTest.Size = new System.Drawing.Size(83, 24);
+            this.numericUpDownTest.TabIndex = 14;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(61, 152);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 23);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Test Duration (min) :";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelRestDuration
             // 
@@ -173,67 +234,6 @@
             this.labelTestRepeat.Text = "Number of Test Loops :  ";
             this.labelTestRepeat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(61, 152);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 23);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Test Duration (min) :";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numericUpDownTest
-            // 
-            this.numericUpDownTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownTest.Location = new System.Drawing.Point(304, 152);
-            this.numericUpDownTest.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.numericUpDownTest.Name = "numericUpDownTest";
-            this.numericUpDownTest.Size = new System.Drawing.Size(83, 24);
-            this.numericUpDownTest.TabIndex = 14;
-            // 
-            // numericUpDownRest
-            // 
-            this.numericUpDownRest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownRest.Location = new System.Drawing.Point(304, 182);
-            this.numericUpDownRest.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.numericUpDownRest.Name = "numericUpDownRest";
-            this.numericUpDownRest.Size = new System.Drawing.Size(83, 24);
-            this.numericUpDownRest.TabIndex = 15;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 260);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(183, 32);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Stop On Contuinity Break :";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboBoxContinuity
-            // 
-            this.comboBoxContinuity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxContinuity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxContinuity.FormattingEnabled = true;
-            this.comboBoxContinuity.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxContinuity.Location = new System.Drawing.Point(304, 264);
-            this.comboBoxContinuity.Name = "comboBoxContinuity";
-            this.comboBoxContinuity.Size = new System.Drawing.Size(83, 26);
-            this.comboBoxContinuity.TabIndex = 17;
-            // 
             // TestSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -245,10 +245,10 @@
             this.Load += new System.EventHandler(this.TestSetup_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownForce)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTestLoops)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTest)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRest)).EndInit();
             this.ResumeLayout(false);
 
         }
