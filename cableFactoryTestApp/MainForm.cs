@@ -31,35 +31,22 @@ namespace cableFactoryTestApp
         public commPort m_Comm = new commPort();
         public static TestParameters m_testParameters = new TestParameters();
 
-         ExcelFile xlFile = new ExcelFile();
+       
 
         private int _startTime;
         private string _refreshRate; //in ms
         private bool _testInProgress;
 
-
-      
-
-
-
         public string[] data;
-        private object xlWBATWorksheet;
+   
 
         public MainForm()
         {
-            InitializeComponent();
-
-           
-            
+            InitializeComponent();     
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
-           
-
-
-
 
             m_Comm.LoadSettings();
             closeCommBtn.Visible = false;
@@ -80,28 +67,7 @@ namespace cableFactoryTestApp
 
 
 
-            Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-
-            if (xlApp == null)
-            {
-                MessageBox.Show("Excel is not properly installed!");
-                return;
-            }
-
-            Excel.Workbook xlWorkBook;
-            Excel.Worksheet xlWorkSheet;
-            object misValue = System.Reflection.Missing.Value;
-
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
-            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-            xlWorkSheet.Cells[1, 1] = "ID";
-            xlWorkSheet.Cells[1, 2] = "Name";
-            xlWorkSheet.Cells[2, 1] = "1";
-            xlWorkSheet.Cells[2, 2] = "One";
-            xlWorkSheet.Cells[3, 1] = "2";
-            xlWorkSheet.Cells[3, 2] = "Two";
-
-            xlWorkBook.SaveAs("cable-tester-data1.xls");
+           
         }
 
         private void exportExcel()
@@ -117,11 +83,19 @@ namespace cableFactoryTestApp
             {
                 parseMessage(ref msg, ref data);
             }
+
+            logData(data);
         }
 
-        private void parseMessage(ref string msg, ref string[] data)
+        private void logData(string[] args)
+        {
+
+        }
+
+        private string[] parseMessage(ref string msg, ref string[] data)
         {
             data = new string[5];
+            return data;
 
          
 
@@ -187,14 +161,77 @@ namespace cableFactoryTestApp
                 m_testParameters = m_testSetup.m_testParameters;
                 _startTime = m_testParameters.test_duration * 60;
                 startTestBtn.Enabled = true;
+
+              
                 //send data to micro
 
             }
         }
 
+        private void openExcelCOM()
+        {
+            Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+
+            if (xlApp == null)
+            {
+                MessageBox.Show("Excel is not properly installed!");
+                return;
+            }
+
+            xlApp.Visible = true;
+
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+
+           
+
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+     
+
+            /*xlWorkSheet.Range[xlWorkSheet.Cells[1, 1], xlWorkSheet.Cells[1, 10]].Merge();
+            xlWorkSheet.Range[xlWorkSheet.Cells[2, 1], xlWorkSheet.Cells[2, 20]].Merge();
+            xlWorkSheet.Range[xlWorkSheet.Cells[3, 1], xlWorkSheet.Cells[3, 2]].Merge();*/
+
+
+            xlWorkSheet.Cells[1, 1] = "Cable Testing Data";
+            xlWorkSheet.Cells[2, 1] = "Cable Type/Description: " + m_testParameters.cable_description;
+            xlWorkSheet.Cells[3, 1] = "Test Parameters";
+            xlWorkSheet.Cells[4, 2] = "Force Applied (kg)";
+            xlWorkSheet.Cells[4, 3] = "Test Duration (min)";
+            xlWorkSheet.Cells[4, 4] = "Rest Duration (min)";
+            xlWorkSheet.Cells[4, 5] = "Test Repitions";
+            xlWorkSheet.Cells[4, 6] = "Stop on Break";
+
+         
+            xlWorkSheet.Cells[5, 2] = m_testParameters.force_applied;
+            xlWorkSheet.Cells[5, 3] = m_testParameters.test_duration;
+            xlWorkSheet.Cells[5, 4] = m_testParameters.rest_duration;
+            xlWorkSheet.Cells[5, 5] = m_testParameters.loops;
+            xlWorkSheet.Cells[5, 6] = m_testParameters.stop_on_break;
+
+            xlWorkSheet.Cells[6, 1] = "Raw Data";
+            xlWorkSheet.Cells[7, 1] = "Time";
+            xlWorkSheet.Cells[7, 2] = "Force Applied (kg)";
+            xlWorkSheet.Cells[7, 3] = "Spin Motor Position";
+            xlWorkSheet.Cells[7, 4] = "Continuity Status";
+
+
+
+            Excel.Range usedrange = xlWorkSheet.UsedRange;
+            usedrange.Columns.AutoFit();
+
+
+
+
+
+            //     xlWorkBook.SaveAs("cable-tester-data1.xls");
+        }
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             //write outputs command
+            openExcelCOM();
 
             timeRemainingTimer.Enabled = true;
             labelTestInProgressTimer.Enabled = true;
@@ -569,6 +606,7 @@ namespace cableFactoryTestApp
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
+
             saveFileDialog1.Filter = "Excel file (*.xls)|*.xls|Comma seperated file (*.csv)|*.csv";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
@@ -577,6 +615,9 @@ namespace cableFactoryTestApp
             {
                 if ((myStream = saveFileDialog1.OpenFile()) != null)
                 {
+                    FileInfo fi = new FileInfo(saveFileDialog1.FileName);
+
+                    string text = fi.Name;
                     // Code to write the stream goes here.
                     myStream.Close();
                 }
