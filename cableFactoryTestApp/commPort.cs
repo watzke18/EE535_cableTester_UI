@@ -166,6 +166,11 @@ namespace cableFactoryTestApp
         }
         
 
+        public String read()
+        {
+            return m_SerialPort.ReadLine();
+        }
+
         public void Dispose()
         {
             Close();

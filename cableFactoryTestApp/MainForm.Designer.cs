@@ -44,6 +44,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configCommPortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
@@ -52,7 +53,7 @@
             this.labelBoxLoops = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.labelMotorPos = new System.Windows.Forms.Label();
             this.labelTestInProgress = new System.Windows.Forms.Label();
             this.labelTestInProgressTimer = new System.Windows.Forms.Timer(this.components);
             this.consoleRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -60,12 +61,16 @@
             this.labelAmbientTemp = new System.Windows.Forms.Label();
             this.labelBoxAmbientTemp = new System.Windows.Forms.Label();
             this.readTempBtn = new System.Windows.Forms.Button();
+            this.readPosBtn = new System.Windows.Forms.Button();
+            this.labelRefreshRate = new System.Windows.Forms.Label();
+            this.comboBoxRefreshRate = new System.Windows.Forms.ComboBox();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openCommBtn
             // 
-            this.openCommBtn.Location = new System.Drawing.Point(12, 39);
+            this.openCommBtn.Location = new System.Drawing.Point(12, 42);
             this.openCommBtn.Name = "openCommBtn";
             this.openCommBtn.Size = new System.Drawing.Size(226, 50);
             this.openCommBtn.TabIndex = 0;
@@ -75,7 +80,7 @@
             // 
             // testSetupBtn
             // 
-            this.testSetupBtn.Location = new System.Drawing.Point(12, 95);
+            this.testSetupBtn.Location = new System.Drawing.Point(12, 186);
             this.testSetupBtn.Name = "testSetupBtn";
             this.testSetupBtn.Size = new System.Drawing.Size(226, 52);
             this.testSetupBtn.TabIndex = 2;
@@ -85,7 +90,7 @@
             // 
             // startTestBtn
             // 
-            this.startTestBtn.Location = new System.Drawing.Point(12, 153);
+            this.startTestBtn.Location = new System.Drawing.Point(12, 244);
             this.startTestBtn.Name = "startTestBtn";
             this.startTestBtn.Size = new System.Drawing.Size(226, 50);
             this.startTestBtn.TabIndex = 3;
@@ -95,58 +100,61 @@
             // 
             // abortTestBtn
             // 
-            this.abortTestBtn.Location = new System.Drawing.Point(12, 209);
+            this.abortTestBtn.BackColor = System.Drawing.Color.DarkRed;
+            this.abortTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.abortTestBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.abortTestBtn.Location = new System.Drawing.Point(12, 300);
             this.abortTestBtn.Name = "abortTestBtn";
-            this.abortTestBtn.Size = new System.Drawing.Size(226, 50);
+            this.abortTestBtn.Size = new System.Drawing.Size(226, 54);
             this.abortTestBtn.TabIndex = 4;
-            this.abortTestBtn.Text = "Abort Test";
-            this.abortTestBtn.UseVisualStyleBackColor = true;
+            this.abortTestBtn.Text = "ABORT TEST";
+            this.abortTestBtn.UseVisualStyleBackColor = false;
             this.abortTestBtn.Click += new System.EventHandler(this.abortTestBtn_Click);
             // 
             // labelSpinMotorStatus
             // 
             this.labelSpinMotorStatus.AutoSize = true;
-            this.labelSpinMotorStatus.Location = new System.Drawing.Point(19, 351);
+            this.labelSpinMotorStatus.Location = new System.Drawing.Point(542, 104);
             this.labelSpinMotorStatus.Name = "labelSpinMotorStatus";
-            this.labelSpinMotorStatus.Size = new System.Drawing.Size(188, 17);
+            this.labelSpinMotorStatus.Size = new System.Drawing.Size(199, 17);
             this.labelSpinMotorStatus.TabIndex = 5;
-            this.labelSpinMotorStatus.Text = "Spin Motor Status (Degrees)";
+            this.labelSpinMotorStatus.Text = "Spin Motor Position (Degree) :";
             // 
             // labelLoadSensorStatus
             // 
             this.labelLoadSensorStatus.AutoSize = true;
-            this.labelLoadSensorStatus.Location = new System.Drawing.Point(19, 377);
+            this.labelLoadSensorStatus.Location = new System.Drawing.Point(542, 130);
             this.labelLoadSensorStatus.Name = "labelLoadSensorStatus";
-            this.labelLoadSensorStatus.Size = new System.Drawing.Size(133, 17);
+            this.labelLoadSensorStatus.Size = new System.Drawing.Size(141, 17);
             this.labelLoadSensorStatus.TabIndex = 6;
-            this.labelLoadSensorStatus.Text = "Load Sensor Status";
+            this.labelLoadSensorStatus.Text = "Load Sensor Status :";
             // 
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(19, 400);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(542, 158);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
-            this.labelContinuityStatus.Size = new System.Drawing.Size(114, 17);
+            this.labelContinuityStatus.Size = new System.Drawing.Size(122, 17);
             this.labelContinuityStatus.TabIndex = 7;
-            this.labelContinuityStatus.Text = "Continuity Status";
+            this.labelContinuityStatus.Text = "Continuity Status :";
             // 
             // labelLoops
             // 
             this.labelLoops.AutoSize = true;
-            this.labelLoops.Location = new System.Drawing.Point(15, 453);
+            this.labelLoops.Location = new System.Drawing.Point(542, 216);
             this.labelLoops.Name = "labelLoops";
-            this.labelLoops.Size = new System.Drawing.Size(118, 17);
+            this.labelLoops.Size = new System.Drawing.Size(126, 17);
             this.labelLoops.TabIndex = 8;
-            this.labelLoops.Text = "Loops Completed";
+            this.labelLoops.Text = "Loops Completed :";
             // 
             // labelTimeRemain
             // 
             this.labelTimeRemain.AutoSize = true;
-            this.labelTimeRemain.Location = new System.Drawing.Point(15, 481);
+            this.labelTimeRemain.Location = new System.Drawing.Point(542, 246);
             this.labelTimeRemain.Name = "labelTimeRemain";
-            this.labelTimeRemain.Size = new System.Drawing.Size(110, 17);
+            this.labelTimeRemain.Size = new System.Drawing.Size(118, 17);
             this.labelTimeRemain.TabIndex = 9;
-            this.labelTimeRemain.Text = "Time Remaining";
+            this.labelTimeRemain.Text = "Time Remaining :";
             // 
             // menuStrip1
             // 
@@ -157,7 +165,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(812, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1020, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -173,20 +181,22 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
-            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.saveToolStripMenuItem.Text = "Save As";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // setupToolStripMenuItem
             // 
             this.setupToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configCommPortToolStripMenuItem});
+            this.configCommPortToolStripMenuItem,
+            this.calibrationToolStripMenuItem});
             this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
             this.setupToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.setupToolStripMenuItem.Text = "Setup";
@@ -197,6 +207,12 @@
             this.configCommPortToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
             this.configCommPortToolStripMenuItem.Text = "Configure Comm Port";
             this.configCommPortToolStripMenuItem.Click += new System.EventHandler(this.configCommPortToolStripMenuItem_Click);
+            // 
+            // calibrationToolStripMenuItem
+            // 
+            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
+            this.calibrationToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
+            this.calibrationToolStripMenuItem.Text = "Calibration";
             // 
             // helpToolStripMenuItem
             // 
@@ -221,7 +237,7 @@
             // 
             this.labelBoxTimeRemaining.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxTimeRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(254, 475);
+            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(790, 243);
             this.labelBoxTimeRemaining.Name = "labelBoxTimeRemaining";
             this.labelBoxTimeRemaining.Size = new System.Drawing.Size(100, 23);
             this.labelBoxTimeRemaining.TabIndex = 16;
@@ -231,45 +247,49 @@
             // 
             this.labelBoxLoops.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxLoops.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxLoops.Location = new System.Drawing.Point(254, 447);
+            this.labelBoxLoops.Location = new System.Drawing.Point(790, 210);
             this.labelBoxLoops.Name = "labelBoxLoops";
             this.labelBoxLoops.Size = new System.Drawing.Size(100, 23);
             this.labelBoxLoops.TabIndex = 17;
+            this.labelBoxLoops.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.SystemColors.Window;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(254, 394);
+            this.label4.Location = new System.Drawing.Point(790, 152);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 18;
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.SystemColors.Window;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(254, 371);
+            this.label5.Location = new System.Drawing.Point(790, 124);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 19;
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // labelMotorPos
             // 
-            this.label6.BackColor = System.Drawing.SystemColors.Window;
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(254, 345);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 23);
-            this.label6.TabIndex = 20;
+            this.labelMotorPos.BackColor = System.Drawing.SystemColors.Window;
+            this.labelMotorPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelMotorPos.Location = new System.Drawing.Point(790, 98);
+            this.labelMotorPos.Name = "labelMotorPos";
+            this.labelMotorPos.Size = new System.Drawing.Size(100, 23);
+            this.labelMotorPos.TabIndex = 20;
+            this.labelMotorPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelTestInProgress
             // 
             this.labelTestInProgress.BackColor = System.Drawing.Color.Red;
             this.labelTestInProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTestInProgress.Location = new System.Drawing.Point(15, 525);
+            this.labelTestInProgress.Location = new System.Drawing.Point(12, 376);
             this.labelTestInProgress.Name = "labelTestInProgress";
-            this.labelTestInProgress.Size = new System.Drawing.Size(783, 40);
+            this.labelTestInProgress.Size = new System.Drawing.Size(996, 27);
             this.labelTestInProgress.TabIndex = 21;
             this.labelTestInProgress.Text = "TEST IN PROGRESS";
             this.labelTestInProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -282,18 +302,19 @@
             // 
             // consoleRichTextBox
             // 
-            this.consoleRichTextBox.Location = new System.Drawing.Point(510, 31);
+            this.consoleRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 42);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
             this.consoleRichTextBox.ReadOnly = true;
-            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 386);
+            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 331);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
             // 
             // closeCommBtn
             // 
-            this.closeCommBtn.Location = new System.Drawing.Point(245, 39);
+            this.closeCommBtn.Location = new System.Drawing.Point(12, 98);
             this.closeCommBtn.Name = "closeCommBtn";
-            this.closeCommBtn.Size = new System.Drawing.Size(139, 30);
+            this.closeCommBtn.Size = new System.Drawing.Size(226, 30);
             this.closeCommBtn.TabIndex = 23;
             this.closeCommBtn.Text = "Close Comm";
             this.closeCommBtn.UseVisualStyleBackColor = true;
@@ -302,24 +323,25 @@
             // labelAmbientTemp
             // 
             this.labelAmbientTemp.AutoSize = true;
-            this.labelAmbientTemp.Location = new System.Drawing.Point(19, 297);
+            this.labelAmbientTemp.Location = new System.Drawing.Point(542, 49);
             this.labelAmbientTemp.Name = "labelAmbientTemp";
-            this.labelAmbientTemp.Size = new System.Drawing.Size(145, 17);
+            this.labelAmbientTemp.Size = new System.Drawing.Size(181, 17);
             this.labelAmbientTemp.TabIndex = 24;
-            this.labelAmbientTemp.Text = "Ambient Temperature";
+            this.labelAmbientTemp.Text = "Ambient Temperature (°F) :";
             // 
             // labelBoxAmbientTemp
             // 
             this.labelBoxAmbientTemp.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxAmbientTemp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxAmbientTemp.Location = new System.Drawing.Point(254, 291);
+            this.labelBoxAmbientTemp.Location = new System.Drawing.Point(790, 46);
             this.labelBoxAmbientTemp.Name = "labelBoxAmbientTemp";
             this.labelBoxAmbientTemp.Size = new System.Drawing.Size(100, 23);
             this.labelBoxAmbientTemp.TabIndex = 25;
+            this.labelBoxAmbientTemp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // readTempBtn
             // 
-            this.readTempBtn.Location = new System.Drawing.Point(360, 291);
+            this.readTempBtn.Location = new System.Drawing.Point(896, 46);
             this.readTempBtn.Name = "readTempBtn";
             this.readTempBtn.Size = new System.Drawing.Size(120, 24);
             this.readTempBtn.TabIndex = 26;
@@ -327,18 +349,62 @@
             this.readTempBtn.UseVisualStyleBackColor = true;
             this.readTempBtn.Click += new System.EventHandler(this.readTempBtn_Click);
             // 
+            // readPosBtn
+            // 
+            this.readPosBtn.Location = new System.Drawing.Point(896, 101);
+            this.readPosBtn.Name = "readPosBtn";
+            this.readPosBtn.Size = new System.Drawing.Size(120, 24);
+            this.readPosBtn.TabIndex = 27;
+            this.readPosBtn.Text = "Read Position";
+            this.readPosBtn.UseVisualStyleBackColor = true;
+            this.readPosBtn.Click += new System.EventHandler(this.readPosBtn_Click);
+            // 
+            // labelRefreshRate
+            // 
+            this.labelRefreshRate.AutoSize = true;
+            this.labelRefreshRate.Location = new System.Drawing.Point(542, 337);
+            this.labelRefreshRate.Name = "labelRefreshRate";
+            this.labelRefreshRate.Size = new System.Drawing.Size(134, 17);
+            this.labelRefreshRate.TabIndex = 28;
+            this.labelRefreshRate.Text = "Refresh/Data Rate :";
+            // 
+            // comboBoxRefreshRate
+            // 
+            this.comboBoxRefreshRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRefreshRate.FormattingEnabled = true;
+            this.comboBoxRefreshRate.Items.AddRange(new object[] {
+            "100ms",
+            "250ms",
+            "500ms",
+            "1000ms",
+            "2000ms",
+            "5000ms"});
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(790, 334);
+            this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
+            this.comboBoxRefreshRate.Size = new System.Drawing.Size(126, 24);
+            this.comboBoxRefreshRate.TabIndex = 29;
+            this.comboBoxRefreshRate.SelectedIndexChanged += new System.EventHandler(this.comboBoxRefreshRate_SelectedIndexChanged);
+            // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Interval = 1000;
+            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 574);
+            this.ClientSize = new System.Drawing.Size(1020, 407);
+            this.Controls.Add(this.comboBoxRefreshRate);
+            this.Controls.Add(this.labelRefreshRate);
+            this.Controls.Add(this.readPosBtn);
             this.Controls.Add(this.readTempBtn);
             this.Controls.Add(this.labelBoxAmbientTemp);
             this.Controls.Add(this.labelAmbientTemp);
             this.Controls.Add(this.closeCommBtn);
             this.Controls.Add(this.consoleRichTextBox);
             this.Controls.Add(this.labelTestInProgress);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.labelMotorPos);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelBoxLoops);
@@ -353,6 +419,7 @@
             this.Controls.Add(this.testSetupBtn);
             this.Controls.Add(this.openCommBtn);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Cable Twist/Pull Test App";
@@ -387,7 +454,7 @@
         private System.Windows.Forms.Label labelBoxLoops;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelMotorPos;
         private System.Windows.Forms.Label labelTestInProgress;
         private System.Windows.Forms.Timer labelTestInProgressTimer;
         private System.Windows.Forms.ToolStripMenuItem configCommPortToolStripMenuItem;
@@ -397,6 +464,11 @@
         private System.Windows.Forms.Label labelAmbientTemp;
         private System.Windows.Forms.Label labelBoxAmbientTemp;
         private System.Windows.Forms.Button readTempBtn;
+        private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
+        private System.Windows.Forms.Button readPosBtn;
+        private System.Windows.Forms.Label labelRefreshRate;
+        private System.Windows.Forms.ComboBox comboBoxRefreshRate;
+        private System.Windows.Forms.Timer timerRefresh;
     }
 }
 

@@ -186,20 +186,20 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(21, 70);
+            this.label2.Location = new System.Drawing.Point(8, 70);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 22);
+            this.label2.Size = new System.Drawing.Size(103, 22);
             this.label2.TabIndex = 1;
             this.label2.Text = "Baud Rate :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(21, 32);
+            this.label1.Location = new System.Drawing.Point(2, 32);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 22);
+            this.label1.Size = new System.Drawing.Size(109, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Comm Port :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
