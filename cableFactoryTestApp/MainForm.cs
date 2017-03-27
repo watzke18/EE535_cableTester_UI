@@ -20,7 +20,8 @@ namespace cableFactoryTestApp
         public int test_duration;
         public int rest_duration;
         public float force_applied;
-        public int loops;
+        public int loops_completed;
+        public int total_loops;
         public int stop_on_break;
 
         public float data_rate;
@@ -50,7 +51,7 @@ namespace cableFactoryTestApp
         {
 
             m_Comm.LoadSettings();
-            closeCommBtn.Visible = false;
+            closeCommBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
@@ -61,14 +62,15 @@ namespace cableFactoryTestApp
             m_testParameters.test_duration = 5;
             m_testParameters.rest_duration = 3;
             m_testParameters.force_applied = 1.0F;
-            m_testParameters.loops = 0;
+            m_testParameters.loops_completed = 0;
+            m_testParameters.total_loops = 1;
             m_testParameters.data_rate = 1000F; //in ms
             m_testParameters.stop_on_break = 0;
 
             _labelToggle = false;
             _testInProgress = false;
 
-            comboBoxRefreshRate.Text = "1000";
+            comboBoxRefreshRate.Text = "1000ms";
 
 
            
@@ -114,7 +116,7 @@ namespace cableFactoryTestApp
             xlWorkSheet.Cells[5, 2] = m_testParameters.force_applied;
             xlWorkSheet.Cells[5, 3] = m_testParameters.test_duration;
             xlWorkSheet.Cells[5, 4] = m_testParameters.rest_duration;
-            xlWorkSheet.Cells[5, 5] = m_testParameters.loops;
+            xlWorkSheet.Cells[5, 5] = m_testParameters.total_loops;
             xlWorkSheet.Cells[5, 6] = m_testParameters.stop_on_break;
 
             xlWorkSheet.Cells[6, 1] = "Raw Data";
@@ -170,6 +172,7 @@ namespace cableFactoryTestApp
   
         public void AppendConsoleText(string str)
         {
+            consoleRichTextBox.Focus();
             consoleRichTextBox.AppendText(">" + str + "\n");
         }
 
@@ -240,7 +243,7 @@ namespace cableFactoryTestApp
             {
                 AppendConsoleText(m_Comm.getPortSettings().port_name + " Opened Successfully");
                 openCommBtn.Enabled = false;
-                closeCommBtn.Visible = true;
+                closeCommBtn.Enabled = true;
                 testSetupBtn.Enabled = true;
             }
         }
@@ -253,7 +256,7 @@ namespace cableFactoryTestApp
             openCommBtn.Enabled = true;
             comboBoxRefreshRate.Enabled = true;
 
-            closeCommBtn.Visible = false;
+            closeCommBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
@@ -261,6 +264,7 @@ namespace cableFactoryTestApp
             labelTestInProgressTimer.Enabled = false;
             labelTestInProgress.Visible = false;
             labelBoxTimeRemaining.Text = "";
+            labelBoxLoops.Text = "";
 
         }
 
@@ -274,8 +278,9 @@ namespace cableFactoryTestApp
             {
                 string testString = "";
                 m_testParameters = m_testSetup.m_testParameters;
-                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
+                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
                 resetTimer(); //reset timer with time entered in test setup
+                labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
                 //if(transmit_message())
                 startTestBtn.Enabled = true;
 
@@ -399,7 +404,6 @@ namespace cableFactoryTestApp
         {
             _startTime = m_testParameters.test_duration * 60;
             labelBoxTimeRemaining.Text = _startTime / 60 + ":" + ((_startTime % 60) >= 10 ? (_startTime % 60).ToString() : "0" + _startTime % 60);
-
         }
 
         private void timeRemainingTimer_Tick(object sender, EventArgs e)
@@ -485,7 +489,7 @@ namespace cableFactoryTestApp
                         m_Comm.setPortSettings(dlg.m_Settings);
                     }
 
-                    closeCommBtn.Visible = false;
+                    closeCommBtn.Enabled = false;
                     openCommBtn.Enabled = true;
 
                     //m_Comm.Open();

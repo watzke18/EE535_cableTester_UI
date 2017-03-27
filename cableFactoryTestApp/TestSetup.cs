@@ -23,7 +23,7 @@ namespace cableFactoryTestApp
         {
             textBoxCableType.Text = m_testParameters.cable_description;
             numericUpDownForce.Value = (decimal)m_testParameters.force_applied;
-            numericUpDownTestLoops.Value = m_testParameters.loops;
+            numericUpDownTestLoops.Value = m_testParameters.total_loops;
             numericUpDownTest.Value = m_testParameters.test_duration;
             numericUpDownRest.Value = m_testParameters.rest_duration;
 
@@ -41,7 +41,7 @@ namespace cableFactoryTestApp
         {
             m_testParameters.cable_description = textBoxCableType.Text;
             m_testParameters.force_applied = (float)numericUpDownForce.Value;
-            m_testParameters.loops = (int)numericUpDownTestLoops.Value;
+            m_testParameters.total_loops = (int)numericUpDownTestLoops.Value;
             m_testParameters.test_duration = (int)numericUpDownTest.Value;
             m_testParameters.rest_duration = (int)numericUpDownRest.Value;
 

@@ -80,7 +80,7 @@
             // 
             // testSetupBtn
             // 
-            this.testSetupBtn.Location = new System.Drawing.Point(12, 134);
+            this.testSetupBtn.Location = new System.Drawing.Point(12, 186);
             this.testSetupBtn.Name = "testSetupBtn";
             this.testSetupBtn.Size = new System.Drawing.Size(226, 52);
             this.testSetupBtn.TabIndex = 2;
@@ -379,9 +379,9 @@
             "1000ms",
             "2000ms",
             "5000ms"});
-            this.comboBoxRefreshRate.Location = new System.Drawing.Point(790, 330);
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(790, 334);
             this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
-            this.comboBoxRefreshRate.Size = new System.Drawing.Size(100, 24);
+            this.comboBoxRefreshRate.Size = new System.Drawing.Size(126, 24);
             this.comboBoxRefreshRate.TabIndex = 29;
             this.comboBoxRefreshRate.SelectedIndexChanged += new System.EventHandler(this.comboBoxRefreshRate_SelectedIndexChanged);
             // 
