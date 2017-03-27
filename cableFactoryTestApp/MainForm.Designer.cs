@@ -64,12 +64,13 @@
             this.readPosBtn = new System.Windows.Forms.Button();
             this.labelRefreshRate = new System.Windows.Forms.Label();
             this.comboBoxRefreshRate = new System.Windows.Forms.ComboBox();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openCommBtn
             // 
-            this.openCommBtn.Location = new System.Drawing.Point(12, 39);
+            this.openCommBtn.Location = new System.Drawing.Point(12, 42);
             this.openCommBtn.Name = "openCommBtn";
             this.openCommBtn.Size = new System.Drawing.Size(226, 50);
             this.openCommBtn.TabIndex = 0;
@@ -79,7 +80,7 @@
             // 
             // testSetupBtn
             // 
-            this.testSetupBtn.Location = new System.Drawing.Point(12, 95);
+            this.testSetupBtn.Location = new System.Drawing.Point(12, 134);
             this.testSetupBtn.Name = "testSetupBtn";
             this.testSetupBtn.Size = new System.Drawing.Size(226, 52);
             this.testSetupBtn.TabIndex = 2;
@@ -89,7 +90,7 @@
             // 
             // startTestBtn
             // 
-            this.startTestBtn.Location = new System.Drawing.Point(12, 153);
+            this.startTestBtn.Location = new System.Drawing.Point(12, 244);
             this.startTestBtn.Name = "startTestBtn";
             this.startTestBtn.Size = new System.Drawing.Size(226, 50);
             this.startTestBtn.TabIndex = 3;
@@ -102,7 +103,7 @@
             this.abortTestBtn.BackColor = System.Drawing.Color.DarkRed;
             this.abortTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.abortTestBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.abortTestBtn.Location = new System.Drawing.Point(12, 209);
+            this.abortTestBtn.Location = new System.Drawing.Point(12, 300);
             this.abortTestBtn.Name = "abortTestBtn";
             this.abortTestBtn.Size = new System.Drawing.Size(226, 54);
             this.abortTestBtn.TabIndex = 4;
@@ -113,7 +114,7 @@
             // labelSpinMotorStatus
             // 
             this.labelSpinMotorStatus.AutoSize = true;
-            this.labelSpinMotorStatus.Location = new System.Drawing.Point(19, 348);
+            this.labelSpinMotorStatus.Location = new System.Drawing.Point(542, 104);
             this.labelSpinMotorStatus.Name = "labelSpinMotorStatus";
             this.labelSpinMotorStatus.Size = new System.Drawing.Size(199, 17);
             this.labelSpinMotorStatus.TabIndex = 5;
@@ -122,7 +123,7 @@
             // labelLoadSensorStatus
             // 
             this.labelLoadSensorStatus.AutoSize = true;
-            this.labelLoadSensorStatus.Location = new System.Drawing.Point(19, 374);
+            this.labelLoadSensorStatus.Location = new System.Drawing.Point(542, 130);
             this.labelLoadSensorStatus.Name = "labelLoadSensorStatus";
             this.labelLoadSensorStatus.Size = new System.Drawing.Size(141, 17);
             this.labelLoadSensorStatus.TabIndex = 6;
@@ -131,7 +132,7 @@
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(19, 397);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(542, 158);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
             this.labelContinuityStatus.Size = new System.Drawing.Size(122, 17);
             this.labelContinuityStatus.TabIndex = 7;
@@ -140,7 +141,7 @@
             // labelLoops
             // 
             this.labelLoops.AutoSize = true;
-            this.labelLoops.Location = new System.Drawing.Point(15, 450);
+            this.labelLoops.Location = new System.Drawing.Point(542, 216);
             this.labelLoops.Name = "labelLoops";
             this.labelLoops.Size = new System.Drawing.Size(126, 17);
             this.labelLoops.TabIndex = 8;
@@ -149,7 +150,7 @@
             // labelTimeRemain
             // 
             this.labelTimeRemain.AutoSize = true;
-            this.labelTimeRemain.Location = new System.Drawing.Point(19, 478);
+            this.labelTimeRemain.Location = new System.Drawing.Point(542, 246);
             this.labelTimeRemain.Name = "labelTimeRemain";
             this.labelTimeRemain.Size = new System.Drawing.Size(118, 17);
             this.labelTimeRemain.TabIndex = 9;
@@ -164,7 +165,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(812, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1020, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -236,7 +237,7 @@
             // 
             this.labelBoxTimeRemaining.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxTimeRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(254, 475);
+            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(790, 243);
             this.labelBoxTimeRemaining.Name = "labelBoxTimeRemaining";
             this.labelBoxTimeRemaining.Size = new System.Drawing.Size(100, 23);
             this.labelBoxTimeRemaining.TabIndex = 16;
@@ -246,7 +247,7 @@
             // 
             this.labelBoxLoops.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxLoops.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxLoops.Location = new System.Drawing.Point(254, 447);
+            this.labelBoxLoops.Location = new System.Drawing.Point(790, 210);
             this.labelBoxLoops.Name = "labelBoxLoops";
             this.labelBoxLoops.Size = new System.Drawing.Size(100, 23);
             this.labelBoxLoops.TabIndex = 17;
@@ -256,7 +257,7 @@
             // 
             this.label4.BackColor = System.Drawing.SystemColors.Window;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(254, 394);
+            this.label4.Location = new System.Drawing.Point(790, 152);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 18;
@@ -266,7 +267,7 @@
             // 
             this.label5.BackColor = System.Drawing.SystemColors.Window;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(254, 371);
+            this.label5.Location = new System.Drawing.Point(790, 124);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 19;
@@ -276,7 +277,7 @@
             // 
             this.labelMotorPos.BackColor = System.Drawing.SystemColors.Window;
             this.labelMotorPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelMotorPos.Location = new System.Drawing.Point(254, 345);
+            this.labelMotorPos.Location = new System.Drawing.Point(790, 98);
             this.labelMotorPos.Name = "labelMotorPos";
             this.labelMotorPos.Size = new System.Drawing.Size(100, 23);
             this.labelMotorPos.TabIndex = 20;
@@ -286,9 +287,9 @@
             // 
             this.labelTestInProgress.BackColor = System.Drawing.Color.Red;
             this.labelTestInProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTestInProgress.Location = new System.Drawing.Point(12, 507);
+            this.labelTestInProgress.Location = new System.Drawing.Point(12, 376);
             this.labelTestInProgress.Name = "labelTestInProgress";
-            this.labelTestInProgress.Size = new System.Drawing.Size(788, 27);
+            this.labelTestInProgress.Size = new System.Drawing.Size(996, 27);
             this.labelTestInProgress.TabIndex = 21;
             this.labelTestInProgress.Text = "TEST IN PROGRESS";
             this.labelTestInProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -301,18 +302,19 @@
             // 
             // consoleRichTextBox
             // 
-            this.consoleRichTextBox.Location = new System.Drawing.Point(510, 31);
+            this.consoleRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 42);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
             this.consoleRichTextBox.ReadOnly = true;
-            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 386);
+            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 331);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
             // 
             // closeCommBtn
             // 
-            this.closeCommBtn.Location = new System.Drawing.Point(245, 39);
+            this.closeCommBtn.Location = new System.Drawing.Point(12, 98);
             this.closeCommBtn.Name = "closeCommBtn";
-            this.closeCommBtn.Size = new System.Drawing.Size(139, 30);
+            this.closeCommBtn.Size = new System.Drawing.Size(226, 30);
             this.closeCommBtn.TabIndex = 23;
             this.closeCommBtn.Text = "Close Comm";
             this.closeCommBtn.UseVisualStyleBackColor = true;
@@ -321,7 +323,7 @@
             // labelAmbientTemp
             // 
             this.labelAmbientTemp.AutoSize = true;
-            this.labelAmbientTemp.Location = new System.Drawing.Point(19, 294);
+            this.labelAmbientTemp.Location = new System.Drawing.Point(542, 49);
             this.labelAmbientTemp.Name = "labelAmbientTemp";
             this.labelAmbientTemp.Size = new System.Drawing.Size(181, 17);
             this.labelAmbientTemp.TabIndex = 24;
@@ -331,7 +333,7 @@
             // 
             this.labelBoxAmbientTemp.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxAmbientTemp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxAmbientTemp.Location = new System.Drawing.Point(254, 291);
+            this.labelBoxAmbientTemp.Location = new System.Drawing.Point(790, 46);
             this.labelBoxAmbientTemp.Name = "labelBoxAmbientTemp";
             this.labelBoxAmbientTemp.Size = new System.Drawing.Size(100, 23);
             this.labelBoxAmbientTemp.TabIndex = 25;
@@ -339,7 +341,7 @@
             // 
             // readTempBtn
             // 
-            this.readTempBtn.Location = new System.Drawing.Point(360, 291);
+            this.readTempBtn.Location = new System.Drawing.Point(896, 46);
             this.readTempBtn.Name = "readTempBtn";
             this.readTempBtn.Size = new System.Drawing.Size(120, 24);
             this.readTempBtn.TabIndex = 26;
@@ -349,7 +351,7 @@
             // 
             // readPosBtn
             // 
-            this.readPosBtn.Location = new System.Drawing.Point(360, 344);
+            this.readPosBtn.Location = new System.Drawing.Point(896, 101);
             this.readPosBtn.Name = "readPosBtn";
             this.readPosBtn.Size = new System.Drawing.Size(120, 24);
             this.readPosBtn.TabIndex = 27;
@@ -360,33 +362,39 @@
             // labelRefreshRate
             // 
             this.labelRefreshRate.AutoSize = true;
-            this.labelRefreshRate.Location = new System.Drawing.Point(507, 456);
+            this.labelRefreshRate.Location = new System.Drawing.Point(542, 337);
             this.labelRefreshRate.Name = "labelRefreshRate";
-            this.labelRefreshRate.Size = new System.Drawing.Size(130, 17);
+            this.labelRefreshRate.Size = new System.Drawing.Size(134, 17);
             this.labelRefreshRate.TabIndex = 28;
-            this.labelRefreshRate.Text = "Refresh/Data Rate:";
+            this.labelRefreshRate.Text = "Refresh/Data Rate :";
             // 
             // comboBoxRefreshRate
             // 
+            this.comboBoxRefreshRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRefreshRate.FormattingEnabled = true;
             this.comboBoxRefreshRate.Items.AddRange(new object[] {
             "100ms",
+            "250ms",
             "500ms",
             "1000ms",
             "2000ms",
             "5000ms"});
-            this.comboBoxRefreshRate.Location = new System.Drawing.Point(677, 453);
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(790, 330);
             this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
-            this.comboBoxRefreshRate.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxRefreshRate.Size = new System.Drawing.Size(100, 24);
             this.comboBoxRefreshRate.TabIndex = 29;
-            this.comboBoxRefreshRate.Text = "1000ms";
-            this.comboBoxRefreshRate.TextChanged += new System.EventHandler(this.comboBoxRefreshRate_TextChanged);
+            this.comboBoxRefreshRate.SelectedIndexChanged += new System.EventHandler(this.comboBoxRefreshRate_SelectedIndexChanged);
+            // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Interval = 1000;
+            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 540);
+            this.ClientSize = new System.Drawing.Size(1020, 407);
             this.Controls.Add(this.comboBoxRefreshRate);
             this.Controls.Add(this.labelRefreshRate);
             this.Controls.Add(this.readPosBtn);
@@ -460,6 +468,7 @@
         private System.Windows.Forms.Button readPosBtn;
         private System.Windows.Forms.Label labelRefreshRate;
         private System.Windows.Forms.ComboBox comboBoxRefreshRate;
+        private System.Windows.Forms.Timer timerRefresh;
     }
 }
 

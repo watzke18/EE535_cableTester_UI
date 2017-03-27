@@ -22,12 +22,12 @@ namespace cableFactoryTestApp
         public void TestSetup_Load(object sender, EventArgs e)
         {
             textBoxCableType.Text = m_testParameters.cable_description;
-            numericUpDownForce.Value = m_testParameters.force_applied;
+            numericUpDownForce.Value = (decimal)m_testParameters.force_applied;
             numericUpDownTestLoops.Value = m_testParameters.loops;
             numericUpDownTest.Value = m_testParameters.test_duration;
             numericUpDownRest.Value = m_testParameters.rest_duration;
 
-            if(m_testParameters.stop_on_break)
+            if(m_testParameters.stop_on_break == 1)
             {
                 comboBoxContinuity.Text = "Yes";
             }
@@ -40,18 +40,18 @@ namespace cableFactoryTestApp
         private void testSetupOkBtn_Click(object sender, EventArgs e)
         {
             m_testParameters.cable_description = textBoxCableType.Text;
-            m_testParameters.force_applied = (int)numericUpDownForce.Value;
+            m_testParameters.force_applied = (float)numericUpDownForce.Value;
             m_testParameters.loops = (int)numericUpDownTestLoops.Value;
             m_testParameters.test_duration = (int)numericUpDownTest.Value;
             m_testParameters.rest_duration = (int)numericUpDownRest.Value;
 
             if(comboBoxContinuity.Text == "Yes")
             {
-                m_testParameters.stop_on_break = true;
+                m_testParameters.stop_on_break = 1;
             }
             else
             {
-                m_testParameters.stop_on_break = false;
+                m_testParameters.stop_on_break = 0;
             }
         }
 

@@ -19,9 +19,11 @@ namespace cableFactoryTestApp
         public string cable_description;
         public int test_duration;
         public int rest_duration;
-        public int force_applied;
+        public float force_applied;
         public int loops;
-        public bool stop_on_break;
+        public int stop_on_break;
+
+        public float data_rate;
     }
 
 
@@ -31,10 +33,7 @@ namespace cableFactoryTestApp
         public commPort m_Comm = new commPort();
         public static TestParameters m_testParameters = new TestParameters();
 
-       
-
         private int _startTime;
-        private string _refreshRate; //in ms
         private bool _labelToggle;
         private bool _testInProgress;
 
@@ -58,19 +57,79 @@ namespace cableFactoryTestApp
 
             /* set default test parameters */
 
-            m_testParameters.cable_description = " ";
+            m_testParameters.cable_description = "";
             m_testParameters.test_duration = 5;
             m_testParameters.rest_duration = 3;
-            m_testParameters.force_applied = 1;
+            m_testParameters.force_applied = 1.0F;
             m_testParameters.loops = 0;
+            m_testParameters.data_rate = 1000F; //in ms
+            m_testParameters.stop_on_break = 0;
 
-            _refreshRate = "1000ms";
             _labelToggle = false;
             _testInProgress = false;
+
+            comboBoxRefreshRate.Text = "1000";
 
 
            
         }
+
+        private void openExcelCOM()
+        {
+            Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+
+            if (xlApp == null)
+            {
+                MessageBox.Show("Excel is not properly installed!");
+                return;
+            }
+
+            xlApp.Visible = true;
+
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+
+
+
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+
+            /*xlWorkSheet.Range[xlWorkSheet.Cells[1, 1], xlWorkSheet.Cells[1, 10]].Merge();
+            xlWorkSheet.Range[xlWorkSheet.Cells[2, 1], xlWorkSheet.Cells[2, 20]].Merge();
+            xlWorkSheet.Range[xlWorkSheet.Cells[3, 1], xlWorkSheet.Cells[3, 2]].Merge();*/
+
+
+            xlWorkSheet.Cells[1, 1] = "Cable Testing Data";
+            xlWorkSheet.Cells[2, 1] = "Cable Type/Description: " + m_testParameters.cable_description;
+            xlWorkSheet.Cells[3, 1] = "Test Parameters";
+            xlWorkSheet.Cells[4, 2] = "Force Applied (kg)";
+            xlWorkSheet.Cells[4, 3] = "Test Duration (min)";
+            xlWorkSheet.Cells[4, 4] = "Rest Duration (min)";
+            xlWorkSheet.Cells[4, 5] = "Test Repitions";
+            xlWorkSheet.Cells[4, 6] = "Stop on Break";
+
+
+            xlWorkSheet.Cells[5, 2] = m_testParameters.force_applied;
+            xlWorkSheet.Cells[5, 3] = m_testParameters.test_duration;
+            xlWorkSheet.Cells[5, 4] = m_testParameters.rest_duration;
+            xlWorkSheet.Cells[5, 5] = m_testParameters.loops;
+            xlWorkSheet.Cells[5, 6] = m_testParameters.stop_on_break;
+
+            xlWorkSheet.Cells[6, 1] = "Raw Data";
+            xlWorkSheet.Cells[7, 1] = "Time";
+            xlWorkSheet.Cells[7, 2] = "Force Applied (kg)";
+            xlWorkSheet.Cells[7, 3] = "Spin Motor Position";
+            xlWorkSheet.Cells[7, 4] = "Continuity Status";
+
+
+
+            Excel.Range usedrange = xlWorkSheet.UsedRange;
+            usedrange.Columns.AutoFit();
+            //     xlWorkBook.SaveAs("cable-tester-data1.xls");
+        }
+
 
         private void exportExcel()
         {
@@ -102,10 +161,63 @@ namespace cableFactoryTestApp
          
 
         }
+
+        private string buildTestString(int lot, int lor, int testReps, float force, int spinDegree, int stopOnBreak, float dataRate)
+        {
+            string testString = "";
+            return testString = lot + " " + lor + " " + testReps + " " + force + " " + spinDegree + " " + stopOnBreak + " " + dataRate;
+        }
   
         public void AppendConsoleText(string str)
         {
             consoleRichTextBox.AppendText(">" + str + "\n");
+        }
+
+        public void enterTestMode()
+        {
+            _testInProgress = true;
+            timeRemainingTimer.Enabled = true;
+            labelTestInProgressTimer.Enabled = true;
+            labelTestInProgress.Visible = true;
+            abortTestBtn.Enabled = true;
+            startTestBtn.Enabled = false;
+            testSetupBtn.Enabled = false;
+            comboBoxRefreshRate.Enabled = false;
+
+            if (transmit_message("START"))
+            {
+                AppendConsoleText("Starting Test");
+                _testInProgress = true;
+            }
+            else
+            {
+                AppendConsoleText("Failed to send START command to micro");
+            }
+
+        }
+
+        public void exitTestMode()
+        {
+            if(transmit_message("STOP"))
+            {
+                _testInProgress = false;
+
+                AppendConsoleText("Test Finished");
+                timeRemainingTimer.Enabled = false;
+                labelTestInProgressTimer.Enabled = false;
+                labelTestInProgress.Visible = false;
+
+                testSetupBtn.Enabled = true;
+                abortTestBtn.Enabled = false;
+            }
+            else
+            {
+                AppendConsoleText("Failed to issue STOP command when test complete");
+            }
+
+            
+            
+
         }
 
         /*********************************************************************
@@ -131,7 +243,6 @@ namespace cableFactoryTestApp
                 closeCommBtn.Visible = true;
                 testSetupBtn.Enabled = true;
             }
-
         }
 
         private void closeCommBtn_Click(object sender, EventArgs e)
@@ -161,8 +272,11 @@ namespace cableFactoryTestApp
 
             if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
             {
+                string testString = "";
                 m_testParameters = m_testSetup.m_testParameters;
+                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
                 resetTimer(); //reset timer with time entered in test setup
+                //if(transmit_message())
                 startTestBtn.Enabled = true;
 
               
@@ -171,111 +285,29 @@ namespace cableFactoryTestApp
             }
         }
 
-        private void openExcelCOM()
-        {
-            Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-
-            if (xlApp == null)
-            {
-                MessageBox.Show("Excel is not properly installed!");
-                return;
-            }
-
-            xlApp.Visible = true;
-
-            Excel.Workbook xlWorkBook;
-            Excel.Worksheet xlWorkSheet;
-            object misValue = System.Reflection.Missing.Value;
-
-           
-
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
-            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-     
-
-            /*xlWorkSheet.Range[xlWorkSheet.Cells[1, 1], xlWorkSheet.Cells[1, 10]].Merge();
-            xlWorkSheet.Range[xlWorkSheet.Cells[2, 1], xlWorkSheet.Cells[2, 20]].Merge();
-            xlWorkSheet.Range[xlWorkSheet.Cells[3, 1], xlWorkSheet.Cells[3, 2]].Merge();*/
-
-
-            xlWorkSheet.Cells[1, 1] = "Cable Testing Data";
-            xlWorkSheet.Cells[2, 1] = "Cable Type/Description: " + m_testParameters.cable_description;
-            xlWorkSheet.Cells[3, 1] = "Test Parameters";
-            xlWorkSheet.Cells[4, 2] = "Force Applied (kg)";
-            xlWorkSheet.Cells[4, 3] = "Test Duration (min)";
-            xlWorkSheet.Cells[4, 4] = "Rest Duration (min)";
-            xlWorkSheet.Cells[4, 5] = "Test Repitions";
-            xlWorkSheet.Cells[4, 6] = "Stop on Break";
-
-         
-            xlWorkSheet.Cells[5, 2] = m_testParameters.force_applied;
-            xlWorkSheet.Cells[5, 3] = m_testParameters.test_duration;
-            xlWorkSheet.Cells[5, 4] = m_testParameters.rest_duration;
-            xlWorkSheet.Cells[5, 5] = m_testParameters.loops;
-            xlWorkSheet.Cells[5, 6] = m_testParameters.stop_on_break;
-
-            xlWorkSheet.Cells[6, 1] = "Raw Data";
-            xlWorkSheet.Cells[7, 1] = "Time";
-            xlWorkSheet.Cells[7, 2] = "Force Applied (kg)";
-            xlWorkSheet.Cells[7, 3] = "Spin Motor Position";
-            xlWorkSheet.Cells[7, 4] = "Continuity Status";
-
-
-
-            Excel.Range usedrange = xlWorkSheet.UsedRange;
-            usedrange.Columns.AutoFit();
-
-
-
-
-
-            //     xlWorkBook.SaveAs("cable-tester-data1.xls");
-        }
+ 
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             //write outputs command
             openExcelCOM();
-
-            timeRemainingTimer.Enabled = true;
-            labelTestInProgressTimer.Enabled = true;
-            labelTestInProgress.Visible = true;
-            abortTestBtn.Enabled = true;
-            startTestBtn.Enabled = false;
-            testSetupBtn.Enabled = false;
-            comboBoxRefreshRate.Enabled = false;
-
-            if(transmit_message("START"))
-            {
-                AppendConsoleText("Starting Test");
-                _testInProgress = true;
-            }
-            else
-            {
-                AppendConsoleText("Failed to send START command to micro");
-            }
-
-
-
-
-          
+            enterTestMode();
         }
 
         private void abortTestBtn_Click(object sender, EventArgs e)
         {
             if (transmit_message("STOP"))
             {
-                AppendConsoleText("Stopping Test");
+                AppendConsoleText("Test Aborted!");
                 _testInProgress = false;
             }
             else
             {
-                AppendConsoleText("Failed to send STOP command to micro");
+                AppendConsoleText("Failed to send STOP command to micro on abort! ");
             }
 
             startTestBtn.Enabled = true; 
             testSetupBtn.Enabled = true;
             comboBoxRefreshRate.Enabled = true;
-
 
             abortTestBtn.Enabled = false;
             timeRemainingTimer.Enabled = false;
@@ -283,8 +315,6 @@ namespace cableFactoryTestApp
             labelTestInProgress.Visible = false;
 
             resetTimer();
-
-            AppendConsoleText("Test Aborted!");
          
         }
 
@@ -310,9 +340,43 @@ namespace cableFactoryTestApp
         }
 
 
-        private void comboBoxRefreshRate_TextChanged(object sender, EventArgs e)
+   
+
+        private void comboBoxRefreshRate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _refreshRate = comboBoxRefreshRate.Text;
+            switch (comboBoxRefreshRate.SelectedIndex)
+            {
+                case 0:
+                    timerRefresh.Interval = 100;
+                    m_testParameters.data_rate = 100;
+                    break;
+                case 1:
+                    timerRefresh.Interval = 250;
+                    m_testParameters.data_rate = 250;
+
+                    break;
+                case 2:
+                    timerRefresh.Interval = 500;
+                    m_testParameters.data_rate = 500;
+                    break;
+                case 3:
+                    timerRefresh.Interval = 1000;
+                    m_testParameters.data_rate = 1000;
+                    break;
+                case 4:
+                    timerRefresh.Interval = 2000;
+                    m_testParameters.data_rate = 2000;
+                    break;
+                case 5:
+                    timerRefresh.Interval = 5000;
+                    m_testParameters.data_rate = 5000;
+                    break;
+                default:
+                    timerRefresh.Interval = 1000;
+                    m_testParameters.data_rate = 1000;
+                    comboBoxRefreshRate.SelectedIndex = 1;
+                    break;
+            }
         }
 
 
@@ -338,13 +402,16 @@ namespace cableFactoryTestApp
 
         }
 
-
-
         private void timeRemainingTimer_Tick(object sender, EventArgs e)
         {
           
             labelBoxTimeRemaining.Text = _startTime / 60 + ":" + ((_startTime % 60) >= 10 ? (_startTime % 60).ToString() : "0" + _startTime % 60);
             _startTime--;
+
+            if(_startTime == -1)
+            {
+                exitTestMode();
+            }
            
         }
 
@@ -359,6 +426,11 @@ namespace cableFactoryTestApp
                 labelTestInProgress.Visible = false;
             }
             _labelToggle = !_labelToggle ;
+        }
+
+        private void timerRefresh_Tick(object sender, EventArgs e)
+        {
+
         }
 
         /*********************************************************************
@@ -387,30 +459,40 @@ namespace cableFactoryTestApp
    
         private void configCommPortToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigCOMM dlg = new ConfigCOMM();
 
-            dlg.m_Settings = m_Comm.getPortSettings();
-
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if(_testInProgress)
             {
-                if(m_Comm.isOpen())
-                {
-                    m_Comm.Close();
-                    AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
-                    m_Comm.setPortSettings(dlg.m_Settings);
-                    AppendConsoleText("Click Open Comm Button to Open " + m_Comm.getPortSettings().port_name);
- 
-                }
-                else
-                { 
-                    m_Comm.setPortSettings(dlg.m_Settings);
-                }
-                
-                closeCommBtn.Visible = false;
-                openCommBtn.Enabled = true;
-              
-                //m_Comm.Open();
+                MessageBox.Show("Cannot configure comm port while test is in progress", "Error", MessageBoxButtons.OK);
             }
+            else
+            {
+                ConfigCOMM dlg = new ConfigCOMM();
+
+                dlg.m_Settings = m_Comm.getPortSettings();
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    if (m_Comm.isOpen())
+                    {
+                        m_Comm.Close();
+                        AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
+                        m_Comm.setPortSettings(dlg.m_Settings);
+                        AppendConsoleText("Click Open Comm Button to Open " + m_Comm.getPortSettings().port_name);
+
+                    }
+                    else
+                    {
+                        m_Comm.setPortSettings(dlg.m_Settings);
+                    }
+
+                    closeCommBtn.Visible = false;
+                    openCommBtn.Enabled = true;
+
+                    //m_Comm.Open();
+                }
+
+            }
+           
 
         }
 
@@ -639,6 +721,8 @@ namespace cableFactoryTestApp
                 }
             }
         }
+
+    
 
 
         /*********************************************************************
