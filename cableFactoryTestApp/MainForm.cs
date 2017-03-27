@@ -281,7 +281,14 @@ namespace cableFactoryTestApp
                 testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
                 resetTimer(); //reset timer with time entered in test setup
                 labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
-                //if(transmit_message())
+                if(transmit_message(testString))
+                {
+                    AppendConsoleText("Test Parameters Entered");
+                }
+                else
+                {
+                    AppendConsoleText("Failed to send Test Parameters string");
+                }
                 startTestBtn.Enabled = true;
 
               
