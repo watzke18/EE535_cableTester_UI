@@ -241,6 +241,15 @@ namespace cableFactoryTestApp
             testSetupBtn.Enabled = false;
             comboBoxRefreshRate.Enabled = false;
 
+            if(transmit_message("START"))
+            {
+                AppendConsoleText("Starting Test");
+            }
+            else
+            {
+                AppendConsoleText("Failed to send START command to micro");
+            }
+
 
 
 
@@ -249,6 +258,14 @@ namespace cableFactoryTestApp
 
         private void abortTestBtn_Click(object sender, EventArgs e)
         {
+            if (transmit_message("STOP"))
+            {
+                AppendConsoleText("Stopping Test");
+            }
+            else
+            {
+                AppendConsoleText("Failed to send STOP command to micro");
+            }
 
             startTestBtn.Enabled = true; 
             testSetupBtn.Enabled = true;
@@ -509,26 +526,6 @@ namespace cableFactoryTestApp
         *********************************************************************/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /*********************************************************************
         * 
         * BEGIN MAINFORM SERIAL PORT READ/WRITE COMMANDS
@@ -637,15 +634,6 @@ namespace cableFactoryTestApp
                 }
             }
         }
-
-
-
-
-
-
-
-
-
 
 
         /*********************************************************************
