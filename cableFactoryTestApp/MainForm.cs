@@ -36,6 +36,7 @@ namespace cableFactoryTestApp
         private int _startTime;
         private string _refreshRate; //in ms
         private bool _labelToggle;
+        private bool _testInProgress;
 
 
         public string[] data;
@@ -65,6 +66,7 @@ namespace cableFactoryTestApp
 
             _refreshRate = "1000ms";
             _labelToggle = false;
+            _testInProgress = false;
 
 
            
@@ -147,6 +149,7 @@ namespace cableFactoryTestApp
             timeRemainingTimer.Enabled = false;
             labelTestInProgressTimer.Enabled = false;
             labelTestInProgress.Visible = false;
+            labelBoxTimeRemaining.Text = "";
 
         }
 
@@ -244,6 +247,7 @@ namespace cableFactoryTestApp
             if(transmit_message("START"))
             {
                 AppendConsoleText("Starting Test");
+                _testInProgress = true;
             }
             else
             {
@@ -261,6 +265,7 @@ namespace cableFactoryTestApp
             if (transmit_message("STOP"))
             {
                 AppendConsoleText("Stopping Test");
+                _testInProgress = false;
             }
             else
             {

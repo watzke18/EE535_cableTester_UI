@@ -122,7 +122,7 @@
             // labelLoadSensorStatus
             // 
             this.labelLoadSensorStatus.AutoSize = true;
-            this.labelLoadSensorStatus.Location = new System.Drawing.Point(77, 374);
+            this.labelLoadSensorStatus.Location = new System.Drawing.Point(19, 374);
             this.labelLoadSensorStatus.Name = "labelLoadSensorStatus";
             this.labelLoadSensorStatus.Size = new System.Drawing.Size(141, 17);
             this.labelLoadSensorStatus.TabIndex = 6;
@@ -131,7 +131,7 @@
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(96, 397);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(19, 397);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
             this.labelContinuityStatus.Size = new System.Drawing.Size(122, 17);
             this.labelContinuityStatus.TabIndex = 7;
@@ -140,7 +140,7 @@
             // labelLoops
             // 
             this.labelLoops.AutoSize = true;
-            this.labelLoops.Location = new System.Drawing.Point(92, 450);
+            this.labelLoops.Location = new System.Drawing.Point(15, 450);
             this.labelLoops.Name = "labelLoops";
             this.labelLoops.Size = new System.Drawing.Size(126, 17);
             this.labelLoops.TabIndex = 8;
@@ -149,7 +149,7 @@
             // labelTimeRemain
             // 
             this.labelTimeRemain.AutoSize = true;
-            this.labelTimeRemain.Location = new System.Drawing.Point(100, 481);
+            this.labelTimeRemain.Location = new System.Drawing.Point(19, 478);
             this.labelTimeRemain.Name = "labelTimeRemain";
             this.labelTimeRemain.Size = new System.Drawing.Size(118, 17);
             this.labelTimeRemain.TabIndex = 9;
@@ -286,9 +286,9 @@
             // 
             this.labelTestInProgress.BackColor = System.Drawing.Color.Red;
             this.labelTestInProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTestInProgress.Location = new System.Drawing.Point(15, 525);
+            this.labelTestInProgress.Location = new System.Drawing.Point(12, 507);
             this.labelTestInProgress.Name = "labelTestInProgress";
-            this.labelTestInProgress.Size = new System.Drawing.Size(783, 40);
+            this.labelTestInProgress.Size = new System.Drawing.Size(788, 27);
             this.labelTestInProgress.TabIndex = 21;
             this.labelTestInProgress.Text = "TEST IN PROGRESS";
             this.labelTestInProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -321,7 +321,7 @@
             // labelAmbientTemp
             // 
             this.labelAmbientTemp.AutoSize = true;
-            this.labelAmbientTemp.Location = new System.Drawing.Point(37, 295);
+            this.labelAmbientTemp.Location = new System.Drawing.Point(19, 294);
             this.labelAmbientTemp.Name = "labelAmbientTemp";
             this.labelAmbientTemp.Size = new System.Drawing.Size(181, 17);
             this.labelAmbientTemp.TabIndex = 24;
@@ -386,7 +386,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 574);
+            this.ClientSize = new System.Drawing.Size(812, 540);
             this.Controls.Add(this.comboBoxRefreshRate);
             this.Controls.Add(this.labelRefreshRate);
             this.Controls.Add(this.readPosBtn);
