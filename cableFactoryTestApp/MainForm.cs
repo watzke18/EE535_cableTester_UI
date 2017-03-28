@@ -76,6 +76,7 @@ namespace cableFactoryTestApp
            
         }
 
+        /*
         private void openExcelCOM()
         {
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
@@ -98,9 +99,7 @@ namespace cableFactoryTestApp
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
 
-            /*xlWorkSheet.Range[xlWorkSheet.Cells[1, 1], xlWorkSheet.Cells[1, 10]].Merge();
-            xlWorkSheet.Range[xlWorkSheet.Cells[2, 1], xlWorkSheet.Cells[2, 20]].Merge();
-            xlWorkSheet.Range[xlWorkSheet.Cells[3, 1], xlWorkSheet.Cells[3, 2]].Merge();*/
+     
 
 
             xlWorkSheet.Cells[1, 1] = "Cable Testing Data";
@@ -131,7 +130,12 @@ namespace cableFactoryTestApp
             usedrange.Columns.AutoFit();
             //     xlWorkBook.SaveAs("cable-tester-data1.xls");
         }
+    */
 
+        private void writeCSV(string time, float force, string motorPos, int contStat)
+        {
+
+        }
 
         private void exportExcel()
         {
@@ -301,7 +305,7 @@ namespace cableFactoryTestApp
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             //write outputs command
-            openExcelCOM();
+            //openExcelCOM();
             enterTestMode();
         }
 
