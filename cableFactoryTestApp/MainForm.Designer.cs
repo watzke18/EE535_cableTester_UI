@@ -61,7 +61,6 @@
             this.labelAmbientTemp = new System.Windows.Forms.Label();
             this.labelBoxAmbientTemp = new System.Windows.Forms.Label();
             this.readTempBtn = new System.Windows.Forms.Button();
-            this.readPosBtn = new System.Windows.Forms.Button();
             this.labelRefreshRate = new System.Windows.Forms.Label();
             this.comboBoxRefreshRate = new System.Windows.Forms.ComboBox();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
@@ -349,16 +348,6 @@
             this.readTempBtn.UseVisualStyleBackColor = true;
             this.readTempBtn.Click += new System.EventHandler(this.readTempBtn_Click);
             // 
-            // readPosBtn
-            // 
-            this.readPosBtn.Location = new System.Drawing.Point(896, 101);
-            this.readPosBtn.Name = "readPosBtn";
-            this.readPosBtn.Size = new System.Drawing.Size(120, 24);
-            this.readPosBtn.TabIndex = 27;
-            this.readPosBtn.Text = "Read Position";
-            this.readPosBtn.UseVisualStyleBackColor = true;
-            this.readPosBtn.Click += new System.EventHandler(this.readPosBtn_Click);
-            // 
             // labelRefreshRate
             // 
             this.labelRefreshRate.AutoSize = true;
@@ -397,7 +386,6 @@
             this.ClientSize = new System.Drawing.Size(1020, 407);
             this.Controls.Add(this.comboBoxRefreshRate);
             this.Controls.Add(this.labelRefreshRate);
-            this.Controls.Add(this.readPosBtn);
             this.Controls.Add(this.readTempBtn);
             this.Controls.Add(this.labelBoxAmbientTemp);
             this.Controls.Add(this.labelAmbientTemp);
@@ -465,7 +453,6 @@
         private System.Windows.Forms.Label labelBoxAmbientTemp;
         private System.Windows.Forms.Button readTempBtn;
         private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
-        private System.Windows.Forms.Button readPosBtn;
         private System.Windows.Forms.Label labelRefreshRate;
         private System.Windows.Forms.ComboBox comboBoxRefreshRate;
         private System.Windows.Forms.Timer timerRefresh;

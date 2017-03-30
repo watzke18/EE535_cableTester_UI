@@ -148,7 +148,7 @@ namespace cableFactoryTestApp
             //this is where all updating will occur
             if(read_inputs_command(ref msg))
             {
-                parseMessage(ref msg, ref data);
+                parseMessage(msg);
             }
 
             logData(data);
@@ -159,13 +159,11 @@ namespace cableFactoryTestApp
 
         }
 
-        private string[] parseMessage(ref string msg, ref string[] data)
+        private string[] parseMessage(string msg)
         {
-            data = new string[5];
+            string[] data = msg.Split(' ');
+
             return data;
-
-         
-
         }
 
         private string buildTestString(int lot, int lor, int testReps, float force, int spinDegree, int stopOnBreak, float dataRate)

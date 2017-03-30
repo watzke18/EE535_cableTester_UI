@@ -50,7 +50,7 @@ namespace cableFactoryTestApp
 
             // Set the read/write timeouts are set to 1000 milliseconds
               m_SerialPort.ReadTimeout = 1000;
-              m_SerialPort.WriteTimeout = 2000;
+              m_SerialPort.WriteTimeout = 1000;
 
             try
             {
