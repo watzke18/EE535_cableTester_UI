@@ -164,7 +164,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1020, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1016, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -340,7 +340,7 @@
             // 
             // readTempBtn
             // 
-            this.readTempBtn.Location = new System.Drawing.Point(896, 46);
+            this.readTempBtn.Location = new System.Drawing.Point(888, 46);
             this.readTempBtn.Name = "readTempBtn";
             this.readTempBtn.Size = new System.Drawing.Size(120, 24);
             this.readTempBtn.TabIndex = 26;
@@ -368,9 +368,9 @@
             "1000ms",
             "2000ms",
             "5000ms"});
-            this.comboBoxRefreshRate.Location = new System.Drawing.Point(790, 334);
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(774, 334);
             this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
-            this.comboBoxRefreshRate.Size = new System.Drawing.Size(126, 24);
+            this.comboBoxRefreshRate.Size = new System.Drawing.Size(116, 24);
             this.comboBoxRefreshRate.TabIndex = 29;
             this.comboBoxRefreshRate.SelectedIndexChanged += new System.EventHandler(this.comboBoxRefreshRate_SelectedIndexChanged);
             // 
@@ -383,7 +383,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1020, 407);
+            this.ClientSize = new System.Drawing.Size(1016, 407);
             this.Controls.Add(this.comboBoxRefreshRate);
             this.Controls.Add(this.labelRefreshRate);
             this.Controls.Add(this.readTempBtn);
@@ -416,6 +416,7 @@
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
 
         }
 

@@ -22,9 +22,11 @@ namespace cableFactoryTestApp
 
     public class commPort : IDisposable
     {
-        private SerialPort m_SerialPort = new SerialPort();
+        public static SerialPort m_SerialPort = new SerialPort();
         private SerialPortSettings m_CommSettings;
-  
+
+
+
         public void LoadDefaults()
         {
             m_CommSettings.data_bits = 8;
@@ -35,10 +37,14 @@ namespace cableFactoryTestApp
             m_CommSettings.rts = false;
         }
 
+
+
         public bool Open()
         {
             bool reply;
             string comm_port_name;
+
+            m_SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
             m_SerialPort.DtrEnable = true;
             m_SerialPort.PortName = m_CommSettings.port_name;
@@ -95,6 +101,7 @@ namespace cableFactoryTestApp
             writeCommSettingsFile();
         }
 
+
         private void readCommSettingsFile()
         {
             XmlSerializer serial_obj = new XmlSerializer(typeof(SerialPortSettings));
@@ -139,6 +146,9 @@ namespace cableFactoryTestApp
         }
 
 
+     
+
+
         public void write(string text)
         {
             m_SerialPort.Write(text);
@@ -164,11 +174,18 @@ namespace cableFactoryTestApp
         {
             return m_SerialPort.Read(buffer, offset, count);
         }
-        
+
 
         public String read()
         {
             return m_SerialPort.ReadLine();
+        }
+
+
+        public static void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            string indata = m_SerialPort.ReadExisting();
+            //return indata;
         }
 
         public void Dispose()

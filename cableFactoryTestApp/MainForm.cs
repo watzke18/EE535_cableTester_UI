@@ -47,10 +47,12 @@ namespace cableFactoryTestApp
             InitializeComponent();     
         }
 
+
         private void MainForm_Load(object sender, EventArgs e)
         {
 
             m_Comm.LoadSettings();
+
             closeCommBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
@@ -198,6 +200,8 @@ namespace cableFactoryTestApp
             {
                 AppendConsoleText("Failed to send START command to micro");
             }
+
+            //check for data on serial port using read command
 
         }
 
