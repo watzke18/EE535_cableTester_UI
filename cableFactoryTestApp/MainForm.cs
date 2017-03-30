@@ -340,7 +340,7 @@ namespace cableFactoryTestApp
 
             if(read_temperature_command(ref temp))
             {
-                labelAmbientTemp.Text = temp;
+                labelBoxAmbientTemp.Text = temp;
             }
         }
 
@@ -642,7 +642,7 @@ namespace cableFactoryTestApp
 
             try
             {
-                m_Comm.read();
+                msg = m_Comm.read();
                 reply = true;
             }
             catch (TimeoutException)
