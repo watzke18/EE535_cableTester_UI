@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.IO.Ports;
 
 namespace cableFactoryTestApp
 {
@@ -34,12 +35,15 @@ namespace cableFactoryTestApp
         public commPort m_Comm = new commPort();
         public static TestParameters m_testParameters = new TestParameters();
 
+
         private int _startTime;
         private bool _labelToggle;
         private bool _testInProgress;
 
-
         public string[] data;
+
+
+        
    
 
         public MainForm()
@@ -50,8 +54,8 @@ namespace cableFactoryTestApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
             m_Comm.LoadSettings();
+            m_Comm.m_SerialPort.DataReceived += m_Comm_DataReceived;
 
             closeCommBtn.Enabled = false;
             testSetupBtn.Enabled = false;
@@ -76,6 +80,20 @@ namespace cableFactoryTestApp
 
 
            
+        }
+        public void m_Comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        { 
+            try
+            {
+               string inData =  m_Comm.m_SerialPort.ReadExisting();
+               data = parseMessage(inData);
+            }
+            catch (SystemException ex)
+            {
+                //print error
+            }
+
+          //  m_Comm.discardInBuffer();
         }
 
         /*
@@ -153,7 +171,7 @@ namespace cableFactoryTestApp
                 parseMessage(msg);
             }
 
-            logData(data);
+            //logData(data);
         }
 
         private void logData(string[] args)
@@ -171,7 +189,10 @@ namespace cableFactoryTestApp
         private string buildTestString(int lot, int lor, int testReps, float force, int spinDegree, int stopOnBreak, float dataRate)
         {
             string testString = "";
-            return testString = lot + " " + lor + " " + testReps + " " + force + " " + spinDegree + " " + stopOnBreak + " " + dataRate;
+            testString = lot + " " + lor + " " + testReps + " " + force + " " + spinDegree + " " + stopOnBreak + " " + dataRate;
+          //  AppendConsoleText(testString);
+            return testString;
+
         }
   
         public void AppendConsoleText(string str)
@@ -202,6 +223,7 @@ namespace cableFactoryTestApp
             }
 
             //check for data on serial port using read command
+            
 
         }
 
@@ -224,9 +246,7 @@ namespace cableFactoryTestApp
                 AppendConsoleText("Failed to issue STOP command when test complete");
             }
 
-            
-            
-
+           
         }
 
         /*********************************************************************
@@ -289,16 +309,13 @@ namespace cableFactoryTestApp
                 labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
                 if(transmit_message(testString))
                 {
-                    AppendConsoleText("Test Parameters Entered");
+                   // AppendConsoleText("Test Parameters Entered");
                 }
                 else
                 {
                     AppendConsoleText("Failed to send Test Parameters string");
                 }
                 startTestBtn.Enabled = true;
-
-              
-                //send data to micro
 
             }
         }

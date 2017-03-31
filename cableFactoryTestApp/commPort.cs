@@ -22,7 +22,7 @@ namespace cableFactoryTestApp
 
     public class commPort : IDisposable
     {
-        public static SerialPort m_SerialPort = new SerialPort();
+        public  SerialPort m_SerialPort = new SerialPort();
         private SerialPortSettings m_CommSettings;
 
 
@@ -44,7 +44,7 @@ namespace cableFactoryTestApp
             bool reply;
             string comm_port_name;
 
-            m_SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+          //  m_SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
             m_SerialPort.DtrEnable = true;
             m_SerialPort.PortName = m_CommSettings.port_name;
@@ -182,12 +182,13 @@ namespace cableFactoryTestApp
         }
 
 
-        public static void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+   /*     public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             string indata = m_SerialPort.ReadExisting();
+            int x = 0;
             //return indata;
         }
-
+        */
         public void Dispose()
         {
             Close();

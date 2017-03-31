@@ -417,6 +417,9 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            //data received event trigger for serial port
+
+
 
         }
 
