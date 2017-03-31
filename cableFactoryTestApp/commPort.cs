@@ -26,7 +26,6 @@ namespace cableFactoryTestApp
         private SerialPortSettings m_CommSettings;
 
 
-
         public void LoadDefaults()
         {
             m_CommSettings.data_bits = 8;
@@ -55,8 +54,8 @@ namespace cableFactoryTestApp
             m_SerialPort.Handshake = Handshake.None;
 
             // Set the read/write timeouts are set to 1000 milliseconds
-              m_SerialPort.ReadTimeout = 1000;
-              m_SerialPort.WriteTimeout = 1000;
+            //  m_SerialPort.ReadTimeout = 2000;
+              m_SerialPort.WriteTimeout = 2000;
 
             try
             {
@@ -182,13 +181,20 @@ namespace cableFactoryTestApp
         }
 
 
-   /*     public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+    /*    public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
-            string indata = m_SerialPort.ReadExisting();
+            int count = m_SerialPort.BytesToRead;
+            byte[] ByteArr = new byte[count];
+            m_SerialPort.Read(ByteArr, 0, count);
+            //string indata = m_SerialPort.ReadExisting();
+            
+            string[] buffer = new string[1];
+            buffer[0] += m_SerialPort.ReadExisting();
             int x = 0;
             //return indata;
         }
-        */
+*/
+        
         public void Dispose()
         {
             Close();

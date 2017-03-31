@@ -55,7 +55,6 @@ namespace cableFactoryTestApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             m_Comm.LoadSettings();
-            m_Comm.m_SerialPort.DataReceived += m_Comm_DataReceived;
 
             closeCommBtn.Enabled = false;
             testSetupBtn.Enabled = false;
@@ -81,21 +80,20 @@ namespace cableFactoryTestApp
 
            
         }
-        public void m_Comm_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        { 
-            try
-            {
-               string inData =  m_Comm.m_SerialPort.ReadExisting();
-               data = parseMessage(inData);
-            }
-            catch (SystemException ex)
-            {
-                //print error
-            }
-
-          //  m_Comm.discardInBuffer();
+        public void DataReceived(object sender, SerialDataReceivedEventArgs e) //DataReceived event - fires when data is received on serial port
+        {
+            byte[] rxBuf = new byte[20];
+            int offset = 0;
+            int toRead = m_Comm.m_SerialPort.BytesToRead;
+            m_Comm.m_SerialPort.Read(rxBuf, offset, toRead);
+            offset += toRead;
+          
+                //string inData = m_Comm.read();
+            //   data = parseMessage(buf);
+                Console.WriteLine(rxBuf[0]);
+    
         }
-
+        
         /*
         private void openExcelCOM()
         {
@@ -268,6 +266,7 @@ namespace cableFactoryTestApp
             else
             {
                 AppendConsoleText(m_Comm.getPortSettings().port_name + " Opened Successfully");
+                m_Comm.m_SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
                 openCommBtn.Enabled = false;
                 closeCommBtn.Enabled = true;
                 testSetupBtn.Enabled = true;
@@ -304,12 +303,15 @@ namespace cableFactoryTestApp
             {
                 string testString = "";
                 m_testParameters = m_testSetup.m_testParameters;
-                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
+                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000) + " *";
                 resetTimer(); //reset timer with time entered in test setup
                 labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
                 if(transmit_message(testString))
                 {
-                   // AppendConsoleText("Test Parameters Entered");
+                    System.Threading.Thread.Sleep(1000);
+
+                    AppendConsoleText("Test Parameters Entered");
+               
                 }
                 else
                 {
