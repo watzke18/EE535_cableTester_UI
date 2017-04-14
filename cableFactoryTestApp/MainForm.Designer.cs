@@ -71,7 +71,7 @@
             // 
             // openCommBtn
             // 
-            this.openCommBtn.Location = new System.Drawing.Point(12, 42);
+            this.openCommBtn.Location = new System.Drawing.Point(12, 49);
             this.openCommBtn.Name = "openCommBtn";
             this.openCommBtn.Size = new System.Drawing.Size(226, 50);
             this.openCommBtn.TabIndex = 0;
@@ -226,7 +226,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -314,7 +314,7 @@
             // 
             // closeCommBtn
             // 
-            this.closeCommBtn.Location = new System.Drawing.Point(12, 98);
+            this.closeCommBtn.Location = new System.Drawing.Point(12, 105);
             this.closeCommBtn.Name = "closeCommBtn";
             this.closeCommBtn.Size = new System.Drawing.Size(226, 30);
             this.closeCommBtn.TabIndex = 23;

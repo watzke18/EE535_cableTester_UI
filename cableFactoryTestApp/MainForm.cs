@@ -260,7 +260,7 @@ namespace cableFactoryTestApp
                 if(transmit_message(testString))
                 {
                     AppendConsoleText("Test Parameters Entered");
-               
+              
                 }
                 else
                 {
