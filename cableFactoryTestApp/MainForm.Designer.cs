@@ -60,7 +60,6 @@
             this.closeCommBtn = new System.Windows.Forms.Button();
             this.labelAmbientTemp = new System.Windows.Forms.Label();
             this.labelBoxAmbientTemp = new System.Windows.Forms.Label();
-            this.readTempBtn = new System.Windows.Forms.Button();
             this.labelRefreshRate = new System.Windows.Forms.Label();
             this.comboBoxRefreshRate = new System.Windows.Forms.ComboBox();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
@@ -164,7 +163,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1016, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(905, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -288,7 +287,7 @@
             this.labelTestInProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTestInProgress.Location = new System.Drawing.Point(12, 376);
             this.labelTestInProgress.Name = "labelTestInProgress";
-            this.labelTestInProgress.Size = new System.Drawing.Size(996, 27);
+            this.labelTestInProgress.Size = new System.Drawing.Size(878, 27);
             this.labelTestInProgress.TabIndex = 21;
             this.labelTestInProgress.Text = "TEST IN PROGRESS";
             this.labelTestInProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -338,16 +337,6 @@
             this.labelBoxAmbientTemp.TabIndex = 25;
             this.labelBoxAmbientTemp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // readTempBtn
-            // 
-            this.readTempBtn.Location = new System.Drawing.Point(888, 46);
-            this.readTempBtn.Name = "readTempBtn";
-            this.readTempBtn.Size = new System.Drawing.Size(120, 24);
-            this.readTempBtn.TabIndex = 26;
-            this.readTempBtn.Text = "Read Temp";
-            this.readTempBtn.UseVisualStyleBackColor = true;
-            this.readTempBtn.Click += new System.EventHandler(this.readTempBtn_Click);
-            // 
             // labelRefreshRate
             // 
             this.labelRefreshRate.AutoSize = true;
@@ -383,10 +372,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 407);
+            this.ClientSize = new System.Drawing.Size(905, 407);
             this.Controls.Add(this.comboBoxRefreshRate);
             this.Controls.Add(this.labelRefreshRate);
-            this.Controls.Add(this.readTempBtn);
             this.Controls.Add(this.labelBoxAmbientTemp);
             this.Controls.Add(this.labelAmbientTemp);
             this.Controls.Add(this.closeCommBtn);
@@ -416,10 +404,6 @@
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
-            //data received event trigger for serial port
-
-
 
         }
 
@@ -455,7 +439,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label labelAmbientTemp;
         private System.Windows.Forms.Label labelBoxAmbientTemp;
-        private System.Windows.Forms.Button readTempBtn;
         private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
         private System.Windows.Forms.Label labelRefreshRate;
         private System.Windows.Forms.ComboBox comboBoxRefreshRate;
