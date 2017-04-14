@@ -63,6 +63,7 @@
             this.labelRefreshRate = new System.Windows.Forms.Label();
             this.comboBoxRefreshRate = new System.Windows.Forms.ComboBox();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
+            this.labelConsole = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -301,10 +302,10 @@
             // consoleRichTextBox
             // 
             this.consoleRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 42);
+            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 49);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
             this.consoleRichTextBox.ReadOnly = true;
-            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 331);
+            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 324);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
             // 
@@ -368,11 +369,20 @@
             this.timerRefresh.Interval = 1000;
             this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
             // 
+            // labelConsole
+            // 
+            this.labelConsole.AutoSize = true;
+            this.labelConsole.Location = new System.Drawing.Point(248, 32);
+            this.labelConsole.Name = "labelConsole";
+            this.labelConsole.Size = new System.Drawing.Size(59, 17);
+            this.labelConsole.TabIndex = 30;
+            this.labelConsole.Text = "Console";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 407);
+            this.ClientSize = new System.Drawing.Size(1016, 407);
             this.Controls.Add(this.comboBoxRefreshRate);
             this.Controls.Add(this.labelRefreshRate);
             this.Controls.Add(this.labelBoxAmbientTemp);
@@ -443,6 +453,7 @@
         private System.Windows.Forms.Label labelRefreshRate;
         private System.Windows.Forms.ComboBox comboBoxRefreshRate;
         private System.Windows.Forms.Timer timerRefresh;
+        private System.Windows.Forms.Label labelConsole;
     }
 }
 
