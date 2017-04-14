@@ -45,10 +45,6 @@ namespace cableFactoryTestApp
         public char[] recv_buf;
         public int offset;
 
-
-        
-   
-
         public MainForm()
         {
             InitializeComponent();     
@@ -80,10 +76,7 @@ namespace cableFactoryTestApp
             _labelToggle = false;
             _testInProgress = false;
 
-            comboBoxRefreshRate.Text = "1000ms";
-
-
-           
+            comboBoxRefreshRate.Text = "1000ms";    
         }
 
 
@@ -451,6 +444,60 @@ namespace cableFactoryTestApp
          *********************************************************************/
 
 
+        private void xlsdefaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*|Excel files (*.xls)|.xls";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    // Code to write the stream goes here.
+                    myStream.Close();
+                }
+            }
+
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+
+            saveFileDialog1.Filter = "Excel file (*.xls)|*.xls|Comma seperated file (*.csv)|*.csv";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    FileInfo fi = new FileInfo(saveFileDialog1.FileName);
+
+                    string text = fi.Name;
+                    // Code to write the stream goes here.
+                    myStream.Close();
+                }
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            if(about.ShowDialog() == DialogResult.OK)
+            {
+               // this.Close();
+            }
+        }
+
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButtons.YesNo);
@@ -682,51 +729,8 @@ namespace cableFactoryTestApp
             return reply;
         }
 
-        private void xlsdefaultToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Stream myStream;
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*|Excel files (*.xls)|.xls";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                if ((myStream = saveFileDialog1.OpenFile()) != null)
-                {
-                    // Code to write the stream goes here.
-                    myStream.Close();
-                }
-            }
 
 
-        }
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Stream myStream;
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-
-            saveFileDialog1.Filter = "Excel file (*.xls)|*.xls|Comma seperated file (*.csv)|*.csv";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                if ((myStream = saveFileDialog1.OpenFile()) != null)
-                {
-                    FileInfo fi = new FileInfo(saveFileDialog1.FileName);
-
-                    string text = fi.Name;
-                    // Code to write the stream goes here.
-                    myStream.Close();
-                }
-            }
-        }
-
-    
 
 
         /*********************************************************************

@@ -64,7 +64,9 @@
             this.comboBoxRefreshRate = new System.Windows.Forms.ComboBox();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.labelConsole = new System.Windows.Forms.Label();
+            this.groupBoxTestData = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
+            this.groupBoxTestData.SuspendLayout();
             this.SuspendLayout();
             // 
             // openCommBtn
@@ -79,7 +81,7 @@
             // 
             // testSetupBtn
             // 
-            this.testSetupBtn.Location = new System.Drawing.Point(12, 186);
+            this.testSetupBtn.Location = new System.Drawing.Point(12, 192);
             this.testSetupBtn.Name = "testSetupBtn";
             this.testSetupBtn.Size = new System.Drawing.Size(226, 52);
             this.testSetupBtn.TabIndex = 2;
@@ -89,7 +91,7 @@
             // 
             // startTestBtn
             // 
-            this.startTestBtn.Location = new System.Drawing.Point(12, 244);
+            this.startTestBtn.Location = new System.Drawing.Point(12, 250);
             this.startTestBtn.Name = "startTestBtn";
             this.startTestBtn.Size = new System.Drawing.Size(226, 50);
             this.startTestBtn.TabIndex = 3;
@@ -102,9 +104,9 @@
             this.abortTestBtn.BackColor = System.Drawing.Color.DarkRed;
             this.abortTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.abortTestBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.abortTestBtn.Location = new System.Drawing.Point(12, 300);
+            this.abortTestBtn.Location = new System.Drawing.Point(12, 302);
             this.abortTestBtn.Name = "abortTestBtn";
-            this.abortTestBtn.Size = new System.Drawing.Size(226, 54);
+            this.abortTestBtn.Size = new System.Drawing.Size(226, 87);
             this.abortTestBtn.TabIndex = 4;
             this.abortTestBtn.Text = "ABORT TEST";
             this.abortTestBtn.UseVisualStyleBackColor = false;
@@ -113,7 +115,7 @@
             // labelSpinMotorStatus
             // 
             this.labelSpinMotorStatus.AutoSize = true;
-            this.labelSpinMotorStatus.Location = new System.Drawing.Point(542, 104);
+            this.labelSpinMotorStatus.Location = new System.Drawing.Point(12, 91);
             this.labelSpinMotorStatus.Name = "labelSpinMotorStatus";
             this.labelSpinMotorStatus.Size = new System.Drawing.Size(199, 17);
             this.labelSpinMotorStatus.TabIndex = 5;
@@ -122,7 +124,7 @@
             // labelLoadSensorStatus
             // 
             this.labelLoadSensorStatus.AutoSize = true;
-            this.labelLoadSensorStatus.Location = new System.Drawing.Point(542, 130);
+            this.labelLoadSensorStatus.Location = new System.Drawing.Point(12, 120);
             this.labelLoadSensorStatus.Name = "labelLoadSensorStatus";
             this.labelLoadSensorStatus.Size = new System.Drawing.Size(141, 17);
             this.labelLoadSensorStatus.TabIndex = 6;
@@ -131,7 +133,7 @@
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(542, 158);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(12, 152);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
             this.labelContinuityStatus.Size = new System.Drawing.Size(122, 17);
             this.labelContinuityStatus.TabIndex = 7;
@@ -140,7 +142,7 @@
             // labelLoops
             // 
             this.labelLoops.AutoSize = true;
-            this.labelLoops.Location = new System.Drawing.Point(542, 216);
+            this.labelLoops.Location = new System.Drawing.Point(12, 218);
             this.labelLoops.Name = "labelLoops";
             this.labelLoops.Size = new System.Drawing.Size(126, 17);
             this.labelLoops.TabIndex = 8;
@@ -149,7 +151,7 @@
             // labelTimeRemain
             // 
             this.labelTimeRemain.AutoSize = true;
-            this.labelTimeRemain.Location = new System.Drawing.Point(542, 246);
+            this.labelTimeRemain.Location = new System.Drawing.Point(12, 244);
             this.labelTimeRemain.Name = "labelTimeRemain";
             this.labelTimeRemain.Size = new System.Drawing.Size(118, 17);
             this.labelTimeRemain.TabIndex = 9;
@@ -164,7 +166,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(902, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(915, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -224,8 +226,9 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // timeRemainingTimer
             // 
@@ -236,7 +239,7 @@
             // 
             this.labelBoxTimeRemaining.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxTimeRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(790, 243);
+            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(248, 241);
             this.labelBoxTimeRemaining.Name = "labelBoxTimeRemaining";
             this.labelBoxTimeRemaining.Size = new System.Drawing.Size(100, 23);
             this.labelBoxTimeRemaining.TabIndex = 16;
@@ -246,7 +249,7 @@
             // 
             this.labelBoxLoops.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxLoops.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxLoops.Location = new System.Drawing.Point(790, 210);
+            this.labelBoxLoops.Location = new System.Drawing.Point(248, 218);
             this.labelBoxLoops.Name = "labelBoxLoops";
             this.labelBoxLoops.Size = new System.Drawing.Size(100, 23);
             this.labelBoxLoops.TabIndex = 17;
@@ -256,7 +259,7 @@
             // 
             this.label4.BackColor = System.Drawing.SystemColors.Window;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(790, 152);
+            this.label4.Location = new System.Drawing.Point(248, 149);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 18;
@@ -266,7 +269,7 @@
             // 
             this.label5.BackColor = System.Drawing.SystemColors.Window;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(790, 124);
+            this.label5.Location = new System.Drawing.Point(248, 117);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 19;
@@ -276,7 +279,7 @@
             // 
             this.labelMotorPos.BackColor = System.Drawing.SystemColors.Window;
             this.labelMotorPos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelMotorPos.Location = new System.Drawing.Point(790, 98);
+            this.labelMotorPos.Location = new System.Drawing.Point(248, 88);
             this.labelMotorPos.Name = "labelMotorPos";
             this.labelMotorPos.Size = new System.Drawing.Size(100, 23);
             this.labelMotorPos.TabIndex = 20;
@@ -286,9 +289,9 @@
             // 
             this.labelTestInProgress.BackColor = System.Drawing.Color.Red;
             this.labelTestInProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTestInProgress.Location = new System.Drawing.Point(12, 376);
+            this.labelTestInProgress.Location = new System.Drawing.Point(12, 405);
             this.labelTestInProgress.Name = "labelTestInProgress";
-            this.labelTestInProgress.Size = new System.Drawing.Size(878, 27);
+            this.labelTestInProgress.Size = new System.Drawing.Size(892, 27);
             this.labelTestInProgress.TabIndex = 21;
             this.labelTestInProgress.Text = "TEST IN PROGRESS";
             this.labelTestInProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -305,7 +308,7 @@
             this.consoleRichTextBox.Location = new System.Drawing.Point(248, 49);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
             this.consoleRichTextBox.ReadOnly = true;
-            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 324);
+            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 343);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
             // 
@@ -322,7 +325,7 @@
             // labelAmbientTemp
             // 
             this.labelAmbientTemp.AutoSize = true;
-            this.labelAmbientTemp.Location = new System.Drawing.Point(542, 49);
+            this.labelAmbientTemp.Location = new System.Drawing.Point(12, 40);
             this.labelAmbientTemp.Name = "labelAmbientTemp";
             this.labelAmbientTemp.Size = new System.Drawing.Size(181, 17);
             this.labelAmbientTemp.TabIndex = 24;
@@ -332,7 +335,7 @@
             // 
             this.labelBoxAmbientTemp.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxAmbientTemp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxAmbientTemp.Location = new System.Drawing.Point(790, 46);
+            this.labelBoxAmbientTemp.Location = new System.Drawing.Point(248, 37);
             this.labelBoxAmbientTemp.Name = "labelBoxAmbientTemp";
             this.labelBoxAmbientTemp.Size = new System.Drawing.Size(100, 23);
             this.labelBoxAmbientTemp.TabIndex = 25;
@@ -341,11 +344,11 @@
             // labelRefreshRate
             // 
             this.labelRefreshRate.AutoSize = true;
-            this.labelRefreshRate.Location = new System.Drawing.Point(542, 337);
+            this.labelRefreshRate.Location = new System.Drawing.Point(12, 315);
             this.labelRefreshRate.Name = "labelRefreshRate";
-            this.labelRefreshRate.Size = new System.Drawing.Size(134, 17);
+            this.labelRefreshRate.Size = new System.Drawing.Size(100, 17);
             this.labelRefreshRate.TabIndex = 28;
-            this.labelRefreshRate.Text = "Refresh/Data Rate :";
+            this.labelRefreshRate.Text = "Refresh Rate :";
             // 
             // comboBoxRefreshRate
             // 
@@ -358,7 +361,7 @@
             "1000ms",
             "2000ms",
             "5000ms"});
-            this.comboBoxRefreshRate.Location = new System.Drawing.Point(774, 334);
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(232, 312);
             this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
             this.comboBoxRefreshRate.Size = new System.Drawing.Size(116, 24);
             this.comboBoxRefreshRate.TabIndex = 29;
@@ -378,28 +381,39 @@
             this.labelConsole.TabIndex = 30;
             this.labelConsole.Text = "Console";
             // 
+            // groupBoxTestData
+            // 
+            this.groupBoxTestData.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBoxTestData.Controls.Add(this.labelAmbientTemp);
+            this.groupBoxTestData.Controls.Add(this.comboBoxRefreshRate);
+            this.groupBoxTestData.Controls.Add(this.labelBoxAmbientTemp);
+            this.groupBoxTestData.Controls.Add(this.labelRefreshRate);
+            this.groupBoxTestData.Controls.Add(this.labelSpinMotorStatus);
+            this.groupBoxTestData.Controls.Add(this.labelMotorPos);
+            this.groupBoxTestData.Controls.Add(this.labelLoadSensorStatus);
+            this.groupBoxTestData.Controls.Add(this.label5);
+            this.groupBoxTestData.Controls.Add(this.labelBoxTimeRemaining);
+            this.groupBoxTestData.Controls.Add(this.labelBoxLoops);
+            this.groupBoxTestData.Controls.Add(this.labelTimeRemain);
+            this.groupBoxTestData.Controls.Add(this.label4);
+            this.groupBoxTestData.Controls.Add(this.labelContinuityStatus);
+            this.groupBoxTestData.Controls.Add(this.labelLoops);
+            this.groupBoxTestData.Location = new System.Drawing.Point(542, 49);
+            this.groupBoxTestData.Name = "groupBoxTestData";
+            this.groupBoxTestData.Size = new System.Drawing.Size(362, 343);
+            this.groupBoxTestData.TabIndex = 30;
+            this.groupBoxTestData.TabStop = false;
+            this.groupBoxTestData.Text = "System Data";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 407);
-            this.Controls.Add(this.comboBoxRefreshRate);
-            this.Controls.Add(this.labelRefreshRate);
-            this.Controls.Add(this.labelBoxAmbientTemp);
-            this.Controls.Add(this.labelAmbientTemp);
+            this.ClientSize = new System.Drawing.Size(915, 441);
+            this.Controls.Add(this.groupBoxTestData);
             this.Controls.Add(this.closeCommBtn);
             this.Controls.Add(this.consoleRichTextBox);
             this.Controls.Add(this.labelTestInProgress);
-            this.Controls.Add(this.labelMotorPos);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.labelBoxLoops);
-            this.Controls.Add(this.labelBoxTimeRemaining);
-            this.Controls.Add(this.labelTimeRemain);
-            this.Controls.Add(this.labelLoops);
-            this.Controls.Add(this.labelContinuityStatus);
-            this.Controls.Add(this.labelLoadSensorStatus);
-            this.Controls.Add(this.labelSpinMotorStatus);
             this.Controls.Add(this.abortTestBtn);
             this.Controls.Add(this.startTestBtn);
             this.Controls.Add(this.testSetupBtn);
@@ -412,6 +426,8 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBoxTestData.ResumeLayout(false);
+            this.groupBoxTestData.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,6 +470,7 @@
         private System.Windows.Forms.ComboBox comboBoxRefreshRate;
         private System.Windows.Forms.Timer timerRefresh;
         private System.Windows.Forms.Label labelConsole;
+        private System.Windows.Forms.GroupBox groupBoxTestData;
     }
 }
 
