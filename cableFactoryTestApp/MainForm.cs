@@ -13,6 +13,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.IO.Ports;
 
+
+
 namespace cableFactoryTestApp
 {
     public struct TestParameters
@@ -34,6 +36,7 @@ namespace cableFactoryTestApp
 
         public commPort m_Comm = new commPort();
         public static TestParameters m_testParameters = new TestParameters();
+        public const int MAX_BUFF_SIZE = 100;
 
 
         private int _startTime;
@@ -54,7 +57,7 @@ namespace cableFactoryTestApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             m_Comm.LoadSettings();
-            recv_buf = new char[30];
+            recv_buf = new char[MAX_BUFF_SIZE];
             offset = 0;
 
             closeCommBtn.Enabled = false;
@@ -76,38 +79,61 @@ namespace cableFactoryTestApp
             _labelToggle = false;
             _testInProgress = false;
 
-            comboBoxRefreshRate.Text = "1000ms";    
+            comboBoxRefreshRate.Text = "1000ms";
+            timerRefresh.Interval = 1000;   
         }
 
+        private static StringBuilder receiveBuffer = new StringBuilder();
+        private string terminationSequence = "\r\n";
+        private string rxString;
 
-        public void DataReceived(object sender, SerialDataReceivedEventArgs e) //DataReceived event - fires when data is received on serial port
+    /*    public void DataReceived(object sender, SerialDataReceivedEventArgs e) //DataReceived event - fires when data is received on serial port
         {
-            int toRead = m_Comm.m_SerialPort.BytesToRead;
-            m_Comm.m_SerialPort.Read(recv_buf, offset, toRead);
-            offset += toRead;
-        }
-       
+            int dataLength = m_Comm.m_SerialPort.BytesToRead;
+            byte[] dataRec = new Byte[dataLength];
+            m_Comm.m_SerialPort.Read(dataRec, 0, dataLength);
 
+            rxString = System.Text.ASCIIEncoding.ASCII.GetString(dataRec);
+            receiveBuffer.Append(rxString);
+
+            string bufferString = receiveBuffer.ToString();
+
+            int index = -1;
+
+           do
+            {
+                index = bufferString.IndexOf(terminationSequence);
+                if (index > -1)
+                {
+                    string message = bufferString.Substring(0, index);
+                    bufferString = bufferString.Remove(0, index + terminationSequence.Length);
+                   // data = parseMessage(message);
+
+                }
+            }
+            while (index > -1);
+
+            receiveBuffer = new StringBuilder(bufferString); //if termination character was not found, append this part of string to string builder.
+
+            
+        }
+
+            */
         private void writeCSV(string time, float force, string motorPos, int contStat)
         {
 
         }
 
-        private void exportExcel()
-        {
-        
-        }
 
         private void refreshData()
         {
             string msg = "";
-            //this is where all updating will occur
-           /* if(read_inputs_command(ref msg))
+
+            if (read_inputs_command(ref msg))
             {
-                parseMessage(msg);
+                parseMessage(ref msg);
+                int x = 1;
             }
-            */
-            //logData(data);
         }
 
         private void logData(string[] args)
@@ -115,19 +141,13 @@ namespace cableFactoryTestApp
 
         }
 
-        private string[] parseMessage(char[] buf)
+        private string[] parseMessage(ref string message)
         {
-            string msg = "";
-            string[] data;
-            int i = 0;
+            labelBoxAmbientTemp.Text = message;
+            AppendConsoleText(message);
+          //  data = message.Split(' ');
+          //  labelBoxAmbientTemp.Text = data[0];
 
-            while(buf[i+1] != '*')
-            {
-                    msg += buf[i];
-                    i++;   
-            }
-
-            data = msg.Split(' ');
 
 
             return data; 
@@ -136,7 +156,7 @@ namespace cableFactoryTestApp
         private string buildTestString(int lot, int lor, int testReps, float force, int spinDegree, int stopOnBreak, float dataRate)
         {
             string testString = "";
-            testString = lot + " " + lor + " " + testReps + " " + force + " " + spinDegree + " " + stopOnBreak + " " + dataRate;
+            testString = lot + " " + lor + " " + testReps + " " + force + " " + spinDegree + " " + stopOnBreak;
           //  AppendConsoleText(testString);
             return testString;
 
@@ -150,6 +170,7 @@ namespace cableFactoryTestApp
 
         public void enterTestMode()
         {
+            m_Comm.discardInBuffer();
             _testInProgress = true;
             timeRemainingTimer.Enabled = true;
             labelTestInProgressTimer.Enabled = true;
@@ -158,12 +179,13 @@ namespace cableFactoryTestApp
             startTestBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             comboBoxRefreshRate.Enabled = false;
+            timerRefresh.Enabled = true;
 
             //check for data on serial port using read command
 
-            while(_testInProgress)
+        //    while(_testInProgress)
             {
-              
+
             }
 
 
@@ -171,8 +193,7 @@ namespace cableFactoryTestApp
 
         public void exitTestMode()
         {
-            if(transmit_message("STOP"))
-            {
+        
                 _testInProgress = false;
 
                 AppendConsoleText("Test Finished");
@@ -183,18 +204,13 @@ namespace cableFactoryTestApp
                 abortTestBtn.Enabled = false;
                 startTestBtn.Enabled = true;
                 comboBoxRefreshRate.Enabled = true;
+                timerRefresh.Enabled = false;
 
-                offset = 0;
+
+            offset = 0;
                 Array.Clear(recv_buf, 0, recv_buf.Length);
-
-  
-            }
-            else
-            {
-                AppendConsoleText("Failed to issue STOP command when test complete");
-            }
-
-           
+          
+     
         }
 
         /*********************************************************************
@@ -216,7 +232,7 @@ namespace cableFactoryTestApp
             else
             {
                 AppendConsoleText(m_Comm.getPortSettings().port_name + " Opened Successfully");
-                m_Comm.m_SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
+              //  m_Comm.m_SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
                 openCommBtn.Enabled = false;
                 closeCommBtn.Enabled = true;
                 testSetupBtn.Enabled = true;
@@ -253,14 +269,13 @@ namespace cableFactoryTestApp
             {
                 string testString = "";
                 m_testParameters = m_testSetup.m_testParameters;
-                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000) + " *";
+                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
                 resetTimer(); //reset timer with time entered in test setup
                 labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
 
-                if(transmit_message(testString))
+                if(transmit_message("TEST " + testString))
                 {
                     AppendConsoleText("Test Parameters Entered");
-              
                 }
                 else
                 {
@@ -274,17 +289,29 @@ namespace cableFactoryTestApp
  
         private void startTestBtn_Click(object sender, EventArgs e)
         {
-            if (transmit_message("START"))
+            string temp = "";
+            if (read_temperature_command(ref temp))
             {
-                AppendConsoleText("Starting Test");
-                _testInProgress = true;
-                enterTestMode();
+                AppendConsoleText("Temperature and Humidity Recorded");
+                labelBoxAmbientTemp.Text = temp;
 
-                data = parseMessage(recv_buf);
+                if (transmit_message("START"))
+                {
+                    AppendConsoleText("Starting Test");
+                    _testInProgress = true;
+                    enterTestMode();
+
+                    //   data = parseMessage(recv_buf);
+                }
+                else
+                {
+                    AppendConsoleText("Failed to send START command to micro");
+                }
             }
+          
             else
             {
-                AppendConsoleText("Failed to send START command to micro");
+                AppendConsoleText("Failed to send or receive TEMP/HUMIDITY command micro");
             }
         }
 
@@ -322,21 +349,11 @@ namespace cableFactoryTestApp
 
             if(read_temperature_command(ref temp))
             {
-                labelBoxAmbientTemp.Text = temp;
             }
         }
 
 
-        private void readPosBtn_Click(object sender, EventArgs e)
-        {
-            string pos = "";
-
-            if(read_position_command(ref pos))
-            {
-                labelMotorPos.Text = pos;
-            }
-        }
-
+      
 
    
 
@@ -427,7 +444,7 @@ namespace cableFactoryTestApp
 
         private void timerRefresh_Tick(object sender, EventArgs e)
         {
-
+            refreshData();
         }
 
         /*********************************************************************
@@ -580,30 +597,6 @@ namespace cableFactoryTestApp
             else
             {
                 AppendConsoleText("Failed to transmit command TEMP");
-                reply = false;
-            }
-            return reply;
-        }
-
-        public bool read_position_command(ref string pos)
-        {
-            bool reply = false;
-
-            if(transmit_message("POS"))
-            {
-                if(receive_message(ref pos))
-                {
-                    reply = true;
-                }
-                else
-                {
-                    AppendConsoleText("Failed to receive motor POS");
-                    reply = false;
-                }
-            }
-            else
-            {
-                AppendConsoleText("Failed to transmit command POS");
                 reply = false;
             }
             return reply;
