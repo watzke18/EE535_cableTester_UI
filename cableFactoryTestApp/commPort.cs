@@ -54,7 +54,7 @@ namespace cableFactoryTestApp
             m_SerialPort.Handshake = Handshake.None;
 
             // Set the read/write timeouts are set to 1000 milliseconds
-            //  m_SerialPort.ReadTimeout = 2000;
+              m_SerialPort.ReadTimeout = 2000;
               m_SerialPort.WriteTimeout = 2000;
 
             try

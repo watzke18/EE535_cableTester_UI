@@ -132,7 +132,14 @@ namespace cableFactoryTestApp
             if (read_inputs_command(ref msg))
             {
                 parseMessage(ref msg);
-                int x = 1;
+
+                labelBoxLoad.Text = data[0];
+                labelMotorPos.Text = data[1];
+                labelBoxCont.Text = data[2];
+            }
+            else
+            {
+                AppendConsoleText("Error reading inputs from Arduino");
             }
         }
 
@@ -143,13 +150,9 @@ namespace cableFactoryTestApp
 
         private string[] parseMessage(ref string message)
         {
-            labelBoxAmbientTemp.Text = message;
             AppendConsoleText(message);
-          //  data = message.Split(' ');
+            data = message.Split(' ');
           //  labelBoxAmbientTemp.Text = data[0];
-
-
-
             return data; 
         }
 
@@ -170,7 +173,7 @@ namespace cableFactoryTestApp
 
         public void enterTestMode()
         {
-            m_Comm.discardInBuffer();
+            //m_Comm.discardInBuffer();
             _testInProgress = true;
             timeRemainingTimer.Enabled = true;
             labelTestInProgressTimer.Enabled = true;
@@ -205,10 +208,9 @@ namespace cableFactoryTestApp
                 startTestBtn.Enabled = true;
                 comboBoxRefreshRate.Enabled = true;
                 timerRefresh.Enabled = false;
+                labelBoxTimeRemaining.Text = "0:00";
 
-
-            offset = 0;
-                Array.Clear(recv_buf, 0, recv_buf.Length);
+              //  Array.Clear(recv_buf, 0, recv_buf.Length);
           
      
         }
@@ -241,21 +243,33 @@ namespace cableFactoryTestApp
 
         private void closeCommBtn_Click(object sender, EventArgs e)
         {
-            m_Comm.Close();
-            AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
+            if(_testInProgress)
+            {
+                DialogResult dr = MessageBox.Show("Are you sure you want to close comm port? This will abort the current test", "!", MessageBoxButtons.YesNo);
+                if(dr == DialogResult.Yes)
+                {
+                    m_Comm.Close();
+                    AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
 
-            openCommBtn.Enabled = true;
-            comboBoxRefreshRate.Enabled = true;
+                    openCommBtn.Enabled = true;
+                    comboBoxRefreshRate.Enabled = true;
 
-            closeCommBtn.Enabled = false;
-            testSetupBtn.Enabled = false;
-            startTestBtn.Enabled = false;
-            abortTestBtn.Enabled = false;
-            timeRemainingTimer.Enabled = false;
-            labelTestInProgressTimer.Enabled = false;
-            labelTestInProgress.Visible = false;
-            labelBoxTimeRemaining.Text = "";
-            labelBoxLoops.Text = "";
+                    closeCommBtn.Enabled = false;
+                    testSetupBtn.Enabled = false;
+                    startTestBtn.Enabled = false;
+                    abortTestBtn.Enabled = false;
+                    timeRemainingTimer.Enabled = false;
+                    labelTestInProgressTimer.Enabled = false;
+                    labelTestInProgress.Visible = false;
+                   
+                    labelBoxTimeRemaining.Text = "";
+                    labelBoxLoops.Text = "";
+
+                    exitTestMode();
+                }
+            
+            }
+           
 
         }
 
@@ -300,8 +314,6 @@ namespace cableFactoryTestApp
                     AppendConsoleText("Starting Test");
                     _testInProgress = true;
                     enterTestMode();
-
-                    //   data = parseMessage(recv_buf);
                 }
                 else
                 {

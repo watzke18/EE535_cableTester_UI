@@ -51,8 +51,8 @@
             this.timeRemainingTimer = new System.Windows.Forms.Timer(this.components);
             this.labelBoxTimeRemaining = new System.Windows.Forms.Label();
             this.labelBoxLoops = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelBoxCont = new System.Windows.Forms.Label();
+            this.labelBoxLoad = new System.Windows.Forms.Label();
             this.labelMotorPos = new System.Windows.Forms.Label();
             this.labelTestInProgress = new System.Windows.Forms.Label();
             this.labelTestInProgressTimer = new System.Windows.Forms.Timer(this.components);
@@ -255,25 +255,25 @@
             this.labelBoxLoops.TabIndex = 17;
             this.labelBoxLoops.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label4
+            // labelBoxCont
             // 
-            this.label4.BackColor = System.Drawing.SystemColors.Window;
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(248, 149);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 23);
-            this.label4.TabIndex = 18;
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelBoxCont.BackColor = System.Drawing.SystemColors.Window;
+            this.labelBoxCont.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelBoxCont.Location = new System.Drawing.Point(248, 149);
+            this.labelBoxCont.Name = "labelBoxCont";
+            this.labelBoxCont.Size = new System.Drawing.Size(100, 23);
+            this.labelBoxCont.TabIndex = 18;
+            this.labelBoxCont.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // labelBoxLoad
             // 
-            this.label5.BackColor = System.Drawing.SystemColors.Window;
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(248, 117);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 23);
-            this.label5.TabIndex = 19;
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelBoxLoad.BackColor = System.Drawing.SystemColors.Window;
+            this.labelBoxLoad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelBoxLoad.Location = new System.Drawing.Point(248, 117);
+            this.labelBoxLoad.Name = "labelBoxLoad";
+            this.labelBoxLoad.Size = new System.Drawing.Size(100, 23);
+            this.labelBoxLoad.TabIndex = 19;
+            this.labelBoxLoad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMotorPos
             // 
@@ -327,9 +327,9 @@
             this.labelAmbientTemp.AutoSize = true;
             this.labelAmbientTemp.Location = new System.Drawing.Point(12, 40);
             this.labelAmbientTemp.Name = "labelAmbientTemp";
-            this.labelAmbientTemp.Size = new System.Drawing.Size(181, 17);
+            this.labelAmbientTemp.Size = new System.Drawing.Size(225, 17);
             this.labelAmbientTemp.TabIndex = 24;
-            this.labelAmbientTemp.Text = "Ambient Temperature (°F) :";
+            this.labelAmbientTemp.Text = "Ambient Temperature (°C) / rH % :";
             // 
             // labelBoxAmbientTemp
             // 
@@ -391,11 +391,11 @@
             this.groupBoxTestData.Controls.Add(this.labelSpinMotorStatus);
             this.groupBoxTestData.Controls.Add(this.labelMotorPos);
             this.groupBoxTestData.Controls.Add(this.labelLoadSensorStatus);
-            this.groupBoxTestData.Controls.Add(this.label5);
+            this.groupBoxTestData.Controls.Add(this.labelBoxLoad);
             this.groupBoxTestData.Controls.Add(this.labelBoxTimeRemaining);
             this.groupBoxTestData.Controls.Add(this.labelBoxLoops);
             this.groupBoxTestData.Controls.Add(this.labelTimeRemain);
-            this.groupBoxTestData.Controls.Add(this.label4);
+            this.groupBoxTestData.Controls.Add(this.labelBoxCont);
             this.groupBoxTestData.Controls.Add(this.labelContinuityStatus);
             this.groupBoxTestData.Controls.Add(this.labelLoops);
             this.groupBoxTestData.Location = new System.Drawing.Point(542, 49);
@@ -454,8 +454,8 @@
         private System.Windows.Forms.Timer timeRemainingTimer;
         private System.Windows.Forms.Label labelBoxTimeRemaining;
         private System.Windows.Forms.Label labelBoxLoops;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelBoxCont;
+        private System.Windows.Forms.Label labelBoxLoad;
         private System.Windows.Forms.Label labelMotorPos;
         private System.Windows.Forms.Label labelTestInProgress;
         private System.Windows.Forms.Timer labelTestInProgressTimer;
