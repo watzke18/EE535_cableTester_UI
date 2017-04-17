@@ -262,10 +262,17 @@ namespace cableFactoryTestApp
                     labelTestInProgressTimer.Enabled = false;
                     labelTestInProgress.Visible = false;
                    
-                    labelBoxTimeRemaining.Text = "";
                     labelBoxLoops.Text = "";
 
-                    exitTestMode();
+                    AppendConsoleText("Test Finished");
+                    timeRemainingTimer.Enabled = false;
+                    labelTestInProgressTimer.Enabled = false;
+                    abortTestBtn.Enabled = false;
+                    comboBoxRefreshRate.Enabled = true;
+                    timerRefresh.Enabled = false;
+                    labelBoxTimeRemaining.Text = "0:00";
+
+                    //   exitTestMode();
                 }
             
             }
@@ -620,15 +627,23 @@ namespace cableFactoryTestApp
 
             if(transmit_message("DATA"))
             {
-                if(receive_message(ref str))
+                try
                 {
-                    reply = true;
+                    if (receive_message(ref str))
+                    {
+                        reply = true;
+                    }
+                    else
+                    {
+                        AppendConsoleText("Failed to receive input DATA");
+                        reply = false;
+                    }
                 }
-                else
+                catch
                 {
-                    AppendConsoleText("Failed to receive input DATA");
                     reply = false;
                 }
+          
             }
             else
             {
