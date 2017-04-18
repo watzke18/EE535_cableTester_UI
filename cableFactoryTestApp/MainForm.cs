@@ -188,7 +188,7 @@ namespace cableFactoryTestApp
 
         //    while(_testInProgress)
             {
-
+                int x = 0;
             }
 
 
