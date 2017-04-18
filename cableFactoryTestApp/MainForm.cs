@@ -36,17 +36,16 @@ namespace cableFactoryTestApp
 
         public commPort m_Comm = new commPort();
         public static TestParameters m_testParameters = new TestParameters();
-        public const int MAX_BUFF_SIZE = 100;
 
 
         private int _startTime;
         private bool _labelToggle;
         private bool _testInProgress;
+        private bool _testAborted;
+        
 
         public string[] data; //this array of strings will hold data temporarily until next update is received from micro
 
-        public char[] recv_buf;
-        public int offset;
 
         public MainForm()
         {
@@ -57,9 +56,7 @@ namespace cableFactoryTestApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             m_Comm.LoadSettings();
-            recv_buf = new char[MAX_BUFF_SIZE];
-            offset = 0;
-
+      
             closeCommBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
@@ -129,13 +126,17 @@ namespace cableFactoryTestApp
         {
             string msg = "";
 
-            if (read_inputs_command(ref msg))
+            if (transmit_message("DATA"))
             {
-                parseMessage(ref msg);
+                if(receive_message(ref msg))
+                {
+                    parseMessage(ref msg);
 
-                labelBoxLoad.Text = data[0];
-                labelMotorPos.Text = data[1];
-                labelBoxCont.Text = data[2];
+                    labelBoxLoad.Text = data[0];
+                    labelMotorPos.Text = data[1];
+                    labelBoxCont.Text = data[2];
+                }
+               
             }
             else
             {
@@ -186,9 +187,9 @@ namespace cableFactoryTestApp
 
             //check for data on serial port using read command
 
-        //    while(_testInProgress)
+           // while(_testInProgress)
             {
-                int x = 0;
+               
             }
 
 
@@ -196,8 +197,16 @@ namespace cableFactoryTestApp
 
         public void exitTestMode()
         {
-        
             _testInProgress = false;
+
+            if(_testAborted)
+            {
+                AppendConsoleText("Test Aborted");
+            }
+            else
+            {
+                AppendConsoleText("Test Finished");
+            }
 
             timeRemainingTimer.Enabled = false;
             labelTestInProgressTimer.Enabled = false;
@@ -209,7 +218,7 @@ namespace cableFactoryTestApp
             timerRefresh.Enabled = false;
             resetTimer();
             labelBoxTimeRemaining.Text = "0:00";
-            AppendConsoleText("Test Finished");
+          
 
         }
 
@@ -274,7 +283,29 @@ namespace cableFactoryTestApp
                 }
             
             }
-           
+           else
+           {
+                m_Comm.Close();
+                AppendConsoleText(m_Comm.getPortSettings().port_name + " Closed Successfully");
+
+                openCommBtn.Enabled = true;
+                comboBoxRefreshRate.Enabled = true;
+
+                closeCommBtn.Enabled = false;
+                testSetupBtn.Enabled = false;
+                startTestBtn.Enabled = false;
+                abortTestBtn.Enabled = false;
+                timeRemainingTimer.Enabled = false;
+
+                labelBoxLoops.Text = "";
+                timeRemainingTimer.Enabled = false;
+                labelTestInProgressTimer.Enabled = false;
+                abortTestBtn.Enabled = false;
+                comboBoxRefreshRate.Enabled = true;
+                timerRefresh.Enabled = false;
+                labelBoxTimeRemaining.Text = "0:00";
+            }
+
 
         }
 
@@ -295,12 +326,13 @@ namespace cableFactoryTestApp
                 if(transmit_message("TEST " + testString))
                 {
                     AppendConsoleText("Test Parameters Entered");
+                    startTestBtn.Enabled = true;
                 }
                 else
                 {
                     AppendConsoleText("Failed to send Test Parameters string");
                 }
-                startTestBtn.Enabled = true;
+               
 
             }
         }
@@ -309,7 +341,7 @@ namespace cableFactoryTestApp
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             string temp = "";
-            m_Comm.discardInBuffer();
+           // m_Comm.discardInBuffer();
             if (read_temperature_command(ref temp))
             {
                 AppendConsoleText("Temperature and Humidity Recorded");
@@ -337,44 +369,14 @@ namespace cableFactoryTestApp
         {
             if (transmit_message("STOP"))
             {
-                AppendConsoleText("Test Aborted!");
-                _testInProgress = false;
+                _testAborted = true;
                 exitTestMode();
             }
             else
             {
                 AppendConsoleText("Failed to send STOP command to micro on abort! ");
             }
-
-            /*
-            startTestBtn.Enabled = true; 
-            testSetupBtn.Enabled = true;
-            comboBoxRefreshRate.Enabled = true;
-
-            abortTestBtn.Enabled = false;
-            timeRemainingTimer.Enabled = false;
-            labelTestInProgressTimer.Enabled = false;
-            labelTestInProgress.Visible = false;
-            
-
-            resetTimer();
-         */
         }
-
-        private void readTempBtn_Click(object sender, EventArgs e)
-        {
-            string temp = "";
-
-            if(read_temperature_command(ref temp))
-            {
-            }
-        }
-
-
-      
-
-   
-
         private void comboBoxRefreshRate_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBoxRefreshRate.SelectedIndex)
@@ -624,26 +626,20 @@ namespace cableFactoryTestApp
         {
             bool reply = false;
 
-            if(transmit_message("DATA"))
+            if (transmit_message("DATA"))
             {
-                try
+                if (receive_message(ref str))
                 {
-                    if (receive_message(ref str))
-                    {
-                        reply = true;
-                    }
-                    else
-                    {
-                        AppendConsoleText("Failed to receive input DATA");
-                        reply = false;
-                    }
+                    reply = true;
                 }
-                catch
+                else
                 {
+                    AppendConsoleText("Failed to receive input DATA");
                     reply = false;
                 }
-          
+
             }
+
             else
             {
                 AppendConsoleText("Failed to transmit command DATA");
@@ -746,6 +742,11 @@ namespace cableFactoryTestApp
             }
 
             return reply;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            consoleRichTextBox.Clear();
         }
 
 

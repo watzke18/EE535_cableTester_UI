@@ -65,6 +65,8 @@
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.labelConsole = new System.Windows.Forms.Label();
             this.groupBoxTestData = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBoxTestData.SuspendLayout();
             this.SuspendLayout();
@@ -305,10 +307,10 @@
             // consoleRichTextBox
             // 
             this.consoleRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 49);
+            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 74);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
             this.consoleRichTextBox.ReadOnly = true;
-            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 343);
+            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 318);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
             // 
@@ -398,18 +400,41 @@
             this.groupBoxTestData.Controls.Add(this.labelBoxCont);
             this.groupBoxTestData.Controls.Add(this.labelContinuityStatus);
             this.groupBoxTestData.Controls.Add(this.labelLoops);
-            this.groupBoxTestData.Location = new System.Drawing.Point(542, 49);
+            this.groupBoxTestData.Location = new System.Drawing.Point(542, 37);
             this.groupBoxTestData.Name = "groupBoxTestData";
-            this.groupBoxTestData.Size = new System.Drawing.Size(362, 343);
+            this.groupBoxTestData.Size = new System.Drawing.Size(362, 355);
             this.groupBoxTestData.TabIndex = 30;
             this.groupBoxTestData.TabStop = false;
             this.groupBoxTestData.Text = "System Data";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(245, 51);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 17);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "Console";
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(458, 41);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(78, 27);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "Clear";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(915, 441);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxTestData);
             this.Controls.Add(this.closeCommBtn);
             this.Controls.Add(this.consoleRichTextBox);
@@ -471,6 +496,8 @@
         private System.Windows.Forms.Timer timerRefresh;
         private System.Windows.Forms.Label labelConsole;
         private System.Windows.Forms.GroupBox groupBoxTestData;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
