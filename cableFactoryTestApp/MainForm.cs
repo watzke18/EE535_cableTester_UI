@@ -197,22 +197,20 @@ namespace cableFactoryTestApp
         public void exitTestMode()
         {
         
-                _testInProgress = false;
+            _testInProgress = false;
 
-                AppendConsoleText("Test Finished");
-                timeRemainingTimer.Enabled = false;
-                labelTestInProgressTimer.Enabled = false;
-                labelTestInProgress.Visible = false;
-                testSetupBtn.Enabled = true;
-                abortTestBtn.Enabled = false;
-                startTestBtn.Enabled = true;
-                comboBoxRefreshRate.Enabled = true;
-                timerRefresh.Enabled = false;
-                labelBoxTimeRemaining.Text = "0:00";
+            timeRemainingTimer.Enabled = false;
+            labelTestInProgressTimer.Enabled = false;
+            labelTestInProgress.Visible = false;
+            testSetupBtn.Enabled = true;
+            abortTestBtn.Enabled = false;
+            startTestBtn.Enabled = true;
+            comboBoxRefreshRate.Enabled = true;
+            timerRefresh.Enabled = false;
+            resetTimer();
+            labelBoxTimeRemaining.Text = "0:00";
+            AppendConsoleText("Test Finished");
 
-              //  Array.Clear(recv_buf, 0, recv_buf.Length);
-          
-     
         }
 
         /*********************************************************************
@@ -311,6 +309,7 @@ namespace cableFactoryTestApp
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             string temp = "";
+            m_Comm.discardInBuffer();
             if (read_temperature_command(ref temp))
             {
                 AppendConsoleText("Temperature and Humidity Recorded");
