@@ -461,7 +461,7 @@ namespace cableFactoryTestApp
 
                 if(m_testParameters.total_loops > 1 || m_testParameters.loops_completed <= m_testParameters.total_loops)
                 { 
-                    if(transmit_message("STOP REST"))
+                    if(transmit_message("REST"))
                     {
                         labelBoxRestRemaining.Enabled = true;
                         labelRestRemaining.Enabled = true;
