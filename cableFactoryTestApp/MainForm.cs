@@ -225,7 +225,6 @@ namespace cableFactoryTestApp
             timerRefresh.Enabled = false;
             resetTestTimer();
             resetRestTimer();
-            labelBoxTimeRemaining.Text = "0:00";
           
 
         }
