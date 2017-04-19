@@ -347,6 +347,7 @@ namespace cableFactoryTestApp
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             string temp = "";
+            string ready = "";
             m_testParameters.loops_completed = 0;
            // m_Comm.discardInBuffer();
             if (read_temperature_command(ref temp))
@@ -358,6 +359,11 @@ namespace cableFactoryTestApp
                 {
                     AppendConsoleText("Starting Test");
                     _testInProgress = true;
+                   // while(m_Comm.m_SerialPort.ReadLine() != "READY")
+                   // {
+
+                   // }
+
                     enterTestMode();
                 }
                 else
@@ -468,6 +474,11 @@ namespace cableFactoryTestApp
                         labelBoxTimeRemaining.Enabled = false;
                         labelTimeRemain.Enabled = false;
                         timerRestRemaining.Enabled = true;
+
+                        while(m_Comm.read() != "RESTING")
+                        {
+                            //
+                        }
 
                         resetTestTimer();
 
