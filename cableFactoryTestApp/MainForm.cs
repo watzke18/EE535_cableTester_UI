@@ -502,7 +502,7 @@ namespace cableFactoryTestApp
             {
                 m_testParameters.loops_completed++; //finished rest cycle. full loop completed
 
-                if (m_testParameters.loops_completed < m_testParameters.total_loops) 
+                if (m_testParameters.loops_completed <= m_testParameters.total_loops) 
                 {
 
                     if (transmit_message("START"))
