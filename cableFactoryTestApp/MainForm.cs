@@ -348,6 +348,7 @@ namespace cableFactoryTestApp
         private void startTestBtn_Click(object sender, EventArgs e)
         {
             string temp = "";
+            m_testParameters.loops_completed = 0;
            // m_Comm.discardInBuffer();
             if (read_temperature_command(ref temp))
             {
