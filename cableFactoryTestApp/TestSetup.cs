@@ -39,20 +39,30 @@ namespace cableFactoryTestApp
 
         private void testSetupOkBtn_Click(object sender, EventArgs e)
         {
-            m_testParameters.cable_description = textBoxCableType.Text;
-            m_testParameters.force_applied = (float)numericUpDownForce.Value;
-            m_testParameters.total_loops = (int)numericUpDownTestLoops.Value;
-            m_testParameters.test_duration = (int)numericUpDownTest.Value;
-            m_testParameters.rest_duration = (int)numericUpDownRest.Value;
 
-            if(comboBoxContinuity.Text == "Yes")
+           // if (!ParamCheck())
+           // {
+             //   this.DialogResult = DialogResult.None;
+          //  }
+          //  else
             {
-                m_testParameters.stop_on_break = 1;
+                m_testParameters.cable_description = textBoxCableType.Text;
+                m_testParameters.force_applied = (float)numericUpDownForce.Value;
+                m_testParameters.total_loops = (int)numericUpDownTestLoops.Value;
+                m_testParameters.test_duration = (int)numericUpDownTest.Value;
+                m_testParameters.rest_duration = (int)numericUpDownRest.Value;
+
+                if (comboBoxContinuity.Text == "Yes")
+                {
+                    m_testParameters.stop_on_break = 1;
+                }
+                else
+                {
+                    m_testParameters.stop_on_break = 0;
+                }
             }
-            else
-            {
-                m_testParameters.stop_on_break = 0;
-            }
+      
+
         }
 
         private void testSetupCancelBtn_Click(object sender, EventArgs e)
@@ -60,9 +70,40 @@ namespace cableFactoryTestApp
 
         }
 
-        public bool ParamCheck()
+        public bool ParamCheck() //true if paramaters are valid, false if invalid.
         {
-            return false;
+            bool reply = true;
+            string str = "";
+
+            if((int)numericUpDownTest.Value == 0)
+            {
+                str += "-Test duration cannot be 0 \n";
+                reply = false;
+            }
+
+            if((int)numericUpDownTestLoops.Value != 0)
+            {
+                if ((int)numericUpDownRest.Value == 0)
+                {
+                    str += "-Rest duration between test repititions cannot be 0 \n";
+                    reply = false;
+                }
+                else if (((double)numericUpDownTest.Value / (double)(int)numericUpDownRest.Value) > 1.67)
+                {
+                    str += "-There must be 3 minutes of rest for every 5 minutes that test is running (1.66:1 ratio). \n";
+                    reply = false;
+                }
+            }
+
+        
+
+            if(reply == false)
+            {
+                MessageBox.Show(str, "Invalid Parameters", MessageBoxButtons.OK);
+               
+            }
+
+            return reply;
         }
 
       

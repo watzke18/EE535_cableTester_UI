@@ -67,6 +67,9 @@
             this.groupBoxTestData = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.labelRestRemaining = new System.Windows.Forms.Label();
+            this.labelBoxRestRemaining = new System.Windows.Forms.Label();
+            this.timerRestRemaining = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBoxTestData.SuspendLayout();
             this.SuspendLayout();
@@ -307,10 +310,10 @@
             // consoleRichTextBox
             // 
             this.consoleRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 74);
+            this.consoleRichTextBox.Location = new System.Drawing.Point(248, 57);
             this.consoleRichTextBox.Name = "consoleRichTextBox";
             this.consoleRichTextBox.ReadOnly = true;
-            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 318);
+            this.consoleRichTextBox.Size = new System.Drawing.Size(288, 335);
             this.consoleRichTextBox.TabIndex = 22;
             this.consoleRichTextBox.Text = "";
             // 
@@ -346,7 +349,7 @@
             // labelRefreshRate
             // 
             this.labelRefreshRate.AutoSize = true;
-            this.labelRefreshRate.Location = new System.Drawing.Point(12, 315);
+            this.labelRefreshRate.Location = new System.Drawing.Point(12, 329);
             this.labelRefreshRate.Name = "labelRefreshRate";
             this.labelRefreshRate.Size = new System.Drawing.Size(100, 17);
             this.labelRefreshRate.TabIndex = 28;
@@ -363,7 +366,7 @@
             "1000ms",
             "2000ms",
             "5000ms"});
-            this.comboBoxRefreshRate.Location = new System.Drawing.Point(232, 312);
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(232, 322);
             this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
             this.comboBoxRefreshRate.Size = new System.Drawing.Size(116, 24);
             this.comboBoxRefreshRate.TabIndex = 29;
@@ -386,6 +389,8 @@
             // groupBoxTestData
             // 
             this.groupBoxTestData.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBoxTestData.Controls.Add(this.labelBoxRestRemaining);
+            this.groupBoxTestData.Controls.Add(this.labelRestRemaining);
             this.groupBoxTestData.Controls.Add(this.labelAmbientTemp);
             this.groupBoxTestData.Controls.Add(this.comboBoxRefreshRate);
             this.groupBoxTestData.Controls.Add(this.labelBoxAmbientTemp);
@@ -400,9 +405,9 @@
             this.groupBoxTestData.Controls.Add(this.labelBoxCont);
             this.groupBoxTestData.Controls.Add(this.labelContinuityStatus);
             this.groupBoxTestData.Controls.Add(this.labelLoops);
-            this.groupBoxTestData.Location = new System.Drawing.Point(542, 37);
+            this.groupBoxTestData.Location = new System.Drawing.Point(542, 31);
             this.groupBoxTestData.Name = "groupBoxTestData";
-            this.groupBoxTestData.Size = new System.Drawing.Size(362, 355);
+            this.groupBoxTestData.Size = new System.Drawing.Size(362, 361);
             this.groupBoxTestData.TabIndex = 30;
             this.groupBoxTestData.TabStop = false;
             this.groupBoxTestData.Text = "System Data";
@@ -410,7 +415,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(245, 51);
+            this.label1.Location = new System.Drawing.Point(245, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 17);
             this.label1.TabIndex = 31;
@@ -419,14 +424,37 @@
             // button1
             // 
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(458, 41);
+            this.button1.Location = new System.Drawing.Point(458, 31);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 27);
+            this.button1.Size = new System.Drawing.Size(78, 23);
             this.button1.TabIndex = 32;
             this.button1.Text = "Clear";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // labelRestRemaining
+            // 
+            this.labelRestRemaining.AutoSize = true;
+            this.labelRestRemaining.Location = new System.Drawing.Point(12, 271);
+            this.labelRestRemaining.Name = "labelRestRemaining";
+            this.labelRestRemaining.Size = new System.Drawing.Size(112, 17);
+            this.labelRestRemaining.TabIndex = 30;
+            this.labelRestRemaining.Text = "Rest Remaining:";
+            // 
+            // labelBoxRestRemaining
+            // 
+            this.labelBoxRestRemaining.BackColor = System.Drawing.SystemColors.Window;
+            this.labelBoxRestRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelBoxRestRemaining.Location = new System.Drawing.Point(248, 265);
+            this.labelBoxRestRemaining.Name = "labelBoxRestRemaining";
+            this.labelBoxRestRemaining.Size = new System.Drawing.Size(100, 23);
+            this.labelBoxRestRemaining.TabIndex = 31;
+            this.labelBoxRestRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timerRestRemaining
+            // 
+            this.timerRestRemaining.Interval = 1000;
+            this.timerRestRemaining.Tick += new System.EventHandler(this.timerRestRemaining_Tick);
             // 
             // MainForm
             // 
@@ -498,6 +526,9 @@
         private System.Windows.Forms.GroupBox groupBoxTestData;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label labelBoxRestRemaining;
+        private System.Windows.Forms.Label labelRestRemaining;
+        private System.Windows.Forms.Timer timerRestRemaining;
     }
 }
 

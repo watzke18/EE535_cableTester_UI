@@ -39,6 +39,7 @@ namespace cableFactoryTestApp
 
 
         private int _startTime;
+        private int _restTime;
         private bool _labelToggle;
         private bool _testInProgress;
         private bool _testAborted;
@@ -52,7 +53,6 @@ namespace cableFactoryTestApp
             InitializeComponent();     
         }
 
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             m_Comm.LoadSettings();
@@ -61,6 +61,8 @@ namespace cableFactoryTestApp
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
+            labelRestRemaining.Enabled = false;
+            labelBoxRestRemaining.Enabled = false;
 
             /* set default test parameters */
 
@@ -135,6 +137,8 @@ namespace cableFactoryTestApp
                     labelBoxLoad.Text = data[0];
                     labelMotorPos.Text = data[1];
                     labelBoxCont.Text = data[2];
+
+                    //could add current test loop into data string?
                 }
                
             }
@@ -142,6 +146,8 @@ namespace cableFactoryTestApp
             {
                 AppendConsoleText("Error reading inputs from Arduino");
             }
+
+            labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
         }
 
         private void logData(string[] args)
@@ -209,6 +215,7 @@ namespace cableFactoryTestApp
             }
 
             timeRemainingTimer.Enabled = false;
+            timerRestRemaining.Enabled = false;
             labelTestInProgressTimer.Enabled = false;
             labelTestInProgress.Visible = false;
             testSetupBtn.Enabled = true;
@@ -216,7 +223,8 @@ namespace cableFactoryTestApp
             startTestBtn.Enabled = true;
             comboBoxRefreshRate.Enabled = true;
             timerRefresh.Enabled = false;
-            resetTimer();
+            resetTestTimer();
+            resetRestTimer();
             labelBoxTimeRemaining.Text = "0:00";
           
 
@@ -320,7 +328,8 @@ namespace cableFactoryTestApp
                 string testString = "";
                 m_testParameters = m_testSetup.m_testParameters;
                 testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
-                resetTimer(); //reset timer with time entered in test setup
+                resetTestTimer(); //reset timer with time entered in test setup
+                resetRestTimer();
                 labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
 
                 if(transmit_message("TEST " + testString))
@@ -332,8 +341,6 @@ namespace cableFactoryTestApp
                 {
                     AppendConsoleText("Failed to send Test Parameters string");
                 }
-               
-
             }
         }
 
@@ -430,10 +437,15 @@ namespace cableFactoryTestApp
          * 
          *********************************************************************/
 
-        private void resetTimer()
+        private void resetTestTimer()
         {
             _startTime = m_testParameters.test_duration * 60;
             labelBoxTimeRemaining.Text = _startTime / 60 + ":" + ((_startTime % 60) >= 10 ? (_startTime % 60).ToString() : "0" + _startTime % 60);
+        }
+        private void resetRestTimer()
+        {
+            _restTime = m_testParameters.rest_duration * 60;
+            labelBoxRestRemaining.Text = _restTime / 60 + ":" + ((_restTime % 60) >= 10 ? (_restTime % 60).ToString() : "0" + _restTime % 60);
         }
 
         private void timeRemainingTimer_Tick(object sender, EventArgs e)
@@ -444,9 +456,78 @@ namespace cableFactoryTestApp
 
             if(_startTime == -1)
             {
-                exitTestMode();
+                timerRefresh.Enabled = false;
+                timeRemainingTimer.Enabled = false;
+
+                if(m_testParameters.total_loops > 1 || m_testParameters.loops_completed <= m_testParameters.total_loops)
+                { 
+                    if(transmit_message("STOP REST"))
+                    {
+                        labelBoxRestRemaining.Enabled = true;
+                        labelRestRemaining.Enabled = true;
+                        labelBoxTimeRemaining.Enabled = false;
+                        labelTimeRemain.Enabled = false;
+                        timerRestRemaining.Enabled = true;
+
+                        resetTestTimer();
+
+                    }
+                    else
+                    {
+                        AppendConsoleText("Failed to send STOP REST command at end of test rep");
+                    }
+                }
+                else //test is over with
+                {
+                    if(transmit_message("STOP"))
+                    {
+                        exitTestMode();
+                    }
+                    else
+                    {
+                        AppendConsoleText("Failed to send STOP command at end of test");
+                    }
+                }
+                      
             }
            
+        }
+
+        private void timerRestRemaining_Tick(object sender, EventArgs e)
+        {
+            labelBoxRestRemaining.Text = _restTime / 60 + ":" + ((_restTime % 60) >= 10 ? (_restTime % 60).ToString() : "0" + _restTime % 60);
+            _restTime--;
+
+            if(_restTime == -1)
+            {
+                m_testParameters.loops_completed++; //finished rest cycle. full loop completed
+
+                if (m_testParameters.loops_completed < m_testParameters.total_loops) 
+                {
+
+                    if (transmit_message("START"))
+                    {
+
+                        timerRestRemaining.Enabled = false;
+                        labelBoxRestRemaining.Enabled = false;
+                        labelRestRemaining.Enabled = false;
+                        labelBoxTimeRemaining.Enabled = true;
+                        labelTimeRemain.Enabled = true;
+                        timerRefresh.Enabled = true;
+                        timeRemainingTimer.Enabled = true;
+                        resetRestTimer();
+                    }
+                    else
+                    {
+                        AppendConsoleText("failed to send START command at end of rest");
+                    }
+                }
+                else
+                {
+                    exitTestMode();
+                }
+            }
+
         }
 
         private void labelTestProgressTimer_Tick(object sender, EventArgs e)
@@ -748,6 +829,8 @@ namespace cableFactoryTestApp
         {
             consoleRichTextBox.Clear();
         }
+
+      
 
 
 
