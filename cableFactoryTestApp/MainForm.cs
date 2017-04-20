@@ -43,7 +43,8 @@ namespace cableFactoryTestApp
         private bool _labelToggle;
         private bool _testInProgress;
         private bool _testAborted;
-        
+
+        private int _microStatus;
 
         public string[] data; //this array of strings will hold data temporarily until next update is received from micro
 
@@ -454,6 +455,7 @@ namespace cableFactoryTestApp
             labelBoxRestRemaining.Text = _restTime / 60 + ":" + ((_restTime % 60) >= 10 ? (_restTime % 60).ToString() : "0" + _restTime % 60);
         }
 
+
         private void timeRemainingTimer_Tick(object sender, EventArgs e)
         {
           
@@ -469,15 +471,24 @@ namespace cableFactoryTestApp
                 { 
                     if(transmit_message("REST"))
                     {
+                        
                         labelBoxRestRemaining.Enabled = true;
                         labelRestRemaining.Enabled = true;
                         labelBoxTimeRemaining.Enabled = false;
                         labelTimeRemain.Enabled = false;
                         timerRestRemaining.Enabled = true;
 
-                        while(m_Comm.read() != "RESTING")
+                        string _microString = "";
+
+                        while (_microStatus == 0)
                         {
-                            //
+                            if(transmit_message("STATUS"))
+                            {
+                                if(receive_message(ref _microString))
+                                {
+                                    _microStatus = Convert.ToInt32(_microString);
+                                }
+                            }
                         }
 
                         resetTestTimer();
