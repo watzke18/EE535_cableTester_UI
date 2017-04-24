@@ -36,6 +36,9 @@ namespace cableFactoryTestApp
 
         public commPort m_Comm = new commPort();
         public static TestParameters m_testParameters = new TestParameters();
+        public SaveFileDialog sfd;
+        public StreamWriter sw;
+        public CsvWriter writer;
 
 
         private int _startTime;
@@ -43,8 +46,8 @@ namespace cableFactoryTestApp
         private bool _labelToggle;
         private bool _testInProgress;
         private bool _testAborted;
-
-        private int _microStatus;
+ 
+        private int _microStatus; //holds status of microcontroller. 0 = rest, 1 = test
 
         public string[] data; //this array of strings will hold data temporarily until next update is received from micro
 
@@ -57,7 +60,9 @@ namespace cableFactoryTestApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             m_Comm.LoadSettings();
-      
+       
+
+
             closeCommBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
@@ -83,9 +88,7 @@ namespace cableFactoryTestApp
             timerRefresh.Interval = 1000;   
         }
 
-        private static StringBuilder receiveBuffer = new StringBuilder();
-        private string terminationSequence = "\r\n";
-        private string rxString;
+
 
     /*    public void DataReceived(object sender, SerialDataReceivedEventArgs e) //DataReceived event - fires when data is received on serial port
         {
@@ -138,6 +141,9 @@ namespace cableFactoryTestApp
                     labelBoxLoad.Text = data[0];
                     labelMotorPos.Text = data[1];
                     labelBoxCont.Text = data[2];
+                    
+                    //log data here 
+                  
 
                     //could add current test loop into data string?
                 }
@@ -317,6 +323,17 @@ namespace cableFactoryTestApp
 
         }
 
+        public string[] toArray(String testDescription, int testDuration, int restDuration, float forceApplied)
+        {
+            string[] toArray = new string[4];
+            toArray[0] = testDescription;
+            toArray[1] = testDuration.ToString();
+            toArray[2] = restDuration.ToString();
+            toArray[3] = forceApplied.ToString();
+            return toArray;
+        }
+      
+
         private void testSetupBtn_Click(object sender, EventArgs e)
         {
             TestSetup m_testSetup = new TestSetup();
@@ -328,6 +345,18 @@ namespace cableFactoryTestApp
                 string testString = "";
                 m_testParameters = m_testSetup.m_testParameters;
                 testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
+                using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
+                {
+                    if(sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        using (sw = new StreamWriter(sfd.FileName))
+                        {
+                            writer = new CsvWriter(sw);
+                            writer.WriteRecord(toArray(m_testParameters.cable_description, m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.force_applied));
+                            
+                        }
+                    }
+                }
                 resetTestTimer(); //reset timer with time entered in test setup
                 resetRestTimer();
                 labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
