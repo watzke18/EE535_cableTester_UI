@@ -65,10 +65,10 @@
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.labelConsole = new System.Windows.Forms.Label();
             this.groupBoxTestData = new System.Windows.Forms.GroupBox();
+            this.labelBoxRestRemaining = new System.Windows.Forms.Label();
+            this.labelRestRemaining = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.labelRestRemaining = new System.Windows.Forms.Label();
-            this.labelBoxRestRemaining = new System.Windows.Forms.Label();
             this.timerRestRemaining = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBoxTestData.SuspendLayout();
@@ -219,6 +219,7 @@
             this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
             this.calibrationToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
             this.calibrationToolStripMenuItem.Text = "Calibration";
+            this.calibrationToolStripMenuItem.Click += new System.EventHandler(this.calibrationToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -412,6 +413,25 @@
             this.groupBoxTestData.TabStop = false;
             this.groupBoxTestData.Text = "System Data";
             // 
+            // labelBoxRestRemaining
+            // 
+            this.labelBoxRestRemaining.BackColor = System.Drawing.SystemColors.Window;
+            this.labelBoxRestRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelBoxRestRemaining.Location = new System.Drawing.Point(248, 265);
+            this.labelBoxRestRemaining.Name = "labelBoxRestRemaining";
+            this.labelBoxRestRemaining.Size = new System.Drawing.Size(100, 23);
+            this.labelBoxRestRemaining.TabIndex = 31;
+            this.labelBoxRestRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelRestRemaining
+            // 
+            this.labelRestRemaining.AutoSize = true;
+            this.labelRestRemaining.Location = new System.Drawing.Point(12, 271);
+            this.labelRestRemaining.Name = "labelRestRemaining";
+            this.labelRestRemaining.Size = new System.Drawing.Size(112, 17);
+            this.labelRestRemaining.TabIndex = 30;
+            this.labelRestRemaining.Text = "Rest Remaining:";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -431,25 +451,6 @@
             this.button1.Text = "Clear";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // labelRestRemaining
-            // 
-            this.labelRestRemaining.AutoSize = true;
-            this.labelRestRemaining.Location = new System.Drawing.Point(12, 271);
-            this.labelRestRemaining.Name = "labelRestRemaining";
-            this.labelRestRemaining.Size = new System.Drawing.Size(112, 17);
-            this.labelRestRemaining.TabIndex = 30;
-            this.labelRestRemaining.Text = "Rest Remaining:";
-            // 
-            // labelBoxRestRemaining
-            // 
-            this.labelBoxRestRemaining.BackColor = System.Drawing.SystemColors.Window;
-            this.labelBoxRestRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxRestRemaining.Location = new System.Drawing.Point(248, 265);
-            this.labelBoxRestRemaining.Name = "labelBoxRestRemaining";
-            this.labelBoxRestRemaining.Size = new System.Drawing.Size(100, 23);
-            this.labelBoxRestRemaining.TabIndex = 31;
-            this.labelBoxRestRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timerRestRemaining
             // 

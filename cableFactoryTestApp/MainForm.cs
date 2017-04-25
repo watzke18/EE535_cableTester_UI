@@ -716,6 +716,14 @@ namespace cableFactoryTestApp
 
         }
 
+        private void calibrationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Calibration calibration = new Calibration();
+            if(calibration.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
+        }
 
         /*********************************************************************
          * 
@@ -881,7 +889,9 @@ namespace cableFactoryTestApp
             consoleRichTextBox.Clear();
         }
 
-      
+     
+
+
 
 
 
