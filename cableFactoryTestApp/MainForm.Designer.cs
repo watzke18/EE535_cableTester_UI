@@ -70,6 +70,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.timerRestRemaining = new System.Windows.Forms.Timer(this.components);
+            this.labelFilepath = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBoxTestData.SuspendLayout();
             this.SuspendLayout();
@@ -129,7 +130,7 @@
             // labelLoadSensorStatus
             // 
             this.labelLoadSensorStatus.AutoSize = true;
-            this.labelLoadSensorStatus.Location = new System.Drawing.Point(12, 120);
+            this.labelLoadSensorStatus.Location = new System.Drawing.Point(12, 117);
             this.labelLoadSensorStatus.Name = "labelLoadSensorStatus";
             this.labelLoadSensorStatus.Size = new System.Drawing.Size(141, 17);
             this.labelLoadSensorStatus.TabIndex = 6;
@@ -138,7 +139,7 @@
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(12, 152);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(16, 140);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
             this.labelContinuityStatus.Size = new System.Drawing.Size(122, 17);
             this.labelContinuityStatus.TabIndex = 7;
@@ -147,7 +148,7 @@
             // labelLoops
             // 
             this.labelLoops.AutoSize = true;
-            this.labelLoops.Location = new System.Drawing.Point(12, 218);
+            this.labelLoops.Location = new System.Drawing.Point(12, 245);
             this.labelLoops.Name = "labelLoops";
             this.labelLoops.Size = new System.Drawing.Size(126, 17);
             this.labelLoops.TabIndex = 8;
@@ -156,7 +157,7 @@
             // labelTimeRemain
             // 
             this.labelTimeRemain.AutoSize = true;
-            this.labelTimeRemain.Location = new System.Drawing.Point(12, 244);
+            this.labelTimeRemain.Location = new System.Drawing.Point(12, 199);
             this.labelTimeRemain.Name = "labelTimeRemain";
             this.labelTimeRemain.Size = new System.Drawing.Size(118, 17);
             this.labelTimeRemain.TabIndex = 9;
@@ -245,7 +246,7 @@
             // 
             this.labelBoxTimeRemaining.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxTimeRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(248, 241);
+            this.labelBoxTimeRemaining.Location = new System.Drawing.Point(248, 196);
             this.labelBoxTimeRemaining.Name = "labelBoxTimeRemaining";
             this.labelBoxTimeRemaining.Size = new System.Drawing.Size(100, 23);
             this.labelBoxTimeRemaining.TabIndex = 16;
@@ -255,7 +256,7 @@
             // 
             this.labelBoxLoops.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxLoops.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxLoops.Location = new System.Drawing.Point(248, 218);
+            this.labelBoxLoops.Location = new System.Drawing.Point(248, 242);
             this.labelBoxLoops.Name = "labelBoxLoops";
             this.labelBoxLoops.Size = new System.Drawing.Size(100, 23);
             this.labelBoxLoops.TabIndex = 17;
@@ -265,7 +266,7 @@
             // 
             this.labelBoxCont.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxCont.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxCont.Location = new System.Drawing.Point(248, 149);
+            this.labelBoxCont.Location = new System.Drawing.Point(248, 137);
             this.labelBoxCont.Name = "labelBoxCont";
             this.labelBoxCont.Size = new System.Drawing.Size(100, 23);
             this.labelBoxCont.TabIndex = 18;
@@ -275,7 +276,7 @@
             // 
             this.labelBoxLoad.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxLoad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxLoad.Location = new System.Drawing.Point(248, 117);
+            this.labelBoxLoad.Location = new System.Drawing.Point(248, 114);
             this.labelBoxLoad.Name = "labelBoxLoad";
             this.labelBoxLoad.Size = new System.Drawing.Size(100, 23);
             this.labelBoxLoad.TabIndex = 19;
@@ -350,7 +351,7 @@
             // labelRefreshRate
             // 
             this.labelRefreshRate.AutoSize = true;
-            this.labelRefreshRate.Location = new System.Drawing.Point(12, 329);
+            this.labelRefreshRate.Location = new System.Drawing.Point(12, 295);
             this.labelRefreshRate.Name = "labelRefreshRate";
             this.labelRefreshRate.Size = new System.Drawing.Size(100, 17);
             this.labelRefreshRate.TabIndex = 28;
@@ -367,7 +368,7 @@
             "1000ms",
             "2000ms",
             "5000ms"});
-            this.comboBoxRefreshRate.Location = new System.Drawing.Point(232, 322);
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(232, 292);
             this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
             this.comboBoxRefreshRate.Size = new System.Drawing.Size(116, 24);
             this.comboBoxRefreshRate.TabIndex = 29;
@@ -390,6 +391,7 @@
             // groupBoxTestData
             // 
             this.groupBoxTestData.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBoxTestData.Controls.Add(this.labelFilepath);
             this.groupBoxTestData.Controls.Add(this.labelBoxRestRemaining);
             this.groupBoxTestData.Controls.Add(this.labelRestRemaining);
             this.groupBoxTestData.Controls.Add(this.labelAmbientTemp);
@@ -417,7 +419,7 @@
             // 
             this.labelBoxRestRemaining.BackColor = System.Drawing.SystemColors.Window;
             this.labelBoxRestRemaining.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelBoxRestRemaining.Location = new System.Drawing.Point(248, 265);
+            this.labelBoxRestRemaining.Location = new System.Drawing.Point(248, 219);
             this.labelBoxRestRemaining.Name = "labelBoxRestRemaining";
             this.labelBoxRestRemaining.Size = new System.Drawing.Size(100, 23);
             this.labelBoxRestRemaining.TabIndex = 31;
@@ -426,7 +428,7 @@
             // labelRestRemaining
             // 
             this.labelRestRemaining.AutoSize = true;
-            this.labelRestRemaining.Location = new System.Drawing.Point(12, 271);
+            this.labelRestRemaining.Location = new System.Drawing.Point(12, 222);
             this.labelRestRemaining.Name = "labelRestRemaining";
             this.labelRestRemaining.Size = new System.Drawing.Size(112, 17);
             this.labelRestRemaining.TabIndex = 30;
@@ -456,6 +458,13 @@
             // 
             this.timerRestRemaining.Interval = 1000;
             this.timerRestRemaining.Tick += new System.EventHandler(this.timerRestRemaining_Tick);
+            // 
+            // labelFilepath
+            // 
+            this.labelFilepath.Location = new System.Drawing.Point(15, 330);
+            this.labelFilepath.Name = "labelFilepath";
+            this.labelFilepath.Size = new System.Drawing.Size(333, 16);
+            this.labelFilepath.TabIndex = 32;
             // 
             // MainForm
             // 
@@ -530,6 +539,7 @@
         private System.Windows.Forms.Label labelBoxRestRemaining;
         private System.Windows.Forms.Label labelRestRemaining;
         private System.Windows.Forms.Timer timerRestRemaining;
+        private System.Windows.Forms.Label labelFilepath;
     }
 }
 

@@ -26,8 +26,9 @@ namespace cableFactoryTestApp
         public int loops_completed;
         public int total_loops;
         public int stop_on_break;
-
         public float data_rate;
+
+        public string csv_save_path;
     }
 
 
@@ -39,6 +40,7 @@ namespace cableFactoryTestApp
         public SaveFileDialog sfd;
         public StreamWriter sw;
         public CsvWriter writer;
+        public StringBuilder csv;
 
 
         private int _startTime;
@@ -46,6 +48,7 @@ namespace cableFactoryTestApp
         private bool _labelToggle;
         private bool _testInProgress;
         private bool _testAborted;
+
  
         private int _microStatus; //holds status of microcontroller. 0 = rest, 1 = test
 
@@ -60,7 +63,8 @@ namespace cableFactoryTestApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             m_Comm.LoadSettings();
-       
+
+            csv = new StringBuilder();
 
 
             closeCommBtn.Enabled = false;
@@ -80,6 +84,7 @@ namespace cableFactoryTestApp
             m_testParameters.total_loops = 1;
             m_testParameters.data_rate = 1000F; //in ms
             m_testParameters.stop_on_break = 0;
+            m_testParameters.csv_save_path = "";
 
             _labelToggle = false;
             _testInProgress = false;
@@ -337,26 +342,53 @@ namespace cableFactoryTestApp
         private void testSetupBtn_Click(object sender, EventArgs e)
         {
             TestSetup m_testSetup = new TestSetup();
+            string testString = "";
 
             m_testSetup.m_testParameters = m_testParameters;
 
             if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
             {
-                string testString = "";
-                m_testParameters = m_testSetup.m_testParameters;
-                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
-                using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
+                if(m_testParameters.csv_save_path == "") //if save as file has not already been set, prompt user to set. 
                 {
-                    if(sfd.ShowDialog() == DialogResult.OK)
+                    using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
                     {
-                        using (sw = new StreamWriter(sfd.FileName))
+                        if (sfd.ShowDialog() == DialogResult.OK)
                         {
-                            writer = new CsvWriter(sw);
-                            writer.WriteRecord(toArray(m_testParameters.cable_description, m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.force_applied));
-                            
+                            m_testParameters = m_testSetup.m_testParameters;
+                            m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
+                            labelFilepath.Text = m_testParameters.csv_save_path;
+
+
+                            // csv.AppendLine("Cable ID / Description, Date/Time, Test Duration (ms), Rest Duration (ms), Force (Nm), Loop #, Total Loops, Break Detected");
+                            //  File.WriteAllText(sfd.FileName, csv.ToString());
+
+                            // using (sw = new StreamWriter(sfd.FileName))
+                            //  {
+                            //   writer = new CsvWriter(sw);
+                            //   writer.WriteRecord(toArray(m_testParameters.cable_description, m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.force_applied));
+
+                            // }
+
+
                         }
                     }
+
                 }
+                else
+                {
+                    m_testParameters = m_testSetup.m_testParameters;
+                    labelFilepath.Text = m_testParameters.csv_save_path;
+
+                }
+
+
+
+
+
+
+                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
+
+              
                 resetTestTimer(); //reset timer with time entered in test setup
                 resetRestTimer();
                 labelBoxLoops.Text = m_testParameters.loops_completed + "/" + m_testParameters.total_loops;
@@ -372,6 +404,8 @@ namespace cableFactoryTestApp
                 }
             }
         }
+
+ 
 
  
         private void startTestBtn_Click(object sender, EventArgs e)
@@ -636,9 +670,9 @@ namespace cableFactoryTestApp
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
+            saveFileDialog1.FileName = Path.GetFileName(m_testParameters.csv_save_path);
 
             saveFileDialog1.Filter = "Excel file (*.xls)|*.xls|Comma seperated file (*.csv)|*.csv";
             saveFileDialog1.FilterIndex = 2;
@@ -646,14 +680,10 @@ namespace cableFactoryTestApp
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if ((myStream = saveFileDialog1.OpenFile()) != null)
-                {
-                    FileInfo fi = new FileInfo(saveFileDialog1.FileName);
-
-                    string text = fi.Name;
-                    // Code to write the stream goes here.
-                    myStream.Close();
-                }
+                //System.IO.File.Move(m_testParameters.csv_save_path, saveFileDialog1.FileName);
+                m_testParameters.csv_save_path = saveFileDialog1.FileName;
+                labelFilepath.Text = m_testParameters.csv_save_path;
+               
             }
         }
 

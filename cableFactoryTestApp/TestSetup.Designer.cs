@@ -69,7 +69,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(446, 376);
+            this.groupBox2.Size = new System.Drawing.Size(446, 402);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test Parameters";
@@ -190,7 +190,7 @@
             // 
             this.testSetupCancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.testSetupCancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testSetupCancelBtn.Location = new System.Drawing.Point(265, 324);
+            this.testSetupCancelBtn.Location = new System.Drawing.Point(265, 350);
             this.testSetupCancelBtn.Name = "testSetupCancelBtn";
             this.testSetupCancelBtn.Size = new System.Drawing.Size(122, 46);
             this.testSetupCancelBtn.TabIndex = 6;
@@ -202,7 +202,7 @@
             // 
             this.testSetupOkBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.testSetupOkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testSetupOkBtn.Location = new System.Drawing.Point(54, 324);
+            this.testSetupOkBtn.Location = new System.Drawing.Point(55, 350);
             this.testSetupOkBtn.Name = "testSetupOkBtn";
             this.testSetupOkBtn.Size = new System.Drawing.Size(122, 46);
             this.testSetupOkBtn.TabIndex = 5;
@@ -254,7 +254,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 400);
+            this.ClientSize = new System.Drawing.Size(472, 426);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "TestSetup";
