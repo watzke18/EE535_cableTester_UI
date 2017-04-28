@@ -350,7 +350,7 @@ namespace cableFactoryTestApp
             {
                 if(m_testParameters.csv_save_path == "") //if save as file has not already been set, prompt user to set. 
                 {
-                    using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
+                    /*using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
                     {
                         if (sfd.ShowDialog() == DialogResult.OK)
                         {
@@ -359,8 +359,9 @@ namespace cableFactoryTestApp
                             labelFilepath.Text = m_testParameters.csv_save_path;
 
 
-                            // csv.AppendLine("Cable ID / Description, Date/Time, Test Duration (ms), Rest Duration (ms), Force (Nm), Loop #, Total Loops, Break Detected");
-                            //  File.WriteAllText(sfd.FileName, csv.ToString());
+                             csv.AppendLine("Cable ID / Description, Date/Time, Test Duration (ms), Rest Duration (ms), Force (Nm), Loop #, Total Loops, Break Detected");
+                             File.WriteAllText(sfd.FileName, csv.ToString());
+                             csv.Clear();
 
                             // using (sw = new StreamWriter(sfd.FileName))
                             //  {
@@ -371,7 +372,10 @@ namespace cableFactoryTestApp
 
 
                         }
-                    }
+                    }*/
+                    saveAs();
+                    m_testParameters = m_testSetup.m_testParameters;
+                    m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
 
                 }
                 else
@@ -403,6 +407,36 @@ namespace cableFactoryTestApp
                     AppendConsoleText("Failed to send Test Parameters string");
                 }
             }
+        }
+
+        private void saveAs()
+        {
+            using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
+            {
+                sfd.FileName = Path.GetFileName(m_testParameters.csv_save_path);
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                  //  m_testParameters = m_testSetup.m_testParameters;
+                    m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
+                    labelFilepath.Text = m_testParameters.csv_save_path;
+
+
+                    csv.AppendLine("Cable ID / Description, Date/Time, Test Duration (ms), Rest Duration (ms), Force (Nm), Loop #, Total Loops, Break Detected");
+                    File.WriteAllText(sfd.FileName, csv.ToString());
+                    csv.Clear();
+
+                    // using (sw = new StreamWriter(sfd.FileName))
+                    //  {
+                    //   writer = new CsvWriter(sw);
+                    //   writer.WriteRecord(toArray(m_testParameters.cable_description, m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.force_applied));
+
+                    // }
+
+
+                }
+            }
+
         }
 
  
@@ -670,21 +704,25 @@ namespace cableFactoryTestApp
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            /*
+                        SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                        saveFileDialog1.FileName = Path.GetFileName(m_testParameters.csv_save_path);
+                        saveFileDialog1.Filter = "CSV|*.csv"; saveFileDialog1.ValidateNames = true; saveFileDialog1.RestoreDirectory = true;
 
-            saveFileDialog1.FileName = Path.GetFileName(m_testParameters.csv_save_path);
 
-            saveFileDialog1.Filter = "Excel file (*.xls)|*.xls|Comma seperated file (*.csv)|*.csv";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
 
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                //System.IO.File.Move(m_testParameters.csv_save_path, saveFileDialog1.FileName);
-                m_testParameters.csv_save_path = saveFileDialog1.FileName;
-                labelFilepath.Text = m_testParameters.csv_save_path;
-               
-            }
+                        if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                        {
+                            //System.IO.File.Move(m_testParameters.csv_save_path, saveFileDialog1.FileName);
+                            m_testParameters.csv_save_path = saveFileDialog1.FileName;
+                            labelFilepath.Text = m_testParameters.csv_save_path;
+
+
+                            csv.AppendLine("Cable ID / Description, Date/Time, Test Duration (ms), Rest Duration (ms), Force (Nm), Loop #, Total Loops, Break Detected");
+                            File.WriteAllText(saveFileDialog1.FileName, csv.ToString());
+
+                        }*/
+            saveAs();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
