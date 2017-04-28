@@ -94,44 +94,12 @@ namespace cableFactoryTestApp
         }
 
 
-
-    /*    public void DataReceived(object sender, SerialDataReceivedEventArgs e) //DataReceived event - fires when data is received on serial port
+        private void writeCSV(string force, string testDuration, string restDuration, int loopNumber,  int breakDetected)
         {
-            int dataLength = m_Comm.m_SerialPort.BytesToRead;
-            byte[] dataRec = new Byte[dataLength];
-            m_Comm.m_SerialPort.Read(dataRec, 0, dataLength);
-
-            rxString = System.Text.ASCIIEncoding.ASCII.GetString(dataRec);
-            receiveBuffer.Append(rxString);
-
-            string bufferString = receiveBuffer.ToString();
-
-            int index = -1;
-
-           do
-            {
-                index = bufferString.IndexOf(terminationSequence);
-                if (index > -1)
-                {
-                    string message = bufferString.Substring(0, index);
-                    bufferString = bufferString.Remove(0, index + terminationSequence.Length);
-                   // data = parseMessage(message);
-
-                }
-            }
-            while (index > -1);
-
-            receiveBuffer = new StringBuilder(bufferString); //if termination character was not found, append this part of string to string builder.
-
-            
-        }
-
-            */
-        private void writeCSV(string time, float force, string motorPos, int contStat)
-        {
+            csv.AppendLine(m_testParameters.cable_description + ", " + DateTime.Now.ToString() + ", " + m_testParameters.test_duration + ", " + m_testParameters.rest_duration + ", " + force + ", " + m_testParameters.loops_completed + ", " + m_testParameters.total_loops + ", " + breakDetected);
+            File.AppendAllText(m_testParameters.csv_save_path, csv.ToString());
 
         }
-
 
         private void refreshData()
         {
@@ -148,6 +116,8 @@ namespace cableFactoryTestApp
                     labelBoxCont.Text = data[2];
                     
                     //log data here 
+
+                   // writeCSV(data[0], )
                   
 
                     //could add current test loop into data string?
@@ -348,6 +318,7 @@ namespace cableFactoryTestApp
 
             if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
             {
+                AppendConsoleText(DateTime.Now.ToString());
                 if(m_testParameters.csv_save_path == "") //if save as file has not already been set, prompt user to set. 
                 {
                     /*using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
@@ -384,10 +355,6 @@ namespace cableFactoryTestApp
                     labelFilepath.Text = m_testParameters.csv_save_path;
 
                 }
-
-
-
-
 
 
                 testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
@@ -447,7 +414,9 @@ namespace cableFactoryTestApp
             string temp = "";
             string ready = "";
             m_testParameters.loops_completed = 0;
-           // m_Comm.discardInBuffer();
+            // m_Comm.discardInBuffer();
+
+           
             if (read_temperature_command(ref temp))
             {
                 AppendConsoleText("Temperature and Humidity Recorded");
@@ -976,60 +945,3 @@ namespace cableFactoryTestApp
    
 
 }
-
-
-/*
-private void openExcelCOM()
-{
-    Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-
-    if (xlApp == null)
-    {
-        MessageBox.Show("Excel is not properly installed!");
-        return;
-    }
-
-    xlApp.Visible = true;
-
-    Excel.Workbook xlWorkBook;
-    Excel.Worksheet xlWorkSheet;
-    object misValue = System.Reflection.Missing.Value;
-
-
-
-    xlWorkBook = xlApp.Workbooks.Add(misValue);
-    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-
-
-
-
-
-    xlWorkSheet.Cells[1, 1] = "Cable Testing Data";
-    xlWorkSheet.Cells[2, 1] = "Cable Type/Description: " + m_testParameters.cable_description;
-    xlWorkSheet.Cells[3, 1] = "Test Parameters";
-    xlWorkSheet.Cells[4, 2] = "Force Applied (kg)";
-    xlWorkSheet.Cells[4, 3] = "Test Duration (min)";
-    xlWorkSheet.Cells[4, 4] = "Rest Duration (min)";
-    xlWorkSheet.Cells[4, 5] = "Test Repitions";
-    xlWorkSheet.Cells[4, 6] = "Stop on Break";
-
-
-    xlWorkSheet.Cells[5, 2] = m_testParameters.force_applied;
-    xlWorkSheet.Cells[5, 3] = m_testParameters.test_duration;
-    xlWorkSheet.Cells[5, 4] = m_testParameters.rest_duration;
-    xlWorkSheet.Cells[5, 5] = m_testParameters.total_loops;
-    xlWorkSheet.Cells[5, 6] = m_testParameters.stop_on_break;
-
-    xlWorkSheet.Cells[6, 1] = "Raw Data";
-    xlWorkSheet.Cells[7, 1] = "Time";
-    xlWorkSheet.Cells[7, 2] = "Force Applied (kg)";
-    xlWorkSheet.Cells[7, 3] = "Spin Motor Position";
-    xlWorkSheet.Cells[7, 4] = "Continuity Status";
-
-
-
-    Excel.Range usedrange = xlWorkSheet.UsedRange;
-    usedrange.Columns.AutoFit();
-    //     xlWorkBook.SaveAs("cable-tester-data1.xls");
-}
-*/
