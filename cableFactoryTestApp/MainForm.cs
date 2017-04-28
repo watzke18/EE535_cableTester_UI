@@ -73,6 +73,7 @@ namespace cableFactoryTestApp
             abortTestBtn.Enabled = false;
             labelRestRemaining.Enabled = false;
             labelBoxRestRemaining.Enabled = false;
+            labelBoxRestRemaining.Enabled = false;
 
             /* set default test parameters */
 

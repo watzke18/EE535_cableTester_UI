@@ -65,12 +65,15 @@
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.labelConsole = new System.Windows.Forms.Label();
             this.groupBoxTestData = new System.Windows.Forms.GroupBox();
+            this.labelFilepath = new System.Windows.Forms.Label();
             this.labelBoxRestRemaining = new System.Windows.Forms.Label();
             this.labelRestRemaining = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.timerRestRemaining = new System.Windows.Forms.Timer(this.components);
-            this.labelFilepath = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBoxTestData.SuspendLayout();
             this.SuspendLayout();
@@ -139,7 +142,7 @@
             // labelContinuityStatus
             // 
             this.labelContinuityStatus.AutoSize = true;
-            this.labelContinuityStatus.Location = new System.Drawing.Point(16, 140);
+            this.labelContinuityStatus.Location = new System.Drawing.Point(12, 140);
             this.labelContinuityStatus.Name = "labelContinuityStatus";
             this.labelContinuityStatus.Size = new System.Drawing.Size(122, 17);
             this.labelContinuityStatus.TabIndex = 7;
@@ -351,7 +354,7 @@
             // labelRefreshRate
             // 
             this.labelRefreshRate.AutoSize = true;
-            this.labelRefreshRate.Location = new System.Drawing.Point(12, 295);
+            this.labelRefreshRate.Location = new System.Drawing.Point(12, 306);
             this.labelRefreshRate.Name = "labelRefreshRate";
             this.labelRefreshRate.Size = new System.Drawing.Size(100, 17);
             this.labelRefreshRate.TabIndex = 28;
@@ -368,9 +371,9 @@
             "1000ms",
             "2000ms",
             "5000ms"});
-            this.comboBoxRefreshRate.Location = new System.Drawing.Point(232, 292);
+            this.comboBoxRefreshRate.Location = new System.Drawing.Point(248, 303);
             this.comboBoxRefreshRate.Name = "comboBoxRefreshRate";
-            this.comboBoxRefreshRate.Size = new System.Drawing.Size(116, 24);
+            this.comboBoxRefreshRate.Size = new System.Drawing.Size(100, 24);
             this.comboBoxRefreshRate.TabIndex = 29;
             this.comboBoxRefreshRate.SelectedIndexChanged += new System.EventHandler(this.comboBoxRefreshRate_SelectedIndexChanged);
             // 
@@ -391,6 +394,9 @@
             // groupBoxTestData
             // 
             this.groupBoxTestData.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBoxTestData.Controls.Add(this.label4);
+            this.groupBoxTestData.Controls.Add(this.label3);
+            this.groupBoxTestData.Controls.Add(this.label2);
             this.groupBoxTestData.Controls.Add(this.labelFilepath);
             this.groupBoxTestData.Controls.Add(this.labelBoxRestRemaining);
             this.groupBoxTestData.Controls.Add(this.labelRestRemaining);
@@ -414,6 +420,13 @@
             this.groupBoxTestData.TabIndex = 30;
             this.groupBoxTestData.TabStop = false;
             this.groupBoxTestData.Text = "System Data";
+            // 
+            // labelFilepath
+            // 
+            this.labelFilepath.Location = new System.Drawing.Point(12, 342);
+            this.labelFilepath.Name = "labelFilepath";
+            this.labelFilepath.Size = new System.Drawing.Size(333, 16);
+            this.labelFilepath.TabIndex = 32;
             // 
             // labelBoxRestRemaining
             // 
@@ -459,12 +472,29 @@
             this.timerRestRemaining.Interval = 1000;
             this.timerRestRemaining.Tick += new System.EventHandler(this.timerRestRemaining_Tick);
             // 
-            // labelFilepath
+            // label2
             // 
-            this.labelFilepath.Location = new System.Drawing.Point(15, 330);
-            this.labelFilepath.Name = "labelFilepath";
-            this.labelFilepath.Size = new System.Drawing.Size(333, 16);
-            this.labelFilepath.TabIndex = 32;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point(15, 178);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(333, 2);
+            this.label2.TabIndex = 33;
+            // 
+            // label3
+            // 
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label3.Location = new System.Drawing.Point(15, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(333, 2);
+            this.label3.TabIndex = 34;
+            // 
+            // label4
+            // 
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Location = new System.Drawing.Point(15, 284);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(333, 2);
+            this.label4.TabIndex = 35;
             // 
             // MainForm
             // 
@@ -540,6 +570,9 @@
         private System.Windows.Forms.Label labelRestRemaining;
         private System.Windows.Forms.Timer timerRestRemaining;
         private System.Windows.Forms.Label labelFilepath;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 
