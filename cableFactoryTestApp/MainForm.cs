@@ -26,6 +26,7 @@ namespace cableFactoryTestApp
         public int loops_completed;
         public int total_loops;
         public int stop_on_break;
+        public int spin_degree;
         public float data_rate;
 
         public string csv_save_path;
@@ -111,10 +112,24 @@ namespace cableFactoryTestApp
                 if(receive_message(ref msg))
                 {
                     parseMessage(ref msg);
+                    if(data.Length > 1)
+                    { 
+                        if(Convert.ToInt32(data[2]) < 5)
+                        {
+                            if(m_testParameters.stop_on_break == 1)
+                            {
+                                AppendConsoleText("Continuity break detected. Stopping Test");
+                                transmit_message("STOP");
+                                exitTestMode();
+                            }
+                        }
+                        labelBoxLoad.Text = data[0];
+                        labelMotorPos.Text = data[1];
+                        labelBoxCont.Text = data[2];
 
-                    labelBoxLoad.Text = data[0];
-                    labelMotorPos.Text = data[1];
-                    labelBoxCont.Text = data[2];
+                        
+                    }
+                    
                     
                     //log data here 
 
@@ -172,16 +187,23 @@ namespace cableFactoryTestApp
             startTestBtn.Enabled = false;
             testSetupBtn.Enabled = false;
             comboBoxRefreshRate.Enabled = false;
-            timerRefresh.Enabled = true;
 
             //check for data on serial port using read command
+            string _testStat = "";
+           
+                while (_microStatus == 0)
+                {
+                    if (transmit_message("STATUS"))
+                    {
+                        if (receive_message(ref _testStat))
+                        {
+                            _microStatus = Convert.ToInt32(_testStat);
+                        }
+                    }
+                }
 
-           // while(_testInProgress)
-            {
-               
-            }
 
-
+            timerRefresh.Enabled = true;
         }
 
         public void exitTestMode()
@@ -231,7 +253,6 @@ namespace cableFactoryTestApp
             else
             {
                 AppendConsoleText(m_Comm.getPortSettings().port_name + " Opened Successfully");
-              //  m_Comm.m_SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
                 openCommBtn.Enabled = false;
                 closeCommBtn.Enabled = true;
                 testSetupBtn.Enabled = true;
@@ -321,30 +342,7 @@ namespace cableFactoryTestApp
             {
                 AppendConsoleText(DateTime.Now.ToString());
                 if(m_testParameters.csv_save_path == "") //if save as file has not already been set, prompt user to set. 
-                {
-                    /*using (sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
-                    {
-                        if (sfd.ShowDialog() == DialogResult.OK)
-                        {
-                            m_testParameters = m_testSetup.m_testParameters;
-                            m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
-                            labelFilepath.Text = m_testParameters.csv_save_path;
-
-
-                             csv.AppendLine("Cable ID / Description, Date/Time, Test Duration (ms), Rest Duration (ms), Force (Nm), Loop #, Total Loops, Break Detected");
-                             File.WriteAllText(sfd.FileName, csv.ToString());
-                             csv.Clear();
-
-                            // using (sw = new StreamWriter(sfd.FileName))
-                            //  {
-                            //   writer = new CsvWriter(sw);
-                            //   writer.WriteRecord(toArray(m_testParameters.cable_description, m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.force_applied));
-
-                            // }
-
-
-                        }
-                    }*/
+                { 
                     saveAs();
                     m_testParameters = m_testSetup.m_testParameters;
                     m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
@@ -358,7 +356,7 @@ namespace cableFactoryTestApp
                 }
 
 
-                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, 720, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
+                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, m_testParameters.spin_degree, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
 
               
                 resetTestTimer(); //reset timer with time entered in test setup

@@ -26,6 +26,7 @@ namespace cableFactoryTestApp
             numericUpDownTestLoops.Value = m_testParameters.total_loops;
             numericUpDownTest.Value = m_testParameters.test_duration;
             numericUpDownRest.Value = m_testParameters.rest_duration;
+            numericUpDownMotorSpin.Value = m_testParameters.spin_degree;
 
             if(m_testParameters.stop_on_break == 1)
             {
@@ -51,6 +52,7 @@ namespace cableFactoryTestApp
                 m_testParameters.total_loops = (int)numericUpDownTestLoops.Value;
                 m_testParameters.test_duration = (int)numericUpDownTest.Value;
                 m_testParameters.rest_duration = (int)numericUpDownRest.Value;
+                m_testParameters.spin_degree = (int)numericUpDownMotorSpin.Value;
 
                 if (comboBoxContinuity.Text == "Yes")
                 {

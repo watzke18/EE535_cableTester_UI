@@ -132,7 +132,16 @@ namespace cableFactoryTestApp
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            m_Settings.port_name = comboCommPort.SelectedItem.ToString();
+            if(comboCommPort.SelectedIndex == 0)
+            {
+
+            }
+            else
+            {
+                //m_Settings.port_name = comboCommPort.SelectedItem.ToString();
+
+            }
+
             m_Settings.data_bits = 8;
 
 

@@ -43,15 +43,20 @@
             this.labelCableType = new System.Windows.Forms.Label();
             this.numericUpDownTestLoops = new System.Windows.Forms.NumericUpDown();
             this.labelTestRepeat = new System.Windows.Forms.Label();
+            this.labelMotorSpin = new System.Windows.Forms.Label();
+            this.numericUpDownMotorSpin = new System.Windows.Forms.NumericUpDown();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownForce)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTestLoops)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMotorSpin)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.numericUpDownMotorSpin);
+            this.groupBox2.Controls.Add(this.labelMotorSpin);
             this.groupBox2.Controls.Add(this.comboBoxContinuity);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.numericUpDownRest);
@@ -69,7 +74,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(446, 375);
+            this.groupBox2.Size = new System.Drawing.Size(446, 441);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test Parameters";
@@ -82,7 +87,7 @@
             this.comboBoxContinuity.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxContinuity.Location = new System.Drawing.Point(304, 264);
+            this.comboBoxContinuity.Location = new System.Drawing.Point(304, 312);
             this.comboBoxContinuity.Name = "comboBoxContinuity";
             this.comboBoxContinuity.Size = new System.Drawing.Size(83, 26);
             this.comboBoxContinuity.TabIndex = 17;
@@ -90,7 +95,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 260);
+            this.label2.Location = new System.Drawing.Point(26, 308);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(183, 32);
@@ -101,7 +106,7 @@
             // numericUpDownRest
             // 
             this.numericUpDownRest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownRest.Location = new System.Drawing.Point(304, 182);
+            this.numericUpDownRest.Location = new System.Drawing.Point(304, 214);
             this.numericUpDownRest.Maximum = new decimal(new int[] {
             60,
             0,
@@ -114,7 +119,7 @@
             // numericUpDownTest
             // 
             this.numericUpDownTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownTest.Location = new System.Drawing.Point(304, 152);
+            this.numericUpDownTest.Location = new System.Drawing.Point(304, 184);
             this.numericUpDownTest.Maximum = new decimal(new int[] {
             60,
             0,
@@ -127,7 +132,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(61, 152);
+            this.label1.Location = new System.Drawing.Point(61, 184);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(148, 23);
@@ -138,7 +143,7 @@
             // labelRestDuration
             // 
             this.labelRestDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRestDuration.Location = new System.Drawing.Point(61, 182);
+            this.labelRestDuration.Location = new System.Drawing.Point(61, 216);
             this.labelRestDuration.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelRestDuration.Name = "labelRestDuration";
             this.labelRestDuration.Size = new System.Drawing.Size(148, 23);
@@ -165,7 +170,7 @@
             0,
             0,
             65536});
-            this.numericUpDownForce.Location = new System.Drawing.Point(304, 121);
+            this.numericUpDownForce.Location = new System.Drawing.Point(304, 124);
             this.numericUpDownForce.Maximum = new decimal(new int[] {
             15,
             0,
@@ -178,7 +183,7 @@
             // labelForceApplied
             // 
             this.labelForceApplied.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelForceApplied.Location = new System.Drawing.Point(35, 122);
+            this.labelForceApplied.Location = new System.Drawing.Point(35, 124);
             this.labelForceApplied.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelForceApplied.Name = "labelForceApplied";
             this.labelForceApplied.Size = new System.Drawing.Size(174, 23);
@@ -190,7 +195,7 @@
             // 
             this.testSetupCancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.testSetupCancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testSetupCancelBtn.Location = new System.Drawing.Point(265, 321);
+            this.testSetupCancelBtn.Location = new System.Drawing.Point(265, 389);
             this.testSetupCancelBtn.Name = "testSetupCancelBtn";
             this.testSetupCancelBtn.Size = new System.Drawing.Size(122, 46);
             this.testSetupCancelBtn.TabIndex = 6;
@@ -202,7 +207,7 @@
             // 
             this.testSetupOkBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.testSetupOkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testSetupOkBtn.Location = new System.Drawing.Point(64, 321);
+            this.testSetupOkBtn.Location = new System.Drawing.Point(64, 389);
             this.testSetupOkBtn.Name = "testSetupOkBtn";
             this.testSetupOkBtn.Size = new System.Drawing.Size(122, 46);
             this.testSetupOkBtn.TabIndex = 5;
@@ -224,7 +229,7 @@
             // numericUpDownTestLoops
             // 
             this.numericUpDownTestLoops.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownTestLoops.Location = new System.Drawing.Point(304, 212);
+            this.numericUpDownTestLoops.Location = new System.Drawing.Point(304, 279);
             this.numericUpDownTestLoops.Minimum = new decimal(new int[] {
             1,
             0,
@@ -242,7 +247,7 @@
             // labelTestRepeat
             // 
             this.labelTestRepeat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTestRepeat.Location = new System.Drawing.Point(44, 206);
+            this.labelTestRepeat.Location = new System.Drawing.Point(35, 274);
             this.labelTestRepeat.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.labelTestRepeat.Name = "labelTestRepeat";
             this.labelTestRepeat.Size = new System.Drawing.Size(174, 32);
@@ -250,11 +255,35 @@
             this.labelTestRepeat.Text = "Number of Test Loops :  ";
             this.labelTestRepeat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // labelMotorSpin
+            // 
+            this.labelMotorSpin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMotorSpin.Location = new System.Drawing.Point(29, 154);
+            this.labelMotorSpin.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.labelMotorSpin.Name = "labelMotorSpin";
+            this.labelMotorSpin.Size = new System.Drawing.Size(180, 23);
+            this.labelMotorSpin.TabIndex = 18;
+            this.labelMotorSpin.Text = "Motor Spin (Degrees) :";
+            this.labelMotorSpin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericUpDownMotorSpin
+            // 
+            this.numericUpDownMotorSpin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownMotorSpin.Location = new System.Drawing.Point(304, 154);
+            this.numericUpDownMotorSpin.Maximum = new decimal(new int[] {
+            720,
+            0,
+            0,
+            0});
+            this.numericUpDownMotorSpin.Name = "numericUpDownMotorSpin";
+            this.numericUpDownMotorSpin.Size = new System.Drawing.Size(83, 24);
+            this.numericUpDownMotorSpin.TabIndex = 19;
+            // 
             // TestSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 393);
+            this.ClientSize = new System.Drawing.Size(472, 465);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "TestSetup";
@@ -266,6 +295,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownForce)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTestLoops)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMotorSpin)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -287,5 +317,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxContinuity;
+        private System.Windows.Forms.NumericUpDown numericUpDownMotorSpin;
+        private System.Windows.Forms.Label labelMotorSpin;
     }
 }
