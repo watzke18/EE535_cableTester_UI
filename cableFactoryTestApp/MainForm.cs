@@ -161,7 +161,7 @@ namespace cableFactoryTestApp
             return data; 
         }
 
-        private string buildTestString(int lot, int lor, int testReps, float force, int spinDegree, int stopOnBreak, float dataRate)
+        private string buildTestString(int lot, int lor, int testReps, float force, int spinDegree, int stopOnBreak)
         {
             string testString = "";
             testString = lot + " " + lor + " " + testReps + " " + force + " " + spinDegree + " " + stopOnBreak;
@@ -191,16 +191,16 @@ namespace cableFactoryTestApp
             //check for data on serial port using read command
             string _testStat = "";
            
-                while (_microStatus == 0)
-                {
-                    if (transmit_message("STATUS"))
-                    {
-                        if (receive_message(ref _testStat))
-                        {
-                            _microStatus = Convert.ToInt32(_testStat);
-                        }
-                    }
-                }
+              //  while (_microStatus == 0)
+              //  {
+                  //  if (transmit_message("STATUS"))
+                  //  {
+                       // if (receive_message(ref _testStat))
+                       // {
+                       //     _microStatus = Convert.ToInt32(_testStat);
+                      //  }
+                   // }
+               // }
 
 
             timerRefresh.Enabled = true;
@@ -356,7 +356,7 @@ namespace cableFactoryTestApp
                 }
 
 
-                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, m_testParameters.spin_degree, m_testParameters.stop_on_break, m_testParameters.data_rate / 1000);
+                testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, m_testParameters.spin_degree, m_testParameters.stop_on_break);
 
               
                 resetTestTimer(); //reset timer with time entered in test setup
