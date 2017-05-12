@@ -69,7 +69,7 @@ namespace cableFactoryTestApp
 
 
             closeCommBtn.Enabled = false;
-            testSetupBtn.Enabled = false;
+          //  testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
             labelRestRemaining.Enabled = false;
@@ -85,6 +85,7 @@ namespace cableFactoryTestApp
             m_testParameters.loops_completed = 0;
             m_testParameters.total_loops = 1;
             m_testParameters.data_rate = 1000F; //in ms
+            m_testParameters.spin_degree = 720;
             m_testParameters.stop_on_break = 0;
             m_testParameters.csv_save_path = "";
 
@@ -340,20 +341,22 @@ namespace cableFactoryTestApp
 
             if (m_testSetup.ShowDialog() == DialogResult.OK) //user presses OK button in test setup form
             {
+                m_testParameters = m_testSetup.m_testParameters;
                 AppendConsoleText(DateTime.Now.ToString());
                 if(m_testParameters.csv_save_path == "") //if save as file has not already been set, prompt user to set. 
                 { 
                     saveAs();
-                    m_testParameters = m_testSetup.m_testParameters;
+                   // m_testParameters = m_testSetup.m_testParameters;
                     m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
 
                 }
                 else
                 {
-                    m_testParameters = m_testSetup.m_testParameters;
+                  //  m_testParameters = m_testSetup.m_testParameters;
                     labelFilepath.Text = m_testParameters.csv_save_path;
 
                 }
+               // m_testParameters = m_testSetup.m_testParameters;
 
 
                 testString = buildTestString(m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.total_loops, m_testParameters.force_applied, m_testParameters.spin_degree, m_testParameters.stop_on_break);
@@ -690,7 +693,8 @@ namespace cableFactoryTestApp
                             File.WriteAllText(saveFileDialog1.FileName, csv.ToString());
 
                         }*/
-            saveAs();
+            //
+            //saveAs();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
