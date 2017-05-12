@@ -115,15 +115,15 @@ namespace cableFactoryTestApp
                     parseMessage(ref msg);
                     if(data.Length > 1)
                     { 
-                        //if(Convert.ToInt32(data[2]) < 5)
-                      //  {
-                           // if(m_testParameters.stop_on_break == 1)
-                           // {
-                            //    AppendConsoleText("Continuity break detected. Stopping Test");
-                             //   transmit_message("STOP");
-                             //   exitTestMode();
-                           // }
-                      //  }
+                        if(Convert.ToInt32(data[2]) < 1)
+                        {
+                            if(m_testParameters.stop_on_break == 1)
+                            {
+                                AppendConsoleText("Continuity break detected. Stopping Test");
+                                transmit_message("STOP");
+                                exitTestMode();
+                            }
+                        }
                         labelBoxLoad.Text = data[0];
                         labelMotorPos.Text = data[1];
                         labelBoxCont.Text = data[2];
@@ -538,6 +538,7 @@ namespace cableFactoryTestApp
             {
                // timerRefresh.Enabled = false;
                 timeRemainingTimer.Enabled = false;
+
                 m_testParameters.loops_completed++;
 
                 if(m_testParameters.total_loops > 1 || m_testParameters.loops_completed <= m_testParameters.total_loops)
