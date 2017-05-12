@@ -69,7 +69,7 @@ namespace cableFactoryTestApp
 
 
             closeCommBtn.Enabled = false;
-          //  testSetupBtn.Enabled = false;
+            testSetupBtn.Enabled = false;
             startTestBtn.Enabled = false;
             abortTestBtn.Enabled = false;
             labelRestRemaining.Enabled = false;
@@ -115,15 +115,15 @@ namespace cableFactoryTestApp
                     parseMessage(ref msg);
                     if(data.Length > 1)
                     { 
-                        if(Convert.ToInt32(data[2]) < 5)
-                        {
+                        //if(Convert.ToInt32(data[2]) < 5)
+                      //  {
                            // if(m_testParameters.stop_on_break == 1)
                            // {
                             //    AppendConsoleText("Continuity break detected. Stopping Test");
                              //   transmit_message("STOP");
                              //   exitTestMode();
                            // }
-                        }
+                      //  }
                         labelBoxLoad.Text = data[0];
                         labelMotorPos.Text = data[1];
                         labelBoxCont.Text = data[2];
@@ -345,9 +345,9 @@ namespace cableFactoryTestApp
                 AppendConsoleText(DateTime.Now.ToString());
                 if(m_testParameters.csv_save_path == "") //if save as file has not already been set, prompt user to set. 
                 { 
-                    saveAs();
+                   // saveAs();
                    // m_testParameters = m_testSetup.m_testParameters;
-                    m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
+                   // m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
 
                 }
                 else
