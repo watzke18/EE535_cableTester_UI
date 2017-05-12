@@ -536,7 +536,7 @@ namespace cableFactoryTestApp
 
             if(_startTime == -1)
             {
-                timerRefresh.Enabled = false;
+               // timerRefresh.Enabled = false;
                 timeRemainingTimer.Enabled = false;
                 m_testParameters.loops_completed++;
 
