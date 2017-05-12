@@ -115,7 +115,7 @@ namespace cableFactoryTestApp
                     parseMessage(ref msg);
                     if(data.Length > 1)
                     { 
-                        if(Convert.ToInt32(data[2]) < 1)
+                        if(System.Convert.ToDouble(data[2]) < 1.0)
                         {
                             if(m_testParameters.stop_on_break == 1)
                             {
@@ -128,7 +128,7 @@ namespace cableFactoryTestApp
                         labelMotorPos.Text = data[1];
                         labelBoxCont.Text = data[2];
 
-                        writeCSV(data[0], m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.loops_completed, data[2]));
+                        writeCSV(data[0], m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.loops_completed, data[2]);
 
                         
                     }
