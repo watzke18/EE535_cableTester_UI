@@ -117,12 +117,12 @@ namespace cableFactoryTestApp
                     { 
                         if(Convert.ToInt32(data[2]) < 5)
                         {
-                            if(m_testParameters.stop_on_break == 1)
-                            {
-                                AppendConsoleText("Continuity break detected. Stopping Test");
-                                transmit_message("STOP");
-                                exitTestMode();
-                            }
+                           // if(m_testParameters.stop_on_break == 1)
+                           // {
+                            //    AppendConsoleText("Continuity break detected. Stopping Test");
+                             //   transmit_message("STOP");
+                             //   exitTestMode();
+                           // }
                         }
                         labelBoxLoad.Text = data[0];
                         labelMotorPos.Text = data[1];
@@ -390,7 +390,9 @@ namespace cableFactoryTestApp
                     m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
                     labelFilepath.Text = m_testParameters.csv_save_path;
 
-
+                    csv.AppendLine("Test Parameters");
+                    csv.AppendLine("Test Duration (min), Rest Duration (min), Spin Degree (deg), Force Applied (kg)");
+                    csv.AppendLine(m_testParameters.test_duration.ToString() + ", " + m_testParameters.rest_duration.ToString() + ", " + m_testParameters.spin_degree.ToString() + ", " +  m_testParameters.force_applied.ToString());
                     csv.AppendLine("Cable ID / Description, Date/Time, Test Duration (ms), Rest Duration (ms), Force (Nm), Loop #, Total Loops, Break Detected");
                     File.WriteAllText(sfd.FileName, csv.ToString());
                     csv.Clear();
