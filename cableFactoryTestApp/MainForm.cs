@@ -99,8 +99,8 @@ namespace cableFactoryTestApp
 
         private void writeCSV(string force, int testDuration, int restDuration, int loopNumber,  string breakDetected)
         {
-            csv.AppendLine(m_testParameters.cable_description + ", " + DateTime.Now.ToString() + ", " + m_testParameters.test_duration + ", " + m_testParameters.rest_duration + ", " + force + ", " + m_testParameters.loops_completed + ", " + m_testParameters.total_loops + ", " + breakDetected);
-            File.AppendAllText(m_testParameters.csv_save_path, csv.ToString());
+           // csv.AppendLine(m_testParameters.cable_description + ", " + DateTime.Now.ToString() + ", " + m_testParameters.test_duration + ", " + m_testParameters.rest_duration + ", " + force + ", " + m_testParameters.loops_completed + ", " + m_testParameters.total_loops + ", " + breakDetected);
+           // File.AppendAllText(m_testParameters.csv_save_path, csv.ToString());
 
         }
 
@@ -114,7 +114,8 @@ namespace cableFactoryTestApp
                 {
                     parseMessage(ref msg);
                     if(data.Length > 1)
-                    { 
+                    {
+                        data[2] = data[2].Substring(0, data[2].Length - 2);
                         if(System.Convert.ToDouble(data[2]) == 0)
                         {
                             if(m_testParameters.stop_on_break == 1)
@@ -158,7 +159,7 @@ namespace cableFactoryTestApp
 
         private string[] parseMessage(ref string message)
         {
-            AppendConsoleText(message);
+            //AppendConsoleText(message);
             data = message.Split(' ');
           //  labelBoxAmbientTemp.Text = data[0];
             return data; 
@@ -226,6 +227,10 @@ namespace cableFactoryTestApp
             timerRestRemaining.Enabled = false;
             labelTestInProgressTimer.Enabled = false;
             labelTestInProgress.Visible = false;
+            labelBoxTimeRemaining.Enabled = true;
+            labelBoxRestRemaining.Enabled = false;
+            labelTimeRemain.Enabled = true;
+            labelRestRemaining.Enabled = false;
             testSetupBtn.Enabled = true;
             abortTestBtn.Enabled = false;
             startTestBtn.Enabled = true;
@@ -536,12 +541,15 @@ namespace cableFactoryTestApp
 
             if(_startTime == -1)
             {
-               // timerRefresh.Enabled = false;
+                timerRefresh.Enabled = false;
                 timeRemainingTimer.Enabled = false;
 
                 m_testParameters.loops_completed++;
 
-                if(m_testParameters.total_loops > 1 || m_testParameters.loops_completed <= m_testParameters.total_loops)
+                //refreshData();
+
+               // if(m_testParameters.total_loops > 1 || m_testParameters.loops_completed <= m_testParameters.total_loops)
+               if(m_testParameters.loops_completed < m_testParameters.total_loops)
                 { 
                     if(transmit_message("REST"))
                     {
@@ -571,7 +579,7 @@ namespace cableFactoryTestApp
                     }
                     else
                     {
-                        AppendConsoleText("Failed to send STOP REST command at end of test rep");
+                        AppendConsoleText("Failed to send REST command at end of test rep");
                     }
                 }
                 else //test is over with
@@ -597,7 +605,7 @@ namespace cableFactoryTestApp
 
             if(_restTime == -1)
             {
-                m_testParameters.loops_completed++; //finished rest cycle. full loop completed
+               // m_testParameters.loops_completed++; //finished rest cycle. full loop completed
 
                 if (m_testParameters.loops_completed <= m_testParameters.total_loops) 
                 {
@@ -885,12 +893,12 @@ namespace cableFactoryTestApp
             }
             catch (TimeoutException)
             {
-                AppendConsoleText("Timed out while trying to receive message");
+               // AppendConsoleText("Timed out while trying to receive message");
                 reply = false;
             }
             catch (Exception)
             {
-                AppendConsoleText("failed to receive message");
+               // AppendConsoleText("failed to receive message");
                 reply = false;
             }
 
