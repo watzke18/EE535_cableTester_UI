@@ -115,7 +115,7 @@ namespace cableFactoryTestApp
                     parseMessage(ref msg);
                     if(data.Length > 1)
                     { 
-                        if(System.Convert.ToDouble(data[2]) < 1.0)
+                        if(System.Convert.ToDouble(data[2]) == 0)
                         {
                             if(m_testParameters.stop_on_break == 1)
                             {
