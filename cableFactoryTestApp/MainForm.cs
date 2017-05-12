@@ -97,7 +97,7 @@ namespace cableFactoryTestApp
         }
 
 
-        private void writeCSV(string force, string testDuration, string restDuration, int loopNumber,  int breakDetected)
+        private void writeCSV(string force, int testDuration, int restDuration, int loopNumber,  string breakDetected)
         {
             csv.AppendLine(m_testParameters.cable_description + ", " + DateTime.Now.ToString() + ", " + m_testParameters.test_duration + ", " + m_testParameters.rest_duration + ", " + force + ", " + m_testParameters.loops_completed + ", " + m_testParameters.total_loops + ", " + breakDetected);
             File.AppendAllText(m_testParameters.csv_save_path, csv.ToString());
@@ -127,6 +127,8 @@ namespace cableFactoryTestApp
                         labelBoxLoad.Text = data[0];
                         labelMotorPos.Text = data[1];
                         labelBoxCont.Text = data[2];
+
+                        writeCSV(data[0], m_testParameters.test_duration, m_testParameters.rest_duration, m_testParameters.loops_completed, data[2]));
 
                         
                     }
@@ -345,7 +347,7 @@ namespace cableFactoryTestApp
                 AppendConsoleText(DateTime.Now.ToString());
                 if(m_testParameters.csv_save_path == "") //if save as file has not already been set, prompt user to set. 
                 { 
-                   // saveAs();
+                    saveAs();
                    // m_testParameters = m_testSetup.m_testParameters;
                    // m_testParameters.csv_save_path = Path.GetFullPath(sfd.FileName);
 
@@ -536,6 +538,7 @@ namespace cableFactoryTestApp
             {
                 timerRefresh.Enabled = false;
                 timeRemainingTimer.Enabled = false;
+                m_testParameters.loops_completed++;
 
                 if(m_testParameters.total_loops > 1 || m_testParameters.loops_completed <= m_testParameters.total_loops)
                 { 
@@ -550,7 +553,7 @@ namespace cableFactoryTestApp
 
                         string _microString = "";
 
-                        while (_microStatus == 0)
+                       /* while (_microStatus == 0)
                         {
                             if(transmit_message("STATUS"))
                             {
@@ -560,6 +563,7 @@ namespace cableFactoryTestApp
                                 }
                             }
                         }
+                        */
 
                         resetTestTimer();
 
